@@ -1,23 +1,23 @@
 package com.dat255.Wood;
 
 import com.badlogic.gdx.Game;
-import com.dat255.Wood.screens.MainMenuScreen;
 import com.dat255.Wood.screens.PlayLevel;
+import com.dat255.Wood.screens.Splash;
 
 public class WoodGame extends Game {
 	
 	
 	//INSTANCE VARIABLES
-	MainMenuScreen mainMenuScreen;
-	PlayLevel playLevel;
+	Splash splashScreen;
+	public PlayLevel playLevel;
 	
 	@Override
 	public void create() 
 	{
-		mainMenuScreen = new MainMenuScreen(this);
+		splashScreen = new Splash(this);
 		playLevel = new PlayLevel(this);
 		
-		setScreen(playLevel);
+		setScreen(splashScreen);
 	}
 
 	@Override
