@@ -8,13 +8,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 
-public class Splash implements Screen {
+public class SplashScreen implements Screen {
 
 	private SpriteBatch batch;
 	private Sprite splash;
 	private WoodGame game;
 	
-	public Splash(WoodGame game)
+	public SplashScreen(WoodGame game)
 	{
 		this.game = game;
 	}
@@ -30,7 +30,7 @@ public class Splash implements Screen {
 		
 		if(Gdx.input.isTouched())
 		{
-			game.setScreen(game.playLevel);
+			game.playGame();
 		}
 	}
 
@@ -43,7 +43,7 @@ public class Splash implements Screen {
 	public void show() {
 		batch = new SpriteBatch();
 		
-		Texture splashTexture = new Texture("splash/splash.png");
+		Texture splashTexture = new Texture("data/images/splash.png");
 		//Texture.setEnforcePotImages(false);
 		splash = new Sprite(splashTexture);
 		splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
