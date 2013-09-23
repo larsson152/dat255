@@ -16,8 +16,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class LevelRenderer {
 	
 	//CONSTANTS
-	private static final float CAMERA_WIDTH = 16f;
-	private static final float CAMERA_HEIGHT = 9f;
+	private static final float CAMERA_WIDTH = 9f;
+	private static final float CAMERA_HEIGHT = 16f;
 	
 	private Level level;
 	private OrthographicCamera orthoCamera;
@@ -39,8 +39,8 @@ public class LevelRenderer {
 	public LevelRenderer(Level level, boolean debug)
 	{
 		this.level = level;
-		this.orthoCamera = new OrthographicCamera(16,9); //Creates an OrthographicCamera with (float viewportWidth, float viewportHeight)
-		this.orthoCamera.position.set(8, 4.5f, 0); //Sets the cameras position (float x,float y, float z)
+		this.orthoCamera = new OrthographicCamera(9,16); //Creates an OrthographicCamera with (float viewportWidth, float viewportHeight)
+		this.orthoCamera.position.set(4.5f, 8, 0); //Sets the cameras position (float x,float y, float z)
 		this.orthoCamera.update(); //From libgdx API: Recalculates the projection and view matrix of this camera and the Frustum planes.
 		this.debug = debug;
 		spriteBatch = new SpriteBatch();

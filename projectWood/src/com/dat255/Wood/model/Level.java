@@ -35,11 +35,11 @@ public class Level {
 	//Creates a for now test Level
 	private void createLevel()
 	{
-		player = new Player(new Vector2(8,2));
+		player = new Player(new Vector2(4,2));
 		
 		blocks = new Array<Block>();
 		
-		blocks.add(new Block(new Vector2(8,1)));
+		blocks.add(new Block(new Vector2(4,1)));
 	}
 
 }

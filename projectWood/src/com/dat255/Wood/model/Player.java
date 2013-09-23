@@ -13,7 +13,7 @@ public class Player {
 	//INSTANCE VARIABLES
 	//NO REAL VALUES SET YET
 	public static final float SPEED = 2f;
-	public static final float SIZE = 0.5f;
+	public static final float SIZE = 1f;
 	
 	private Vector2 position; //Position Vector with X and Y components.
 	private Vector2 acceleration; //Acceleration Vector with X and Y components.
