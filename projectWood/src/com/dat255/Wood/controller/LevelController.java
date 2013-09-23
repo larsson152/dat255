@@ -2,6 +2,8 @@ package com.dat255.Wood.controller;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
@@ -15,6 +17,8 @@ public class LevelController {
 	
 	private Level level;
 	private Player player;
+	private float startXpos, startYpos;
+	private boolean taken = false;
 	
 	static HashMap<LevelController.Keys, Boolean> keys = new HashMap<LevelController.Keys, Boolean>();
 	
@@ -83,34 +87,51 @@ public class LevelController {
 	
 	private void processInput()
 	{
-		if(keys.get(Keys.LEFT))
+		if(keys.get(Keys.LEFT) && (taken == false))
 		{
 			player.setFacingLeft(true);
 			player.setState(State.WALKING);
 			player.getVelocity().x = -Player.SPEED;
+			startXpos = player.getPosition().x;
+			startYpos = player.getPosition().y;
+			taken = true;
+			Gdx.app.log("LevelController", "Kommer in i LEFT");
 		}
 		
-		if(keys.get(Keys.RIGHT))
+		if(keys.get(Keys.RIGHT) && (taken == false))
 		{
 			player.setFacingLeft(false);
 			player.setState(State.WALKING);
 			player.getVelocity().x = Player.SPEED;
+			startXpos = player.getPosition().x;
+			startYpos = player.getPosition().y;
+			taken = true;
+			Gdx.app.log("LevelController", "Kommer in i RIGHT");
 		}
 		
-		if(keys.get(Keys.UP))
+		if(keys.get(Keys.UP) && (taken == false))
 		{
 			player.setFacingUp(true);
 			player.setState(State.WALKING);
 			player.getVelocity().y = Player.SPEED;
+			startXpos = player.getPosition().x;
+			startYpos = player.getPosition().y;
+			taken = true;
+			Gdx.app.log("LevelController", "Kommer in i UP");
 		}
 		
-		if(keys.get(Keys.DOWN))
+		if(keys.get(Keys.DOWN) && (taken == false))
 		{
 			player.setFacingUp(false);
 			player.setState(State.WALKING);
 			player.getVelocity().y = -Player.SPEED;
+			startXpos = player.getPosition().x;
+			startYpos = player.getPosition().y;
+			taken = true;
+			Gdx.app.log("LevelController", "Kommer in i DOWN");
 		}
 		
+		/*
 		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||
 		(!keys.get(Keys.LEFT) && !(keys.get(Keys.RIGHT))))
 		{
@@ -125,6 +146,50 @@ public class LevelController {
 			player.setState(State.IDLE);
 			player.getAcceleration().y = 0;
 			player.getVelocity().y = 0;
+		}*/
+		
+		
+		
+		if ((player.getPosition().x - startXpos) > 1)
+		{
+			player.setState(State.IDLE);
+			player.getAcceleration().x = 0;
+			player.getVelocity().x = 0;
+			player.getPosition().set(new Vector2(startXpos + 1, startYpos));
+			Gdx.app.log("LevelController", "Kommer in i X noll");
+			taken = false;
+			rightReleased();
+		}
+		else if ((player.getPosition().y - startYpos) > 1)
+		{
+			Gdx.app.log("LevelController", "Kommer in i Y noll");
+			player.setState(State.IDLE);
+			player.getAcceleration().y = 0;
+			player.getVelocity().y = 0;
+			player.getPosition().set(new Vector2(startXpos, startYpos + 1));
+			taken = false;
+			upReleased();
+		}
+		else if (Math.abs((player.getPosition().x - startXpos)) > 1)
+		{
+			player.setState(State.IDLE);
+			player.getAcceleration().x = 0;
+			player.getVelocity().x = 0;
+			player.getPosition().set(new Vector2(startXpos - 1, startYpos));
+			Gdx.app.log("LevelController", "Kommer in i X noll");
+			taken = false;
+			leftReleased();
+			
+		}
+		else if (Math.abs((player.getPosition().y - startYpos)) > 1)
+		{
+			Gdx.app.log("LevelController", "Kommer in i Y noll");
+			player.setState(State.IDLE);
+			player.getAcceleration().y = 0;
+			player.getVelocity().y = 0;
+			player.getPosition().set(new Vector2(startXpos, startYpos - 1));
+			taken = false;
+			downReleased();
 		}
 		
 	}
