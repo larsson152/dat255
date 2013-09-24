@@ -9,6 +9,12 @@ public class Player {
 		IDLE, WALKING, DYING
 	}
 	
+	//FACING DIRECTIONS
+	public enum FacingDirection
+	{
+		LEFT, RIGHT, UP, DOWN
+	}
+	
 	
 	//INSTANCE VARIABLES
 	public static final float SPEED = 2f;
@@ -19,10 +25,8 @@ public class Player {
 	private Vector2 velocity; //Velocity Vector with X and Y components.
 	private Rectangle bounds; //Rectangle representing the players bounding box (collision box) with Height and Width (and X and Y position).
 	State state; //State, the players current state.
+	public FacingDirection direction;
 	
-	//FACING DIRECTIONS
-	boolean facingLeft = true;
-	boolean facingUp = true;
 	
 	
 	
@@ -34,6 +38,7 @@ public class Player {
 		this.velocity = new Vector2();
 		this.bounds = new Rectangle(0,0,SIZE,SIZE); //New rectangle with X position 0 and Y position 0 and Width = SIZE and Height = SIZE. (x,y,width,height)
 		this.state = State.IDLE; //Initiating state to the default state IDLE.
+		this.direction = FacingDirection.DOWN;
 	}
 	
 	//Returns the players bounding box.
@@ -63,13 +68,27 @@ public class Player {
 	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
 	public void setFacingLeft(boolean facingLeft)
 	{
-		this.facingLeft = facingLeft;
+		if(facingLeft)
+		{
+			this.direction = FacingDirection.LEFT;
+		}
+		else if(!facingLeft)
+		{
+			this.direction = FacingDirection.RIGHT;
+		}
 	}
 	
 	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
 	public void setFacingUp(boolean facingUp)
 	{
-		this.facingUp = facingUp;
+		if(facingUp)
+		{
+			this.direction = FacingDirection.UP;
+		}
+		else if(!facingUp)
+		{
+			this.direction = FacingDirection.DOWN;
+		}		
 	}
 	
 	//Returns the player acceleration vector.

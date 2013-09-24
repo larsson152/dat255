@@ -3,12 +3,15 @@ package com.dat255.Wood.view;
 import com.dat255.Wood.model.Block;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
+import com.dat255.Wood.model.Player.FacingDirection;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -26,8 +29,11 @@ public class LevelRenderer {
 	ShapeRenderer debugRenderer = new ShapeRenderer();
 	
 	//Textures
-	private Texture playerTexture;
-	private Texture blockTexture;
+	private AtlasRegion playerLeft;
+	private AtlasRegion playerRight;
+	private AtlasRegion playerUp;
+	private AtlasRegion playerDown;
+	private AtlasRegion blockTexture;
 	
 	private SpriteBatch spriteBatch;
 	private boolean debug = false;
@@ -90,7 +96,22 @@ public class LevelRenderer {
 	private void drawPlayer()
 	{
 		Player player = level.getPlayer();
-		spriteBatch.draw(playerTexture, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+		if(player.direction == FacingDirection.LEFT)
+		{
+			spriteBatch.draw(playerLeft, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+		}
+		else if(player.direction == FacingDirection.RIGHT)
+		{
+			spriteBatch.draw(playerRight, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+		}
+		else if(player.direction == FacingDirection.UP)
+		{
+			spriteBatch.draw(playerUp, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+		}
+		else if(player.direction == FacingDirection.DOWN)
+		{
+			spriteBatch.draw(playerDown, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+		}
 	}
 	
 	public void setSize(int width, int height)
@@ -103,8 +124,12 @@ public class LevelRenderer {
 	
 	private void loadTextures()
 	{
-		playerTexture = new Texture(Gdx.files.internal("data/images/Red_64x64.png"));
-		blockTexture = new Texture(Gdx.files.internal("data/images/Block_64x64.png"));
+		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/images/textures.pack"));
+		playerLeft = atlas.findRegion("Red_LEFT_64x64");
+		playerRight = atlas.findRegion("Red_RIGHT_64x64");
+		playerUp = atlas.findRegion("Red_UP_64x64");
+		playerDown = atlas.findRegion("Red_DOWN_64x64");
+		blockTexture = atlas.findRegion("Block_64x64");
 	}
 	
 
