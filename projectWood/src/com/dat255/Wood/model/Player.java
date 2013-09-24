@@ -11,7 +11,6 @@ public class Player {
 	
 	
 	//INSTANCE VARIABLES
-	//NO REAL VALUES SET YET
 	public static final float SPEED = 2f;
 	public static final float SIZE = 1f;
 	
@@ -21,7 +20,7 @@ public class Player {
 	private Rectangle bounds; //Rectangle representing the players bounding box (collision box) with Height and Width (and X and Y position).
 	State state; //State, the players current state.
 	
-	//FACING DIRECTION variable here
+	//FACING DIRECTIONS
 	boolean facingLeft = true;
 	boolean facingUp = true;
 	
@@ -37,41 +36,49 @@ public class Player {
 		this.state = State.IDLE; //Initiating state to the default state IDLE.
 	}
 	
+	//Returns the players bounding box.
 	public Rectangle getBounds()
 	{
 		return bounds;
 	}
 	
+	//Returns the players position.
 	public Vector2 getPosition()
 	{
 		return position;
 	}
 	
+	//Changes the players state to newState.
 	public void setState(State newState)
 	{
 		this.state = newState;
 	}
 	
+	//Moves the players position by the velocity times the time since last frame, in x and y. (we only use either only x or only y)
 	public void update(float delta)
 	{
 		position.add(velocity.cpy().scl(delta));
 	}
 	
+	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
 	public void setFacingLeft(boolean facingLeft)
 	{
 		this.facingLeft = facingLeft;
 	}
 	
+	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
 	public void setFacingUp(boolean facingUp)
 	{
 		this.facingUp = facingUp;
 	}
 	
+	//Returns the player acceleration vector.
 	public Vector2 getAcceleration()
 	{
 		return acceleration;
 	}
 	
+	//Returns the players velocity vector.
 	public Vector2 getVelocity()
 	{
 		return velocity;
