@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -62,7 +63,7 @@ public class Splash implements Screen {
 
 			@Override
 			public void onEvent(int arg0, BaseTween<?> arg1) {
-				((Game) Gdx.app.getApplicationListener()).setScreen();
+				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
 			}
 			
 		}).start(tweenManager);
