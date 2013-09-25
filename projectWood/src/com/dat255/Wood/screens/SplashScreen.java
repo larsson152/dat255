@@ -15,20 +15,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.tween.SpriteAccessor;
 
-public class Splash implements Screen {
+public class SplashScreen implements Screen {
 
 	private SpriteBatch batch;
 	private Sprite splash;
 	private WoodGame game;
+<<<<<<< HEAD:projectWood/src/com/dat255/Wood/screens/Splash.java
 	private TweenManager tweenManager;
 
 	public Splash(WoodGame game)
+=======
+	
+	public SplashScreen(WoodGame game)
+>>>>>>> remotes/origin/gustav-wip:projectWood/src/com/dat255/Wood/screens/SplashScreen.java
 	{
 		this.game = game;
 	}
 
 	@Override
 	public void render(float delta) {
+<<<<<<< HEAD:projectWood/src/com/dat255/Wood/screens/Splash.java
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -40,6 +46,19 @@ public class Splash implements Screen {
 
 		//game.setScreen(game.playLevel);
 
+=======
+		Gdx.gl20.glClearColor(0, 0, 0, 1);
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		batch.begin();
+		splash.draw(batch);
+		batch.end();
+		
+		if(Gdx.input.isTouched())
+		{
+			game.playGame();
+		}
+>>>>>>> remotes/origin/gustav-wip:projectWood/src/com/dat255/Wood/screens/SplashScreen.java
 	}
 
 	@Override
@@ -50,10 +69,15 @@ public class Splash implements Screen {
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
+<<<<<<< HEAD:projectWood/src/com/dat255/Wood/screens/Splash.java
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
 		Texture splashTexture = new Texture("splash/splash.png");
+=======
+		
+		Texture splashTexture = new Texture("data/images/Splash.png");
+>>>>>>> remotes/origin/gustav-wip:projectWood/src/com/dat255/Wood/screens/SplashScreen.java
 		//Texture.setEnforcePotImages(false);
 		splash = new Sprite(splashTexture);
 		splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
