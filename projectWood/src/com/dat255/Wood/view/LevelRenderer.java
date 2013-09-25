@@ -62,10 +62,11 @@ public class LevelRenderer {
 		orthoCamera.update();
 		if(debug == true)
 		{
-			drawDebug();
+			//drawDebug();
 		}
 	}
 	
+	/*
 	private void drawDebug()
 	{
 		debugRenderer.setProjectionMatrix(orthoCamera.combined);
@@ -86,12 +87,26 @@ public class LevelRenderer {
 		debugRenderer.setColor(new Color(0, 1, 0, 1));
 		debugRenderer.rect(x1, y1, rect.width, rect.height);
 		debugRenderer.end();
-	}
+	}*/
 	
 	private void drawBlocks()
 	{
-		for(Block block : level.getBlocks())
-			spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+		Block[][] blocks = level.getBlocks();
+		Block block = null;
+		
+		
+		for(int i = 0; i < 16; i++)
+		{
+			for(int j = 0; j < 16; j++)
+			{
+				Gdx.app.log("BB", "Hejsan heter Jag" + i + "j: " + j);
+				block = blocks[i][j];
+				if(block != null)
+				{
+					spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+				}
+			}
+		}
 	}
 	
 	private void drawPlayer()
