@@ -37,7 +37,6 @@ public class Level {
 	//Creates a for now test Level
 	private void createLevel()
 	{
-		player = new Player(new Vector2(4,2));
 
 		blocks = new Array<Block>();
 		FileHandle file = Gdx.files.internal("data/levels/level1.txt");
@@ -53,6 +52,11 @@ public class Level {
 				if(cc.equals("1")){
 					blocks.add(new Block(new Vector2(y,x)));
 				}
+				
+				if(cc.equals("s")){
+					player = new Player(new Vector2(y,x));
+				}
+
 			}
 		}	
 	}
