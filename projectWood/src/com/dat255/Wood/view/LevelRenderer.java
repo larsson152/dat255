@@ -39,14 +39,12 @@ public class LevelRenderer {
 	private boolean debug = false;
 	private int width;
 	private int height;
-	private float ppuX;
-	private float ppuY;
 	
 	public LevelRenderer(Level level, boolean debug)
 	{
 		this.level = level;
 		this.orthoCamera = new OrthographicCamera(9,16); //Creates an OrthographicCamera with (float viewportWidth, float viewportHeight)
-		this.orthoCamera.position.set(4.5f, 8, 0); //Sets the cameras position (float x,float y, float z)
+		//this.orthoCamera.position.set(4.5f, 8, 0); //Sets the cameras position (float x,float y, float z)
 		this.orthoCamera.update(); //From libgdx API: Recalculates the projection and view matrix of this camera and the Frustum planes.
 		this.debug = debug;
 		spriteBatch = new SpriteBatch();
@@ -55,10 +53,13 @@ public class LevelRenderer {
 	
 	public void render()
 	{
+		spriteBatch.setProjectionMatrix(orthoCamera.combined);
 		spriteBatch.begin();
 		drawBlocks();
 		drawPlayer();
 		spriteBatch.end();
+		this.orthoCamera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
+		orthoCamera.update();
 		if(debug == true)
 		{
 			drawDebug();
@@ -90,7 +91,7 @@ public class LevelRenderer {
 	private void drawBlocks()
 	{
 		for(Block block : level.getBlocks())
-			spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, Block.SIZE * ppuX, Block.SIZE * ppuY);
+			spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 	}
 	
 	private void drawPlayer()
@@ -98,19 +99,19 @@ public class LevelRenderer {
 		Player player = level.getPlayer();
 		if(player.direction == FacingDirection.LEFT)
 		{
-			spriteBatch.draw(playerLeft, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+			spriteBatch.draw(playerLeft, player.getPosition().x, player.getPosition().y, Player.SIZE, Player.SIZE);
 		}
 		else if(player.direction == FacingDirection.RIGHT)
 		{
-			spriteBatch.draw(playerRight, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+			spriteBatch.draw(playerRight, player.getPosition().x, player.getPosition().y, Player.SIZE, Player.SIZE);
 		}
 		else if(player.direction == FacingDirection.UP)
 		{
-			spriteBatch.draw(playerUp, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+			spriteBatch.draw(playerUp, player.getPosition().x, player.getPosition().y, Player.SIZE, Player.SIZE);
 		}
 		else if(player.direction == FacingDirection.DOWN)
 		{
-			spriteBatch.draw(playerDown, player.getPosition().x * ppuX, player.getPosition().y * ppuY, Player.SIZE * ppuX, Player.SIZE * ppuY);
+			spriteBatch.draw(playerDown, player.getPosition().x, player.getPosition().y, Player.SIZE, Player.SIZE);
 		}
 	}
 	
@@ -118,8 +119,6 @@ public class LevelRenderer {
 	{
 		this.width = width;
 		this.height = height;
-		ppuX = (float) width / CAMERA_WIDTH;
-		ppuY = (float) height / CAMERA_HEIGHT;
 	}
 	
 	private void loadTextures()
