@@ -96,12 +96,27 @@ public class LevelController {
 		switch (d)
 		{
 			case 'l': 
-				return (level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() != 1);
+				
+				if(	(level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() == 2) && 
+					(level.getBlocks()[(int) (player.getPosition().x - 2)][(int) player.getPosition().y].getBlockId() != 1) && 
+					(level.getBlocks()[(int) (player.getPosition().x - 2)][(int) player.getPosition().y].getBlockId() != 2)  )
+				{
+					actionBlock = level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y];
+					actionBlock.getVelocity().x = -Block.SPEED;
+					actionBlockStartXpos = actionBlock.getPosition().x;
+					actionBlockStartYpos = actionBlock.getPosition().y;
+					return true;
+				}
+				
+				
+				return ((level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() != 1) &&
+						(level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() != 2));
 				
 			case 'r': 
 				
-				if((level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() == 2) && 
-						(level.getBlocks()[(int) (player.getPosition().x + 2)][(int) player.getPosition().y].getBlockId() != 1))
+				if( (level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() == 2) && 
+					(level.getBlocks()[(int) (player.getPosition().x + 2)][(int) player.getPosition().y].getBlockId() != 1) && 
+					(level.getBlocks()[(int) (player.getPosition().x + 2)][(int) player.getPosition().y].getBlockId() != 2))
 				{
 					actionBlock = level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y];
 					actionBlock.getVelocity().x = Block.SPEED;
@@ -111,13 +126,14 @@ public class LevelController {
 				}
 				
 				
-				return ((level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 1) 
-						&& (level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 2));
+				return ((level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 1) &&
+						(level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 2));
 						
 				
 			case 'u': 
 				if((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1].getBlockId() == 2) && 
-						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 2].getBlockId() != 1))
+						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 2].getBlockId() != 1) && 
+						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 2].getBlockId() != 2))
 				{
 					actionBlock = level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1];
 					actionBlock.getVelocity().y = Block.SPEED;
@@ -129,7 +145,18 @@ public class LevelController {
 						&& (level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1].getBlockId() != 2));
 						
 			case 'd': 
-				return (level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() != 1);
+				if((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() == 2) && 
+						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 2].getBlockId() != 1) && 
+						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 2].getBlockId() != 2))
+				{
+					actionBlock = level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1];
+					actionBlock.getVelocity().y = -Block.SPEED;
+					actionBlockStartXpos = actionBlock.getPosition().x;
+					actionBlockStartYpos = actionBlock.getPosition().y;
+					return true;
+				}
+				return ((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() != 1) 
+						&& (level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() != 2));
 				
 			default: return false;
 		}	
@@ -254,11 +281,26 @@ public class LevelController {
 				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos + 1),(int) actionBlockStartYpos);
 				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos + 1, actionBlockStartYpos));
 				actionBlock = null;
-			}else if ((actionBlock.getPosition().y - actionBlockStartYpos) > 1)
+			}
+			else if ((actionBlock.getPosition().y - actionBlockStartYpos) > 1)
 			{
 				actionBlock.getVelocity().y = 0;
-				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos +1);
-				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos+1));
+				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos + 1);
+				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos + 1));
+				actionBlock = null;
+			}
+			else if (Math.abs((actionBlock.getPosition().y - actionBlockStartYpos)) > 1)
+			{
+				actionBlock.getVelocity().y = 0;
+				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos - 1);
+				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos - 1));
+				actionBlock = null;
+			}
+			else if (Math.abs((actionBlock.getPosition().x - actionBlockStartXpos)) > 1)
+			{
+				actionBlock.getVelocity().x = 0;
+				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos - 1),(int) actionBlockStartYpos);
+				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos - 1 , actionBlockStartYpos));
 				actionBlock = null;
 			}
 		}
