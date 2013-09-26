@@ -10,14 +10,16 @@ public class Block {
 	//INSTANCE VARIABLES
 	public static final float SIZE = 1f;
 	
+	private int blockId;
 	private Vector2 position;
 	private Rectangle bounds;
 	
 	//CONSTRUCTOR
-	public Block(Vector2 position)
+	public Block(Vector2 position, int blockId)
 	{
 		this.position = position;
 		this.bounds = new Rectangle(0,0,SIZE,SIZE); //x,y,width,height
+		this.blockId = blockId;
 	}
 	
 	//Returns the bounding box of the block.
@@ -29,6 +31,11 @@ public class Block {
 	public Vector2 getPosition()
 	{
 		return position;
+	}
+	
+	public int getBlockId()
+	{
+		return blockId;
 	}
 
 }

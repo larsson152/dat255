@@ -99,11 +99,17 @@ public class LevelRenderer {
 		{
 			for(int j = 0; j < 16; j++)
 			{
-				Gdx.app.log("BB", "Hejsan heter Jag" + i + "j: " + j);
 				block = blocks[i][j];
 				if(block != null)
 				{
-					spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					if(block.getBlockId() == 1)
+					{
+						spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == 0)
+					{
+						//Rita inget aka tomt block.
+					}
 				}
 			}
 		}

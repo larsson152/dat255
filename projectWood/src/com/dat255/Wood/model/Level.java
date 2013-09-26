@@ -40,25 +40,30 @@ public class Level {
 
 		collisionLayer = new Block[16][16];
 		FileHandle file = Gdx.files.internal("data/levels/level1.txt");
-
 		String text = file.readString();
-
 
 		for(int x=0;x<16;x++){						
 			for(int y=0;y<16;y++){
-				char c = text.charAt(x*16+y+x*2);
-				String cc= new String(""+c);
+				char c = text.charAt(x+y*16+y*2);
 
-				if(cc.equals("1")){
-					collisionLayer[x][y]= new Block(new Vector2(x,y));
+				if(c == '1'){
+					//Nytt väggblock.
+					collisionLayer[x][y]= new Block(new Vector2(x,y), 1);
 				}
 				
-				if(cc.equals("s")){
+				else if(c == 's'){
+					//Spelarens skapas på denna startposition samt blocket spelaren startar på är ett tomt block.
 					player = new Player(new Vector2(x,y));
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 0);
+				}
+				else
+				{
+					//Nytt "tomt" block.
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 0);
 				}
 
 			}
-		}	
+		}
 	}
 
 }

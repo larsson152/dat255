@@ -90,41 +90,53 @@ public class LevelController {
 		if(keys.get(Keys.LEFT) && (moving == false))
 		{
 			player.setFacingLeft(true);
-			player.setState(State.WALKING);
-			player.getVelocity().x = -Player.SPEED;
-			startXpos = player.getPosition().x;
-			startYpos = player.getPosition().y;
-			moving = true;
+			if(level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() != 1)
+			{
+				player.setState(State.WALKING);
+				player.getVelocity().x = -Player.SPEED;
+				startXpos = player.getPosition().x;
+				startYpos = player.getPosition().y;
+				moving = true;
+			}
 		}
 		
 		else if(keys.get(Keys.RIGHT) && (moving == false))
 		{
 			player.setFacingLeft(false);
-			player.setState(State.WALKING);
-			player.getVelocity().x = Player.SPEED;
-			startXpos = player.getPosition().x;
-			startYpos = player.getPosition().y;
-			moving = true;
+			if(level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 1)
+			{
+				player.setState(State.WALKING);
+				player.getVelocity().x = Player.SPEED;
+				startXpos = player.getPosition().x;
+				startYpos = player.getPosition().y;
+				moving = true;
+			}
 		}
 		
 		else if(keys.get(Keys.UP) && (moving == false))
 		{
 			player.setFacingUp(true);
-			player.setState(State.WALKING);
-			player.getVelocity().y = Player.SPEED;
-			startXpos = player.getPosition().x;
-			startYpos = player.getPosition().y;
-			moving = true;
+			if(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1].getBlockId() != 1)
+			{
+				player.setState(State.WALKING);
+				player.getVelocity().y = Player.SPEED;
+				startXpos = player.getPosition().x;
+				startYpos = player.getPosition().y;
+				moving = true;
+			}
 		}
 		
 		else if(keys.get(Keys.DOWN) && (moving == false))
 		{
 			player.setFacingUp(false);
-			player.setState(State.WALKING);
-			player.getVelocity().y = -Player.SPEED;
-			startXpos = player.getPosition().x;
-			startYpos = player.getPosition().y;
-			moving = true;
+			if(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() != 1)
+			{
+				player.setState(State.WALKING);
+				player.getVelocity().y = -Player.SPEED;
+				startXpos = player.getPosition().x;
+				startYpos = player.getPosition().y;
+				moving = true;
+			}
 		}		
 		
 		if ((player.getPosition().x - startXpos) > 1)
