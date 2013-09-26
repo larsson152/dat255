@@ -50,6 +50,10 @@ public class Level {
 					//Nytt väggblock.
 					collisionLayer[x][y]= new Block(new Vector2(x,y), 1);
 				}
+				else if(c == '2')
+				{
+					collisionLayer[x][y]= new Block(new Vector2(x,y), 2);
+				}
 				
 				else if(c == 's'){
 					//Spelarens skapas på denna startposition samt blocket spelaren startar på är ett tomt block.
@@ -65,5 +69,15 @@ public class Level {
 			}
 		}
 	}
+	
+	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
+	{
+		Block temp = collisionLayer[x1][y1];
+		Block temp2 = collisionLayer[x2][y2];
+		
+		collisionLayer[x1][y1] = temp2;
+		collisionLayer[x2][y2] = temp;
+	}
+	
 
 }

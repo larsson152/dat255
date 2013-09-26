@@ -34,6 +34,7 @@ public class LevelRenderer {
 	private AtlasRegion playerUp;
 	private AtlasRegion playerDown;
 	private AtlasRegion blockTexture;
+	private AtlasRegion pushBlockTexture;
 	
 	private SpriteBatch spriteBatch;
 	private boolean debug = false;
@@ -106,6 +107,10 @@ public class LevelRenderer {
 					{
 						spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
+					else if(block.getBlockId() == 2)
+					{
+						spriteBatch.draw(pushBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
 					else if(block.getBlockId() == 0)
 					{
 						//Rita inget aka tomt block.
@@ -150,6 +155,7 @@ public class LevelRenderer {
 		playerUp = atlas.findRegion("Red_UP_64x64");
 		playerDown = atlas.findRegion("Red_DOWN_64x64");
 		blockTexture = atlas.findRegion("Block_64x64");
+		pushBlockTexture = atlas.findRegion("GroundBlock_64x64");
 	}
 	
 
