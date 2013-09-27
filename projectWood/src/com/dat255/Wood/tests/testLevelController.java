@@ -1,11 +1,11 @@
 package com.dat255.Wood.tests;
 
+import junit.framework.TestCase;
+
 import com.badlogic.gdx.math.Vector2;
 import com.dat255.Wood.controller.LevelController;
 import com.dat255.Wood.model.Block;
 import com.dat255.Wood.model.Level;
-
-import junit.framework.TestCase;
 
 public class testLevelController extends TestCase 
 {

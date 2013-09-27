@@ -1,10 +1,6 @@
 package com.dat255.Wood.screens;
 
-import com.dat255.Wood.model.Level;
-import com.dat255.Wood.view.LevelRenderer;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,8 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import com.dat255.Wood.controller.LevelController;
+import com.dat255.Wood.model.Level;
+import com.dat255.Wood.view.LevelRenderer;
 
 public class GameScreen implements Screen{
 
