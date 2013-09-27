@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import com.dat255.Wood.controller.LevelController;
 
-public class GameScreen implements Screen, InputProcessor{
+public class GameScreen implements Screen{
 
 	//INSTANCE VARIABLES
 	private Level level;
@@ -112,9 +112,18 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		//Add listener to make it clickable
 		buttonDown.addListener(new ClickListener(){
+			
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
 				controller.downPressed();
+				return true;
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+			{
+				controller.downReleased();
 			}
 		});
 	}
@@ -133,8 +142,16 @@ public class GameScreen implements Screen, InputProcessor{
 		//Add listener to make it clickable
 		buttonRight.addListener(new ClickListener(){
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
 				controller.rightPressed();
+				return true;
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+			{
+				controller.rightReleased();
 			}
 		});
 	}
@@ -153,8 +170,16 @@ public class GameScreen implements Screen, InputProcessor{
 		//Add listener to make it clickable
 		buttonUp.addListener(new ClickListener(){
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
 				controller.upPressed();
+				return true;
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+			{
+				controller.upReleased();
 			}
 		});
 	}
@@ -173,8 +198,16 @@ public class GameScreen implements Screen, InputProcessor{
 		//Add listener to make it clickable
 		buttonLeft.addListener(new ClickListener(){
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
 				controller.leftPressed();
+				return true;
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+			{
+				controller.leftReleased();
 			}
 		});
 	}
@@ -207,7 +240,7 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	//From libgdx wiki:
@@ -224,85 +257,6 @@ public class GameScreen implements Screen, InputProcessor{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (screenX < width / 2 && screenY > height / 2)
-		{
-			controller.leftPressed();
-		}
-		if (screenX > width / 2 && screenY > height / 2)
-		{
-			controller.rightPressed();
-		}
-		if (screenX < width / 2 && screenY < height / 2)
-		{
-			controller.upPressed();
-		}
-		if (screenX > width / 2 && screenY < height / 2)
-		{
-			controller.downPressed();
-		}
-
-		return true;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if (screenX < width / 2 && screenY > height / 2)
-		{
-			controller.leftReleased();
-		}
-		if (screenX > width / 2 && screenY > height / 2)
-		{
-			controller.rightReleased();
-		}
-		if (screenX < width / 2 && screenY < height / 2)
-		{
-			controller.upReleased();
-		}
-		if (screenX > width / 2 && screenY < height / 2)
-		{
-			controller.downReleased();
-		}
-		return true;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
