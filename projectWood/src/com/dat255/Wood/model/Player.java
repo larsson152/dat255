@@ -9,24 +9,21 @@ public class Player {
 		IDLE, WALKING, DYING
 	}
 	
-	//FACING DIRECTIONS
-	public enum FacingDirection
-	{
-		LEFT, RIGHT, UP, DOWN
-	}
-	
 	
 	//INSTANCE VARIABLES
+	//NO REAL VALUES SET YET
 	public static final float SPEED = 2f;
-	public static final float SIZE = 1f;
+	public static final float SIZE = 0.5f;
 	
 	private Vector2 position; //Position Vector with X and Y components.
 	private Vector2 acceleration; //Acceleration Vector with X and Y components.
 	private Vector2 velocity; //Velocity Vector with X and Y components.
 	private Rectangle bounds; //Rectangle representing the players bounding box (collision box) with Height and Width (and X and Y position).
 	State state; //State, the players current state.
-	public FacingDirection direction;
 	
+	//FACING DIRECTION variable here
+	boolean facingLeft = true;
+	boolean facingUp = true;
 	
 	
 	
@@ -38,66 +35,43 @@ public class Player {
 		this.velocity = new Vector2();
 		this.bounds = new Rectangle(0,0,SIZE,SIZE); //New rectangle with X position 0 and Y position 0 and Width = SIZE and Height = SIZE. (x,y,width,height)
 		this.state = State.IDLE; //Initiating state to the default state IDLE.
-		this.direction = FacingDirection.DOWN;
 	}
 	
-	//Returns the players bounding box.
 	public Rectangle getBounds()
 	{
 		return bounds;
 	}
 	
-	//Returns the players position.
 	public Vector2 getPosition()
 	{
 		return position;
 	}
 	
-	//Changes the players state to newState.
 	public void setState(State newState)
 	{
 		this.state = newState;
 	}
 	
-	//Moves the players position by the velocity times the time since last frame, in x and y. (we only use either only x or only y)
 	public void update(float delta)
 	{
 		position.add(velocity.cpy().scl(delta));
 	}
 	
-	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
 	public void setFacingLeft(boolean facingLeft)
 	{
-		if(facingLeft)
-		{
-			this.direction = FacingDirection.LEFT;
-		}
-		else if(!facingLeft)
-		{
-			this.direction = FacingDirection.RIGHT;
-		}
+		this.facingLeft = facingLeft;
 	}
 	
-	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
 	public void setFacingUp(boolean facingUp)
 	{
-		if(facingUp)
-		{
-			this.direction = FacingDirection.UP;
-		}
-		else if(!facingUp)
-		{
-			this.direction = FacingDirection.DOWN;
-		}		
+		this.facingUp = facingUp;
 	}
 	
-	//Returns the player acceleration vector.
 	public Vector2 getAcceleration()
 	{
 		return acceleration;
 	}
 	
-	//Returns the players velocity vector.
 	public Vector2 getVelocity()
 	{
 		return velocity;

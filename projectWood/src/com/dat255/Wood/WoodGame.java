@@ -1,6 +1,5 @@
 package com.dat255.Wood;
 
-
 import com.badlogic.gdx.Game;
 import com.dat255.Wood.screens.GameScreen;
 import com.dat255.Wood.screens.SplashScreen;
@@ -13,8 +12,8 @@ public class WoodGame extends Game {
 	//SCREENS
 	//SplashScreen splashScreen;
 	//MainMenuScreen mainMenuScreen;
-	private GameScreen gameScreen;
-	private SplashScreen splashScreen;
+	GameScreen gameScreen;
+	SplashScreen splashScreen;
 	
 	//From libgdx wiki: Method called once when the application is created.
 	@Override
