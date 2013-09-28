@@ -53,7 +53,7 @@ batch = new SpriteBatch();
 tweenManager = new TweenManager();
 Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-Texture splashTexture = new Texture("data/images/splash.png");
+Texture splashTexture = new Texture("data/images/Splash.png");
 //Texture.setEnforcePotImages(false);
 splash = new Sprite(splashTexture);
 splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
