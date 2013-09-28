@@ -29,7 +29,7 @@ public class MainMenu implements Screen {
 	private Sprite backgroundSprite;
 	private SpriteDrawable backgroundSpriteDraw;
 
-	
+
 	public MainMenu(WoodGame game){
 		this.game = game;
 	}
@@ -37,48 +37,48 @@ public class MainMenu implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		stage.act(delta);
 		//table.drawDebug(stage);
 		stage.draw();
-		
+
 
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		
+
 
 	}
 
 	@Override
 	public void show() {
 		stage = new Stage();
-		
+
 		Gdx.input.setInputProcessor(stage);
 
 		atlas = new TextureAtlas("buttons/button.pack");
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+
 		white = new BitmapFont(Gdx.files.internal("data/fonts/font.fnt"), false);
-		
+
 		TextButtonStyle exitTextButtonStyle = new TextButtonStyle();
 		exitTextButtonStyle.up = skin.getDrawable("buttonExit.up");
 		exitTextButtonStyle.down = skin.getDrawable("buttonExit.down");
 		exitTextButtonStyle.font = white;
-		
+
 		buttonExit = new TextButton(null, exitTextButtonStyle);
 		buttonExit.addListener(new ClickListener(){
-			
+
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.exit();
 			}
-			
+
 		});
-		
+
 		backgroundSprite = new Sprite(new Texture("img/MenuBackground.png"));
 		backgroundSpriteDraw = new SpriteDrawable(backgroundSprite);
 
@@ -86,7 +86,7 @@ public class MainMenu implements Screen {
 		playTextButtonStyle.up = skin.getDrawable("buttonPlay.up");
 		playTextButtonStyle.down = skin.getDrawable("buttonPlay.down");
 		playTextButtonStyle.font = white;
-		
+
 		buttonPlay = new TextButton(null, playTextButtonStyle);
 		buttonPlay.addListener(new ClickListener(){
 			@Override
@@ -95,7 +95,7 @@ public class MainMenu implements Screen {
 				game.playGame();
 			}
 		});
-		
+
 		table.setBackground(backgroundSpriteDraw);
 		table.add(buttonPlay);
 		table.add(buttonExit);
@@ -106,17 +106,17 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void hide() {
-		
+
 	}
 
 	@Override
 	public void pause() {
-		
+
 	}
 
 	@Override
 	public void resume() {
-		
+
 	}
 
 	@Override
