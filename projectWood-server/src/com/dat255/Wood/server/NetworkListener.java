@@ -8,10 +8,10 @@ import com.esotericsoftware.minlog.Log;
 
 public class NetworkListener extends Listener {
 	
-	Server Server;
+	GameServer gServer;
 	
 	public void init(GameServer gServer){
-		this.Server = gServer.getServer();
+		this.gServer = gServer;
 	}
 	
 	public void connected(Connection arg0) {

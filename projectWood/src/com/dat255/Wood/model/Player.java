@@ -28,8 +28,8 @@ public class Player {
 	public static final float SPEED = 2f;
 	public static final float SIZE = 1f;
 	
-	private String name;
-	private int score;
+	private String name; //The player should have the option to enter username before playing
+	private int score;	// The total score for the player
 	private Vector2 position; //Position Vector with X and Y components.
 	private Vector2 acceleration; //Acceleration Vector with X and Y components.
 	private Vector2 velocity; //Velocity Vector with X and Y components.
