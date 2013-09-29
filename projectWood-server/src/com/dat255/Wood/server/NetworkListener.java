@@ -3,7 +3,6 @@ package com.dat255.Wood.server;
 import com.dat255.Wood.model.Player;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 
 public class NetworkListener extends Listener {

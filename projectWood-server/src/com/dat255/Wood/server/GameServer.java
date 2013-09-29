@@ -10,13 +10,11 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 
-
-
-
 public class GameServer {
 
 	private Server server;
-	private HashMap<String, Integer> users;
+	private HashMap<String, Player> users;
+	private HashMap<String, Integer> highscore;
 
 	public GameServer() throws IOException{
 		server = new Server();
@@ -50,15 +48,31 @@ public class GameServer {
 	}
 	
 	public void addNewUser(Player player){
-		users.put(player.getName(), player.getScore());
+		users.put(player.getName(), player);
 	}
 	
-	public HashMap<String, Integer> getUsers(){
+	public HashMap<String, Player> getUsers(){
 		return users;
 	}
 	
 	public Server getServer(){
 		return this.server;
+	}
+	
+	public Player find(String name){
+		if(users.containsKey(name)){
+			return users.get(name);
+		}else{
+			return null;
+		}
+	}
+	
+	public HashMap<String, Integer> getHighscore(String name){
+		
+		
+		
+		
+		return null;
 	}
 	
 	

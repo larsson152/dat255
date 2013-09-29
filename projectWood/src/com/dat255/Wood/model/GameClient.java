@@ -11,10 +11,10 @@ import com.esotericsoftware.kryonet.Client;
 public class GameClient {
 
 	private Client client; 
-	private WoodGame game;
+	private Player player;
 	
-	public GameClient(WoodGame game){
-		this.game = game;
+	public GameClient(Player player){
+		this.player = player;
 		client = new Client(); // The Client is used for handling communication with the Server
 		registerPackets();	// Used to register all the classes that will be sent over network
 		NetworkListener nl = new NetworkListener(); // Methods on this object is called when something is recieved or transmitted
@@ -43,5 +43,13 @@ public class GameClient {
 		kryo.register(Rectangle.class);
 		kryo.register(Player.FacingDirection.class);
 		kryo.register(Player.State.class);
+	}
+	
+	public Client getClient(){
+		return client;
+	}
+	
+	public Player getPlayer(){
+		return player;
 	}
 }

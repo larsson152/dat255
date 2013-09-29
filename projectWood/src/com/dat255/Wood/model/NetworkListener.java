@@ -13,7 +13,7 @@ public class NetworkListener extends Listener {
 	
 	public void connected(Connection arg0) {
 		System.out.println("[CLIENT] You have connected.");
-		
+		gClient.getClient().sendTCP(gClient.getPlayer());
 	}
 
 	public void disconnected(Connection arg0) {
