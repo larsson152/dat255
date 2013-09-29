@@ -28,6 +28,8 @@ public class Player {
 	public static final float SPEED = 2f;
 	public static final float SIZE = 1f;
 	
+	private String name;
+	private int score;
 	private Vector2 position; //Position Vector with X and Y components.
 	private Vector2 acceleration; //Acceleration Vector with X and Y components.
 	private Vector2 velocity; //Velocity Vector with X and Y components.
@@ -115,6 +117,14 @@ public class Player {
 	public Vector2 getVelocity()
 	{
 		return velocity;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public int getScore(){
+		return score;
 	}
 
 }
