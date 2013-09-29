@@ -6,13 +6,21 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
 	
 	public enum State{
-		IDLE, WALKING, DYING
+		IDLE, WALKING, DYING;
+
+		State(){
+			
+		}
 	}
 	
 	//FACING DIRECTIONS
 	public enum FacingDirection
 	{
-		LEFT, RIGHT, UP, DOWN
+		LEFT, RIGHT, UP, DOWN;
+		
+		FacingDirection(){
+			
+		}
 	}
 	
 	
@@ -40,6 +48,12 @@ public class Player {
 		this.state = State.IDLE; //Initiating state to the default state IDLE.
 		this.direction = FacingDirection.DOWN;
 	}
+	
+	//Empty contructor for Serialization
+	public Player(){
+		
+	}
+
 	
 	//Returns the players bounding box.
 	public Rectangle getBounds()
