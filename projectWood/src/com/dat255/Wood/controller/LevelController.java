@@ -9,20 +9,20 @@ import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
 
 public class LevelController {
-	
+
 	enum Keys
 	{
 		LEFT, RIGHT, UP, DOWN
 	}
-	
+
 	private Level level;
 	private Player player;
 	private float startXpos, startYpos, actionBlockStartXpos, actionBlockStartYpos;
 	private boolean moving = false;
 	private Block actionBlock = null;
-	
+
 	static HashMap<LevelController.Keys, Boolean> keys = new HashMap<LevelController.Keys, Boolean>();
-	
+
 	static
 	{
 		keys.put(Keys.LEFT, false);
@@ -30,55 +30,55 @@ public class LevelController {
 		keys.put(Keys.UP, false);
 		keys.put(Keys.DOWN, false);
 	};
-	
+
 	public LevelController(Level level)
 	{
 		this.level = level;
 		this.player = level.getPlayer();
 	}
-	
+
 	//Input
-	
+
 	public void leftPressed()
 	{
 		keys.put(Keys.LEFT, true);
 	}
-	
+
 	public void leftReleased()
 	{
 		keys.put(Keys.LEFT, false);
 	}
-	
+
 	public void rightPressed()
 	{
 		keys.put(Keys.RIGHT, true);
 	}
-	
+
 	public void rightReleased()
 	{
 		keys.put(Keys.RIGHT, false);
 	}
-	
+
 	public void upPressed()
 	{
 		keys.put(Keys.UP, true);
 	}
-	
+
 	public void upReleased()
 	{
 		keys.put(Keys.UP, false);
 	}
-	
+
 	public void downPressed()
 	{
 		keys.put(Keys.DOWN, true);
 	}
-	
+
 	public void downReleased()
 	{
 		keys.put(Keys.DOWN, false);
 	}
-	
+
 	public void update(float delta)
 	{
 		processInput();
@@ -87,99 +87,63 @@ public class LevelController {
 		{
 			actionBlock.update(delta);
 		}
-		
+
 	}
-	
+
+	//Determines if the player can move in a specific direction (char d).
+	//And if there is a actionBlock in front of him interact with it.
 	private boolean canMoveTo(char d)
 	{
+		int deltaX = 0;
+		int deltaY = 0;
+
 		switch (d)
 		{
-			case 'l': 
-				
-				if(	(level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() == 2) && 
-					(level.getBlocks()[(int) (player.getPosition().x - 2)][(int) player.getPosition().y].getBlockId() != 1) && 
-					(level.getBlocks()[(int) (player.getPosition().x - 2)][(int) player.getPosition().y].getBlockId() != 2)  )
-				{
-					actionBlock = level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y];
-					actionBlock.getVelocity().x = -Block.SPEED;
-					actionBlockStartXpos = actionBlock.getPosition().x;
-					actionBlockStartYpos = actionBlock.getPosition().y;
-					return true;
-				}
-				
-				
-				return ((level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() != 1) &&
-						(level.getBlocks()[(int) (player.getPosition().x - 1)][(int) player.getPosition().y].getBlockId() != 2));
-				
-			case 'r': 
-				
-				if( (level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() == 2) && 
-					(level.getBlocks()[(int) (player.getPosition().x + 2)][(int) player.getPosition().y].getBlockId() != 1) && 
-					(level.getBlocks()[(int) (player.getPosition().x + 2)][(int) player.getPosition().y].getBlockId() != 2))
-				{
-					actionBlock = level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y];
-					actionBlock.getVelocity().x = Block.SPEED;
-					actionBlockStartXpos = actionBlock.getPosition().x;
-					actionBlockStartYpos = actionBlock.getPosition().y;
-					return true;
-				}
-				
-				
-				return ((level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 1) &&
-						(level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y].getBlockId() != 2));
-						
-				
-			case 'u': 
-				if((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1].getBlockId() == 2) && 
-						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 2].getBlockId() != 1) && 
-						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 2].getBlockId() != 2))
-				{
-					actionBlock = level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1];
-					actionBlock.getVelocity().y = Block.SPEED;
-					actionBlockStartXpos = actionBlock.getPosition().x;
-					actionBlockStartYpos = actionBlock.getPosition().y;
-					return true;
-				}
-				return ((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1].getBlockId() != 1) 
-						&& (level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y + 1].getBlockId() != 2));
-						
-			case 'd': 
-				if((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() == 2) && 
-						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 2].getBlockId() != 1) && 
-						(level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 2].getBlockId() != 2))
-				{
-					actionBlock = level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1];
-					actionBlock.getVelocity().y = -Block.SPEED;
-					actionBlockStartXpos = actionBlock.getPosition().x;
-					actionBlockStartYpos = actionBlock.getPosition().y;
-					return true;
-				}
-				return ((level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() != 1) 
-						&& (level.getBlocks()[(int) (player.getPosition().x)][(int) player.getPosition().y - 1].getBlockId() != 2));
-				
-			default: return false;
-		}	
 		
-	}
-	
-	/*private boolean moveBlock(char x){
-		int x1=0,x2=0,y1=0,y2=0;
-		if(x=='r'){
-			x1=1;x2=2;y1=0;y2=0;	
+		//Left
+		case 'l':
+			deltaX = -1;
+			deltaY = 0;
+			break;
+			
+		//Right
+		case 'r':
+			deltaX = 1;
+			deltaY = 0;
+			break;
+
+		//Up
+		case 'u':
+			deltaX = 0;
+			deltaY = 1;
+			break;
+			
+		//Down
+		case 'd':
+			deltaX = 0;
+			deltaY = -1;
+			break;
+
+		default:
+			return false;
 		}
-		
-		if((level.getBlocks()[(int) (player.getPosition().x + x1)][(int) player.getPosition().y+y1].getBlockId() == 2) && 
-				(level.getBlocks()[(int) (player.getPosition().x + x2)][(int) player.getPosition().y+y2].getBlockId() != 1))
+		//If the block the player wants to move to is a pushBlock and the block behind it is neither a wall or another pushblock.
+		if(	(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].getBlockId() == 2) && 
+				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].getBlockId() != 1) && 
+				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].getBlockId() != 2))
 		{
-			actionBlock = level.getBlocks()[(int) (player.getPosition().x + 1)][(int) player.getPosition().y];
-			actionBlock.getVelocity().x = Block.SPEED;
+			actionBlock = level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY];
+			actionBlock.getVelocity().x = deltaX * Block.SPEED;
+			actionBlock.getVelocity().y = deltaY * Block.SPEED;
 			actionBlockStartXpos = actionBlock.getPosition().x;
 			actionBlockStartYpos = actionBlock.getPosition().y;
-			
+			return true;
 		}
-		return true;
-	}*/
-	
+		//Move of the adjacent block is neither a wall or pushBlock(Because from the earlier statement we get to know if there is a wall behind the pushblock or not.).
+		return ((level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].getBlockId() != 1) &&
+				(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].getBlockId() != 2));
+	}
+
 	private void processInput()
 	{
 		if(keys.get(Keys.LEFT) && (moving == false))
@@ -194,7 +158,7 @@ public class LevelController {
 				moving = true;
 			}
 		}
-		
+
 		else if(keys.get(Keys.RIGHT) && (moving == false))
 		{
 			player.setFacingLeft(false);
@@ -207,7 +171,7 @@ public class LevelController {
 				moving = true;
 			}
 		}
-		
+
 		else if(keys.get(Keys.UP) && (moving == false))
 		{
 			player.setFacingUp(true);
@@ -220,7 +184,7 @@ public class LevelController {
 				moving = true;
 			}
 		}
-		
+
 		else if(keys.get(Keys.DOWN) && (moving == false))
 		{
 			player.setFacingUp(false);
@@ -233,7 +197,7 @@ public class LevelController {
 				moving = true;
 			}
 		}		
-		
+
 		if ((player.getPosition().x - startXpos) > 1)
 		{
 			player.setState(State.IDLE);
@@ -260,7 +224,7 @@ public class LevelController {
 			player.getPosition().set(new Vector2(startXpos - 1, startYpos));
 			moving = false;
 			leftReleased();
-			
+
 		}
 		else if (Math.abs((player.getPosition().y - startYpos)) > 1)
 		{
@@ -271,7 +235,7 @@ public class LevelController {
 			moving = false;
 			downReleased();
 		}
-		
+
 		if(actionBlock != null)
 		{
 			if ((actionBlock.getPosition().x - actionBlockStartXpos) > 1)
@@ -303,7 +267,7 @@ public class LevelController {
 				actionBlock = null;
 			}
 		}
-		
+
 	}
-	
+
 }
