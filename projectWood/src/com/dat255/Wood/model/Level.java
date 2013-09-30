@@ -3,14 +3,13 @@
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
-//Use this or the normal one?
 
 public class Level {
 
-	//An array of blocks that our Level will consist off.
-
 	//The player
 	private Player player;
+	
+	//An array containing all Blocks.
 	private Block[][] collisionLayer;
 
 	//Get functions
@@ -46,29 +45,31 @@ public class Level {
 				char c = text.charAt(x+y*16+y*2);
 
 				if(c == '1'){
-					//Nytt väggblock.
-					collisionLayer[x][y]= new Block(new Vector2(x,y), 1);
+					//New WallBlock.
+					collisionLayer[x][y]= new Block(new Vector2(x,y), 1, false, true);
 				}
 				else if(c == '2')
 				{
-					collisionLayer[x][y]= new Block(new Vector2(x,y), 2);
+					//New PushBlock
+					collisionLayer[x][y]= new Block(new Vector2(x,y), 2, true, true);
 				}
 				
 				else if(c == 's'){
-					//Spelarens skapas på denna startposition samt blocket spelaren startar på är ett tomt block.
+					//The player is initialized to start at this position, and an empty block is added to the array as the player always start on a empty block.
 					player = new Player(new Vector2(x,y));
-					collisionLayer[x][y] = new Block(new Vector2(x,y), 0);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 0, false, false);
 				}
 				else
 				{
-					//Nytt "tomt" block.
-					collisionLayer[x][y] = new Block(new Vector2(x,y), 0);
+					//New Empty Block
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 0, false, false);
 				}
 
 			}
 		}
 	}
 	
+	//Swaps two blocks in the current level. 
 	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
 	{
 		Block temp = collisionLayer[x1][y1];

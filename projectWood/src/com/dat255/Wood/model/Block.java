@@ -16,13 +16,18 @@ public class Block {
 	private Vector2 velocity; //Velocity Vector with X and Y components.
 	private Rectangle bounds;
 	
+	private boolean moveable = false;
+	private boolean solid = false;
+	
 	//CONSTRUCTOR
-	public Block(Vector2 position, int blockId)
+	public Block(Vector2 position, int blockId, boolean moveable, boolean solid)
 	{
 		this.position = position;
 		this.velocity = new Vector2();
 		this.bounds = new Rectangle(0,0,SIZE,SIZE); //x,y,width,height
 		this.blockId = blockId;
+		this.moveable = moveable;
+		this.solid = solid;
 	}
 	
 	//Returns the bounding box of the block.
@@ -31,24 +36,40 @@ public class Block {
 		return bounds;
 	}
 	
+	//Returns the blocks current position.
 	public Vector2 getPosition()
 	{
 		return position;
 	}
 	
+	//Returns the blocks id.
 	public int getBlockId()
 	{
 		return blockId;
 	}
 	
+	//Returns the current Velocity Vector2.
 	public Vector2 getVelocity()
 	{
 		return velocity;
 	}
 	
+	//Updates the Blocks position in regards to the velocity it travels.
 	public void update(float delta)
 	{
 		position.add(velocity.cpy().scl(delta));
+	}
+	
+	//Returns whether the Block is moveable or not.
+	public boolean isMoveable()
+	{
+		return moveable;
+	}
+	
+	//Returns whether the Block is solid or not.
+	public boolean isSolid()
+	{
+		return solid;
 	}
 
 }

@@ -127,10 +127,9 @@ public class LevelController {
 		default:
 			return false;
 		}
-		//If the block the player wants to move to is a pushBlock and the block behind it is neither a wall or another pushblock.
-		if(	(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].getBlockId() == 2) && 
-				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].getBlockId() != 1) && 
-				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].getBlockId() != 2))
+		
+		if(	(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isMoveable()) && 
+				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].isSolid() == false))
 		{
 			actionBlock = level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY];
 			actionBlock.getVelocity().x = deltaX * Block.SPEED;
@@ -139,9 +138,8 @@ public class LevelController {
 			actionBlockStartYpos = actionBlock.getPosition().y;
 			return true;
 		}
-		//Move of the adjacent block is neither a wall or pushBlock(Because from the earlier statement we get to know if there is a wall behind the pushblock or not.).
-		return ((level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].getBlockId() != 1) &&
-				(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].getBlockId() != 2));
+		//Move if the adjacent block is not solid.
+		return (!(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isSolid()));
 	}
 
 	private void processInput()
