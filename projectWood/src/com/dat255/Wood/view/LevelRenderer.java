@@ -28,13 +28,24 @@ public class LevelRenderer {
 	private AtlasRegion playerRight;
 	private AtlasRegion playerUp;
 	private AtlasRegion playerDown;
-	private AtlasRegion blockTexture;
+	private AtlasRegion wallBlockTexture;
 	private AtlasRegion pushBlockTexture;
 	
 	private SpriteBatch spriteBatch;
 	private boolean debug = false;
 	private int width;
 	private int height;
+	private AtlasRegion lavaBlockTexture;
+	private AtlasRegion iceBlockTexture;
+	private AtlasRegion waterBlockTexture;
+	private AtlasRegion sandBlockTexture;
+	private AtlasRegion goalBlockTexture;
+	private AtlasRegion buttonOnTexture;
+	private AtlasRegion ButtonOffTexture;
+	private AtlasRegion horizontalDoorOpenTexture;
+	private AtlasRegion horizontalDoorClosedTexture;
+	private AtlasRegion verticalDoorOpenTexture;
+	private AtlasRegion VerticalDoorClosedTexture;
 	
 	public LevelRenderer(Level level, boolean debug)
 	{
@@ -100,7 +111,7 @@ public class LevelRenderer {
 				{
 					if(block.getBlockId() == 1)
 					{
-						spriteBatch.draw(blockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(wallBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
 					else if(block.getBlockId() == 2)
 					{
@@ -149,8 +160,20 @@ public class LevelRenderer {
 		playerRight = atlas.findRegion("Red_RIGHT_64x64");
 		playerUp = atlas.findRegion("Red_UP_64x64");
 		playerDown = atlas.findRegion("Red_DOWN_64x64");
-		blockTexture = atlas.findRegion("Block_64x64");
-		pushBlockTexture = atlas.findRegion("GroundBlock_64x64");
+		wallBlockTexture = atlas.findRegion("WallBlock_64x64");
+		pushBlockTexture = atlas.findRegion("PushBlock_64x64");
+		lavaBlockTexture = atlas.findRegion("Lava_64x64");
+		iceBlockTexture = atlas.findRegion("Ice_64x64");
+		waterBlockTexture = atlas.findRegion("Water_64x64");
+		sandBlockTexture = atlas.findRegion("Sand_64x64");
+		goalBlockTexture = atlas.findRegion("Goal_64x64");
+		buttonOnTexture = atlas.findRegion("Button_On_64x64");
+		ButtonOffTexture = atlas.findRegion("Button_Off_64x64");
+		horizontalDoorOpenTexture = atlas.findRegion("Horizontal_Door_Open_64x64");
+		horizontalDoorClosedTexture = atlas.findRegion("Horizontal_Door_Closed_64x64");
+		verticalDoorOpenTexture = atlas.findRegion("Vertical_Door_Open_64x64");
+		VerticalDoorClosedTexture = atlas.findRegion("Vertical_Door_Closed_64x64");
+		
 	}
 	
 
