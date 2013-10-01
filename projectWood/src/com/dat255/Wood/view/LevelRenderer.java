@@ -41,7 +41,7 @@ public class LevelRenderer {
 	private AtlasRegion sandBlockTexture;
 	private AtlasRegion goalBlockTexture;
 	private AtlasRegion buttonOnTexture;
-	private AtlasRegion ButtonOffTexture;
+	private AtlasRegion buttonOffTexture;
 	private AtlasRegion horizontalDoorOpenTexture;
 	private AtlasRegion horizontalDoorClosedTexture;
 	private AtlasRegion verticalDoorOpenTexture;
@@ -109,15 +109,51 @@ public class LevelRenderer {
 				block = blocks[i][j];
 				if(block != null)
 				{
-					if(block.getBlockId() == 1)
+					if(block.getBlockId() == '1')
 					{
 						spriteBatch.draw(wallBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					else if(block.getBlockId() == 2)
+					else if(block.getBlockId() == '2')
 					{
 						spriteBatch.draw(pushBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					else if(block.getBlockId() == 0)
+					else if(block.getBlockId() == '3')
+					{
+						spriteBatch.draw(waterBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '4')
+					{
+						spriteBatch.draw(lavaBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '5')
+					{
+						spriteBatch.draw(sandBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '6')
+					{
+						spriteBatch.draw(iceBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '7')
+					{
+						spriteBatch.draw(buttonOnTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '8')
+					{
+						spriteBatch.draw(buttonOffTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '9')
+					{
+						spriteBatch.draw(horizontalDoorOpenTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == 'A')
+					{
+						spriteBatch.draw(horizontalDoorClosedTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == 'G')
+					{
+						spriteBatch.draw(goalBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '0')
 					{
 						//Rita inget aka tomt block.
 					}
@@ -168,7 +204,7 @@ public class LevelRenderer {
 		sandBlockTexture = atlas.findRegion("Sand_64x64");
 		goalBlockTexture = atlas.findRegion("Goal_64x64");
 		buttonOnTexture = atlas.findRegion("Button_On_64x64");
-		ButtonOffTexture = atlas.findRegion("Button_Off_64x64");
+		buttonOffTexture = atlas.findRegion("Button_Off_64x64");
 		horizontalDoorOpenTexture = atlas.findRegion("Horizontal_Door_Open_64x64");
 		horizontalDoorClosedTexture = atlas.findRegion("Horizontal_Door_Closed_64x64");
 		verticalDoorOpenTexture = atlas.findRegion("Vertical_Door_Open_64x64");

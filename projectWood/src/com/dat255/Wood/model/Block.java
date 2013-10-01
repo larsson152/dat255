@@ -11,7 +11,7 @@ public class Block {
 	public static final float SPEED = 2.5f;
 	public static final float SIZE = 1f;
 	
-	private int blockId;
+	private char blockId;
 	private Vector2 position;
 	private Vector2 velocity; //Velocity Vector with X and Y components.
 	private Rectangle bounds;
@@ -20,7 +20,7 @@ public class Block {
 	private boolean solid = false;
 	
 	//CONSTRUCTOR
-	public Block(Vector2 position, int blockId, boolean moveable, boolean solid)
+	public Block(Vector2 position, char blockId, boolean moveable, boolean solid)
 	{
 		this.position = position;
 		this.velocity = new Vector2();
