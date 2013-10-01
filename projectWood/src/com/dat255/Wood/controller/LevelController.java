@@ -4,11 +4,16 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.math.Vector2;
 import com.dat255.Wood.model.Block;
+import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
 
 public class LevelController {
+	
+	public boolean isPaused;
+	public boolean levelWon;
+	public boolean gameOver;
 	
 	enum Keys
 	{
@@ -35,6 +40,9 @@ public class LevelController {
 	{
 		this.level = level;
 		this.player = level.getPlayer();
+		isPaused = false;
+		levelWon = false;
+		gameOver = false;
 	}
 	
 	//Input
@@ -81,13 +89,19 @@ public class LevelController {
 	
 	public void update(float delta)
 	{
-		processInput();
-		player.update(delta);
-		if(actionBlock != null)
-		{
-			actionBlock.update(delta);
-		}
-		
+		if(!isPaused && !gameOver){
+			GameTimer.updateFps();
+			if(GameTimer.returnTicked() == true){
+				level.decrementScore();
+				GameTimer.unTick();
+			}
+			processInput();
+			player.update(delta);
+			if(actionBlock != null)
+			{
+				actionBlock.update(delta);
+			}	
+		}	
 	}
 	
 	private boolean canMoveTo(char d)

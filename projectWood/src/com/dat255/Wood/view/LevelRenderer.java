@@ -2,6 +2,7 @@ package com.dat255.Wood.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -19,6 +20,10 @@ public class LevelRenderer {
 	
 	private Level level;
 	private OrthographicCamera orthoCamera;
+	
+	
+	
+	BitmapFont yourBitmapFontName;
 	
 	//Debug renderer
 	ShapeRenderer debugRenderer = new ShapeRenderer();
@@ -44,6 +49,8 @@ public class LevelRenderer {
 		this.orthoCamera.update(); //From libgdx API: Recalculates the projection and view matrix of this camera and the Frustum planes.
 		this.debug = debug;
 		spriteBatch = new SpriteBatch();
+		
+		yourBitmapFontName = new BitmapFont();
 		loadTextures();
 	}
 	
@@ -51,11 +58,16 @@ public class LevelRenderer {
 	{
 		spriteBatch.setProjectionMatrix(orthoCamera.combined);
 		spriteBatch.begin();
+		
+		yourBitmapFontName.setColor(2.0f, 2.0f, 1.0f, 1.0f);		//Draws score
+		yourBitmapFontName.draw(spriteBatch,"score: "+ level.getLevelScore(), level.getPlayer().getPosition().x, level.getPlayer().getPosition().y);
 		drawBlocks();
 		drawPlayer();
 		spriteBatch.end();
 		this.orthoCamera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
 		orthoCamera.update();
+		
+		
 		if(debug == true)
 		{
 			//drawDebug();
