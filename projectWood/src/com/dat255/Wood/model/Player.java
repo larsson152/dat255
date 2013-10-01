@@ -82,29 +82,9 @@ public class Player {
 	}
 	
 	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
-	public void setFacingLeft(boolean facingLeft)
+	public void setFacingDirection(FacingDirection facingDirection)
 	{
-		if(facingLeft)
-		{
-			this.direction = FacingDirection.LEFT;
-		}
-		else if(!facingLeft)
-		{
-			this.direction = FacingDirection.RIGHT;
-		}
-	}
-	
-	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
-	public void setFacingUp(boolean facingUp)
-	{
-		if(facingUp)
-		{
-			this.direction = FacingDirection.UP;
-		}
-		else if(!facingUp)
-		{
-			this.direction = FacingDirection.DOWN;
-		}		
+		this.direction = facingDirection;
 	}
 	
 	//Returns the player acceleration vector.
@@ -125,6 +105,11 @@ public class Player {
 	
 	public int getScore(){
 		return score;
+	}
+	
+	public State getState()
+	{
+		return state;
 	}
 
 }
