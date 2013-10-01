@@ -2,6 +2,7 @@ package com.dat255.Wood;
 
 
 import com.badlogic.gdx.Game;
+import com.dat255.Wood.model.GameClient;
 import com.dat255.Wood.screens.GameScreen;
 import com.dat255.Wood.screens.SplashScreen;
 
@@ -15,6 +16,7 @@ public class WoodGame extends Game {
 	//MainMenuScreen mainMenuScreen;
 	private GameScreen gameScreen;
 	private SplashScreen splashScreen;
+	private GameClient client;
 	
 	//From libgdx wiki: Method called once when the application is created.
 	@Override
@@ -29,4 +31,9 @@ public class WoodGame extends Game {
 		setScreen(gameScreen);
 	}
 
+	public void updateScore(){
+		
+		gameScreen.getLevel().getPlayer();
+		
+	}
 }

@@ -221,6 +221,11 @@ public class GameScreen implements Screen{
 		buttonCenter.setX((float)Gdx.graphics.getWidth() - 2*buttonCenter.getWidth());
 		buttonCenter.setY((float) buttonCenter.getHeight());
 	}
+	
+	public Level getLevel(){
+		
+		return level;
+	}
 
 	//From libgdx API documentation:
 	//Called when this screen is no longer the current screen for a Game.

@@ -1,7 +1,11 @@
 package com.dat255.Wood.server;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -13,17 +17,19 @@ import com.esotericsoftware.minlog.Log;
 public class GameServer {
 
 	private Server server;
-	private HashMap<String, Player> users;
-	private HashMap<String, Integer> highscore;
+	private HashMap<String, Integer> userMap = new HashMap<String, Integer>();
+	private List<String> users = new ArrayList<String>(userMap.keySet());
+	
 
 	public GameServer() throws IOException{
-		server = new Server();
+		/*server = new Server();
 		registerPackets();
 		NetworkListener nl = new NetworkListener();
 		nl.init(this);
 		server.addListener(nl);
 		server.bind(1337);
-		server.start();
+		server.start();*/
+		addNewUser(null);
 	}
 
 	private void registerPackets(){
@@ -48,33 +54,44 @@ public class GameServer {
 	}
 	
 	public void addNewUser(Player player){
-		users.put(player.getName(), player);
-	}
 	
-	public HashMap<String, Player> getUsers(){
-		return users;
+		userMap.put("patrik", 999);
+		userMap.put("kirtap", 500);
+		userMap.put("rikpat", 100);
+		//sort();
+		System.out.println(userMap);
 	}
 	
 	public Server getServer(){
 		return this.server;
 	}
 	
-	public Player find(String name){
-		if(users.containsKey(name)){
-			return users.get(name);
-		}else{
-			return null;
-		}
+	public Integer getScore(String name){
+
+		return null;
 	}
 	
-	public HashMap<String, Integer> getHighscore(String name){
-		
+	public String getHighscore(){
 		
 		
 		
 		return null;
 	}
 	
+	public void sort(){
+		
+		/*Collections.sort(users, new Comparator<String>() {
+		    @Override
+		    public int compare(String s1, String s2) {
+		        Integer score1 = userMap.get(s1);
+		        Integer score2 = userMap.get(s2);
+		        return score1.compareTo(score2);
+		    }
+		});*/
+		
+	}
+	
+
 	
 
 }

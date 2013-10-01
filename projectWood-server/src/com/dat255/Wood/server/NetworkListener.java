@@ -3,7 +3,6 @@ package com.dat255.Wood.server;
 import com.dat255.Wood.model.Player;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.minlog.Log;
 
 public class NetworkListener extends Listener {
 	
@@ -14,7 +13,6 @@ public class NetworkListener extends Listener {
 	}
 	
 	public void connected(Connection arg0) {
-		Log.info("[SERVER] Someone has connected.");
 		System.out.println("[SERVER] Someone connected!");
 	}
 
@@ -24,10 +22,9 @@ public class NetworkListener extends Listener {
 
 	public void received(Connection c, Object o) {
 		if(o instanceof Player){
-			System.out.println("[SERVER] Player recieved!");
-			
-		}else{
-			System.out.println("[SERVER] Something went wrong, no player recieved.");
+			gServer.addNewUser((Player)o);
+		}else if(o == null){
+			gServer.getServer().sendToTCP(c.getID(), gServer.getHighscore());
 		}
 	}
 }
