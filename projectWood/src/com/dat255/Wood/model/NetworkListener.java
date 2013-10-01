@@ -1,5 +1,7 @@
 package com.dat255.Wood.model;
 
+import java.util.HashMap;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -23,8 +25,8 @@ public class NetworkListener extends Listener {
 	public void received(Connection c, Object o) {
 		if(o instanceof Player){
 			System.out.println("[CLIENT] Player was successfully sent and recieved!");
-		}else{
-			System.out.println("[CLIENT] Something went wrong, no player was recieved.");
+		}else if (o instanceof HashMap){
+			System.out.println("[CLIENT] Recieved High Score.");
 		}
 	}
 }

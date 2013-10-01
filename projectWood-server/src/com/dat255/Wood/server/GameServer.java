@@ -17,18 +17,18 @@ import com.esotericsoftware.minlog.Log;
 public class GameServer {
 
 	private Server server;
-	private HashMap<String, Integer> userMap = new HashMap<String, Integer>();
-	private List<String> users = new ArrayList<String>(userMap.keySet());
+	private HashMap<String, Integer> userMap;
 	
 
 	public GameServer() throws IOException{
-		/*server = new Server();
+		server = new Server();
 		registerPackets();
 		NetworkListener nl = new NetworkListener();
 		nl.init(this);
 		server.addListener(nl);
 		server.bind(1337);
-		server.start();*/
+		server.start();
+		userMap = new HashMap<String, Integer>();
 		addNewUser(null);
 	}
 
@@ -71,27 +71,7 @@ public class GameServer {
 		return null;
 	}
 	
-	public String getHighscore(){
-		
-		
-		
-		return null;
+	public HashMap<String, Integer> getHighscore(){
+		return userMap;
 	}
-	
-	public void sort(){
-		
-		/*Collections.sort(users, new Comparator<String>() {
-		    @Override
-		    public int compare(String s1, String s2) {
-		        Integer score1 = userMap.get(s1);
-		        Integer score2 = userMap.get(s2);
-		        return score1.compareTo(score2);
-		    }
-		});*/
-		
-	}
-	
-
-	
-
 }
