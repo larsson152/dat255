@@ -1,0 +1,4 @@
+Block			id			moveable			solid
+Empty			0			false				false
+WallBlock		1			false				true
+PushBlock		2			true				true
