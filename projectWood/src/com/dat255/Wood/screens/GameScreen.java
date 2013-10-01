@@ -4,6 +4,8 @@ package com.dat255.Wood.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -32,7 +34,8 @@ public class GameScreen implements Screen{
 	private ImageButton buttonCenter;
 	private ImageButton buttonLeft;
 
-
+	private SpriteBatch scoreBatch;
+	BitmapFont yourBitmapFontName;
 	//From libgdx wiki:
 	//Method called by the game loop from the application every time rendering should be performed.
 	//Game logic updates are usually also performed in this method.
@@ -44,6 +47,10 @@ public class GameScreen implements Screen{
 		
 		controller.update(delta);
 		renderer.render();
+		
+		scoreBatch.begin();
+		yourBitmapFontName.draw(scoreBatch,"score: "+ level.getLevelScore(), 25, 100);
+		scoreBatch.end();
 		
 		stage.act(delta);
 		stage.draw();
@@ -77,6 +84,11 @@ public class GameScreen implements Screen{
 		//Create the skin for the d-pad
 		atlas = new TextureAtlas("data/images/dpad/dpad.txt");
 		dpadSkin = new Skin(atlas);
+		
+		//Set up the score display
+		scoreBatch = new SpriteBatch();
+		yourBitmapFontName = new BitmapFont();
+		yourBitmapFontName.setColor(2.0f, 2.0f, 1.0f, 1.0f);
 		
 		//Call the function for adding the d-pad
 		addDpad();

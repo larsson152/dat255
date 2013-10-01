@@ -23,7 +23,7 @@ public class LevelRenderer {
 	
 	
 	
-	BitmapFont yourBitmapFontName;
+	
 	
 	//Debug renderer
 	ShapeRenderer debugRenderer = new ShapeRenderer();
@@ -50,7 +50,6 @@ public class LevelRenderer {
 		this.debug = debug;
 		spriteBatch = new SpriteBatch();
 		
-		yourBitmapFontName = new BitmapFont();
 		loadTextures();
 	}
 	
@@ -58,9 +57,6 @@ public class LevelRenderer {
 	{
 		spriteBatch.setProjectionMatrix(orthoCamera.combined);
 		spriteBatch.begin();
-		
-		yourBitmapFontName.setColor(2.0f, 2.0f, 1.0f, 1.0f);		//Draws score
-		yourBitmapFontName.draw(spriteBatch,"score: "+ level.getLevelScore(), level.getPlayer().getPosition().x, level.getPlayer().getPosition().y);
 		drawBlocks();
 		drawPlayer();
 		spriteBatch.end();
