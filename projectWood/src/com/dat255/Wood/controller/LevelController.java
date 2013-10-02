@@ -128,6 +128,16 @@ public class LevelController {
 		//Move if the adjacent block is not solid.
 		return (!(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isSolid()));
 	}
+	
+	private boolean pushBlockToLiquid(int x, int y){
+		if(level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
+			level.getBlocks()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false);
+			level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false);	
+			return true;
+		}
+		
+		return false;
+	}
 
 	private void processInput()
 	{
@@ -196,33 +206,47 @@ public class LevelController {
 
 		if(actionBlock != null)
 		{
+					
+			
 			if ((actionBlock.getPosition().x - actionBlockStartXpos) > 1)
 			{
-				actionBlock.getVelocity().x = 0;
-				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos + 1),(int) actionBlockStartYpos);
-				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos + 1, actionBlockStartYpos));
+				if(pushBlockToLiquid(1,0)==false){
+					actionBlock.getVelocity().x = 0;
+					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos + 1),(int) actionBlockStartYpos);
+					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos + 1, actionBlockStartYpos));
+				}
 				actionBlock = null;
+				
 			}
 			else if ((actionBlock.getPosition().y - actionBlockStartYpos) > 1)
 			{
-				actionBlock.getVelocity().y = 0;
-				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos + 1);
-				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos + 1));
+				if(pushBlockToLiquid(0,1)==false){
+					actionBlock.getVelocity().y = 0;
+					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos + 1);
+					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos + 1));
+				}
 				actionBlock = null;
+				
 			}
 			else if (Math.abs((actionBlock.getPosition().y - actionBlockStartYpos)) > 1)
 			{
-				actionBlock.getVelocity().y = 0;
-				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos - 1);
-				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos - 1));
+				if(pushBlockToLiquid(0,-1)==false){
+					actionBlock.getVelocity().y = 0;
+					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos - 1);
+					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos - 1));
+				}
 				actionBlock = null;
+				
 			}
 			else if (Math.abs((actionBlock.getPosition().x - actionBlockStartXpos)) > 1)
 			{
-				actionBlock.getVelocity().x = 0;
-				level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos - 1),(int) actionBlockStartYpos);
-				actionBlock.getPosition().set(new Vector2(actionBlockStartXpos - 1 , actionBlockStartYpos));
+				if(pushBlockToLiquid(-1,0)==false){
+					actionBlock.getVelocity().x = 0;
+					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos - 1),(int) actionBlockStartYpos);
+					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos - 1 , actionBlockStartYpos));
+				}
 				actionBlock = null;
+				
 			}
 		}
 

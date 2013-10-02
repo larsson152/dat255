@@ -18,9 +18,10 @@ public class Block {
 	
 	private boolean moveable = false;
 	private boolean solid = false;
+	private boolean liquid =false;
 	
 	//CONSTRUCTOR
-	public Block(Vector2 position, char blockId, boolean moveable, boolean solid)
+	public Block(Vector2 position, char blockId, boolean moveable, boolean solid,boolean liquid)
 	{
 		this.position = position;
 		this.velocity = new Vector2();
@@ -28,6 +29,7 @@ public class Block {
 		this.blockId = blockId;
 		this.moveable = moveable;
 		this.solid = solid;
+		this.liquid = liquid;
 	}
 	
 	//Returns the bounding box of the block.
@@ -70,6 +72,11 @@ public class Block {
 	public boolean isSolid()
 	{
 		return solid;
+	}
+	
+	public boolean isLiquid()
+	{
+		return liquid;
 	}
 
 }
