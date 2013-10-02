@@ -35,7 +35,7 @@ public class GameScreen implements Screen{
 	private ImageButton buttonLeft;
 
 	private SpriteBatch scoreBatch;
-	BitmapFont yourBitmapFontName;
+	BitmapFont scoreFont;
 	//From libgdx wiki:
 	//Method called by the game loop from the application every time rendering should be performed.
 	//Game logic updates are usually also performed in this method.
@@ -49,7 +49,7 @@ public class GameScreen implements Screen{
 		renderer.render();
 		
 		scoreBatch.begin();
-		yourBitmapFontName.draw(scoreBatch,"score: "+ level.getLevelScore(), 25, 100);
+		scoreFont.draw(scoreBatch,"score: "+ level.getLevelScore(), 25, 100);
 		scoreBatch.end();
 		
 		stage.act(delta);
@@ -87,8 +87,8 @@ public class GameScreen implements Screen{
 		
 		//Set up the score display
 		scoreBatch = new SpriteBatch();
-		yourBitmapFontName = new BitmapFont();
-		yourBitmapFontName.setColor(2.0f, 2.0f, 1.0f, 1.0f);
+		scoreFont = new BitmapFont();
+		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
 		
 		//Call the function for adding the d-pad
 		addDpad();
