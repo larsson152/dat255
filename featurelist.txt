@@ -17,5 +17,7 @@ Feature list for project "Wood"
 
 -Customizable characters
 
--Signup/Login with username, password, email.
+- Signup/Login with username, password, email.
+
+- Level select
 
