@@ -11,6 +11,7 @@ public class Level {
 	
 	//An array containing all Blocks.
 	private Block[][] collisionLayer;
+	private float levelScore;
 
 	//Get functions
 
@@ -35,7 +36,7 @@ public class Level {
 	//Creates a for now test Level
 	private void createLevel()
 	{
-
+		setLevelScore(20);
 		collisionLayer = new Block[16][16];
 		FileHandle file = Gdx.files.internal("data/levels/level1.txt");
 		String text = file.readString();
@@ -79,5 +80,24 @@ public class Level {
 		collisionLayer[x2][y2] = temp;
 	}
 	
+
+	
+	public void setLevelScore(float s){
+		levelScore = s;				//Sets the current worth of the level.
+	}
+	
+	public void decrementScore(){
+		if(levelScore > 0){
+			levelScore--;
+		}else{
+			levelScore = 0;
+		}
+	}
+
+	public float getLevelScore() {
+		return levelScore;	
+	}
+	
+
 
 }
