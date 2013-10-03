@@ -28,21 +28,17 @@ public class LevelRenderer {
 	ShapeRenderer debugRenderer = new ShapeRenderer();
 
 	//Textures
-	private TextureRegion playerIdleLeft;
-	private TextureRegion playerIdleUp;
-	private TextureRegion playerIdleDown;
-	private TextureRegion playerIdleRight;
+	private TextureRegion idleLeft;
+	private TextureRegion idleUp;
+	private TextureRegion idleDown;
+	private TextureRegion idleRight;
 	private TextureRegion playerFrame;
 
-	private Animation walkLeftAnimation;
-	private Animation walkUpAnimation;
-	private Animation walkDownAnimation;
-	private Animation walkRightAnimation;
+	private Animation leftAnimation;
+	private Animation upAnimation;
+	private Animation downAnimation;
+	private Animation rightAnimation;
 
-	private AtlasRegion playerLeft;
-	private AtlasRegion playerRight;
-	private AtlasRegion playerUp;
-	private AtlasRegion playerDown;
 	private AtlasRegion wallBlockTexture;
 	private AtlasRegion pushBlockTexture;
 
@@ -148,42 +144,42 @@ public class LevelRenderer {
 
 		if(player.direction == FacingDirection.LEFT)
 		{
-			playerFrame = playerIdleLeft;
+			playerFrame = idleLeft;
 		}
 		else if(player.direction == FacingDirection.RIGHT)
 		{
-			playerFrame = playerIdleRight;
+			playerFrame = idleRight;
 		}
 		else if(player.direction == FacingDirection.UP)
 		{
-			playerFrame = playerIdleUp;
+			playerFrame = idleUp;
 		}
 		else if(player.direction == FacingDirection.DOWN)
 		{
-			playerFrame = playerIdleDown;
+			playerFrame = idleDown;
 		}
 
 		if(player.getState() == State.WALKING) 
 		{
 			if( player.direction == FacingDirection.LEFT)
 			{
-				playerFrame = walkLeftAnimation.getKeyFrame(player.getStateTime(), true);
-				walkLeftAnimation.getKeyFrame(player.getStateTime(), true);
+				playerFrame = leftAnimation.getKeyFrame(player.getStateTime(), true);
+				leftAnimation.getKeyFrame(player.getStateTime(), true);
 			}
 			else if( player.direction == FacingDirection.RIGHT)
 			{
-				playerFrame = walkRightAnimation.getKeyFrame(player.getStateTime(), true);
-				walkRightAnimation.getKeyFrame(player.getStateTime(), true);
+				playerFrame = rightAnimation.getKeyFrame(player.getStateTime(), true);
+				rightAnimation.getKeyFrame(player.getStateTime(), true);
 			}
 			else if( player.direction == FacingDirection.DOWN)
 			{
-				playerFrame = walkDownAnimation.getKeyFrame(player.getStateTime(), true);
-				walkDownAnimation.getKeyFrame(player.getStateTime(), true);
+				playerFrame = downAnimation.getKeyFrame(player.getStateTime(), true);
+				downAnimation.getKeyFrame(player.getStateTime(), true);
 			}
 			else if( player.direction == FacingDirection.UP)
 			{
-				playerFrame = walkUpAnimation.getKeyFrame(player.getStateTime(), true);
-				walkUpAnimation.getKeyFrame(player.getStateTime(), true);
+				playerFrame = upAnimation.getKeyFrame(player.getStateTime(), true);
+				upAnimation.getKeyFrame(player.getStateTime(), true);
 			}
 		}
 		spriteBatch.draw(playerFrame, player.getPosition().x, player.getPosition().y, Player.SIZE, Player.SIZE);
@@ -198,10 +194,6 @@ public class LevelRenderer {
 	private void loadTextures()
 	{
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/images/textures.pack"));
-		playerLeft = atlas.findRegion("Red_LEFT_64x64");
-		playerRight = atlas.findRegion("Red_RIGHT_64x64");
-		playerUp = atlas.findRegion("Red_UP_64x64");
-		playerDown = atlas.findRegion("Red_DOWN_64x64");
 		wallBlockTexture = atlas.findRegion("WallBlock_64x64");
 		pushBlockTexture = atlas.findRegion("PushBlock_64x64");
 		lavaBlockTexture = atlas.findRegion("Lava_64x64");
@@ -217,39 +209,38 @@ public class LevelRenderer {
 		VerticalDoorClosedTexture = atlas.findRegion("Vertical_Door_Closed_64x64");
 
 		TextureAtlas atlasAnimation = new TextureAtlas(Gdx.files.internal("data/images/animchar/animchar.txt"));
-		playerIdleLeft = atlasAnimation.findRegion("left-idle");
-		playerIdleRight = new TextureRegion(playerIdleLeft);
-		playerIdleRight.flip(true, false);
-		playerIdleDown = atlasAnimation.findRegion("down-idle");
-		playerIdleUp = new TextureRegion(playerIdleDown);
-		playerIdleUp.flip(false, true);
+		idleLeft = atlasAnimation.findRegion("left-idle");
+		idleRight = new TextureRegion(idleLeft);
+		idleRight.flip(true, false);
+		idleDown = atlasAnimation.findRegion("down-idle");
+		idleUp = new TextureRegion(idleDown);
+		idleUp.flip(false, true);
 
+		//Add textures for every step in the animation for each direction
 		TextureRegion[] walkLeftFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkLeftFrames[i] = atlasAnimation.findRegion("left-move-" + (i + 1));
 		}
-		walkLeftAnimation = new Animation(RUNNING_FRAME_DURATION, walkLeftFrames);
+		leftAnimation = new Animation(RUNNING_FRAME_DURATION, walkLeftFrames);
 
 		TextureRegion[] walkRightFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkRightFrames[i] = new TextureRegion(walkLeftFrames[i]);
 			walkRightFrames[i].flip(true, false);
 		}
-		walkRightAnimation = new Animation(RUNNING_FRAME_DURATION, walkRightFrames);
+		rightAnimation = new Animation(RUNNING_FRAME_DURATION, walkRightFrames);
 
 		TextureRegion[] walkDownFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkDownFrames[i] = atlasAnimation.findRegion("down-move-" + (i + 1));
 		}
-		walkDownAnimation = new Animation(RUNNING_FRAME_DURATION, walkDownFrames);
+		downAnimation = new Animation(RUNNING_FRAME_DURATION, walkDownFrames);
 
 		TextureRegion[] walkUpFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkUpFrames[i] = new TextureRegion(walkDownFrames[i]);
 			walkUpFrames[i].flip(false, true);
 		}
-		walkUpAnimation = new Animation(RUNNING_FRAME_DURATION, walkUpFrames);
+		upAnimation = new Animation(RUNNING_FRAME_DURATION, walkUpFrames);
 	}
-
-
 }
