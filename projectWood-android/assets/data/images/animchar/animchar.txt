@@ -1,0 +1,46 @@
+animchar.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+down-move-1
+  rotate: false
+  xy: 2, 230
+  size: 88, 74
+  orig: 100, 100
+  offset: 6, 16
+  index: -1
+left-move-2
+  rotate: false
+  xy: 2, 2
+  size: 94, 74
+  orig: 100, 100
+  offset: 3, 16
+  index: -1
+down-move-2
+  rotate: false
+  xy: 2, 78
+  size: 94, 74
+  orig: 100, 100
+  offset: 3, 16
+  index: -1
+left-move-1
+  rotate: false
+  xy: 2, 154
+  size: 88, 74
+  orig: 100, 100
+  offset: 6, 16
+  index: -1
+down-idle
+  rotate: false
+  xy: 2, 306
+  size: 88, 74
+  orig: 100, 100
+  offset: 6, 16
+  index: -1
+left-idle
+  rotate: true
+  xy: 2, 382
+  size: 68, 74
+  orig: 100, 100
+  offset: 16, 16
+  index: -1

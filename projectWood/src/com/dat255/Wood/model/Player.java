@@ -37,6 +37,8 @@ public class Player {
 	State state; //State, the players current state.
 	public FacingDirection direction;
 	
+	private float stateTime = 0; //Variable to know how far in one "step" the player has walked
+	
 	
 	
 	
@@ -78,6 +80,7 @@ public class Player {
 	//Moves the players position by the velocity times the time since last frame, in x and y. (we only use either only x or only y)
 	public void update(float delta)
 	{
+		stateTime = stateTime + delta;
 		position.add(velocity.cpy().scl(delta));
 	}
 	
@@ -110,6 +113,10 @@ public class Player {
 	public State getState()
 	{
 		return state;
+	}
+	public float getStateTime()
+	{
+		return stateTime;
 	}
 
 }
