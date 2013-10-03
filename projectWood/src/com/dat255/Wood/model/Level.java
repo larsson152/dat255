@@ -95,7 +95,7 @@ public class Level {
 				}
 				else if(c == 'G')
 				{
-					//New ButtonOnBlock
+					//New GoalBlock
 					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
 				}
 				else if(c == 's'){
