@@ -46,67 +46,67 @@ public class Level {
 
 				if(c == '1'){
 					//New WallBlock.
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, true,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, true,false,false);
 				}
 				else if(c == '2')
 				{
 					//New PushBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, true, true,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, true, true,false,false);
 				}
 				else if(c == '3')
 				{
 					//New WaterBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true,false);
 				}
 				else if(c == '4')
 				{
 					//New LavaBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true,false);
 				}
 				else if(c == '5')
 				{
 					//New SandBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == '6')
 				{
 					//New IceBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
 				}
 				else if(c == '7')
 				{
 					//New ButtonOnBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == '8')
 				{
 					//New ButtonOffBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == '9')
 				{
 					//New HorizontalDoorOpenBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 'A')
 				{
 					//New HorizontalDoorClosedBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 'G')
 				{
 					//New GoalBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 's'){
 					//The player is initialized to start at this position, and an empty block is added to the array as the player always start on a empty block.
 					player = new Player(new Vector2(x,y));
-					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 				else
 				{
 					//New Empty Block
-					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 
 			}

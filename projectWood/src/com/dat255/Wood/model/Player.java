@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
 	
 	public enum State{
-		IDLE, WALKING, DYING;
+		IDLE, WALKING, DYING, SLIDING;
 
 		State(){
 			

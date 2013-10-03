@@ -92,6 +92,10 @@ public class LevelController {
 	private void movePlayer(int dirX, int dirY)
 	{
 		player.setState(State.WALKING);
+		if(level.getBlocks()[(int) (player.getPosition().x + dirX)][(int) (player.getPosition().y + dirY)].isSlippery())
+		{
+			player.setState(State.SLIDING);
+		}
 		player.getVelocity().x = dirX * Player.SPEED;
 		player.getVelocity().y = dirY * Player.SPEED;
 		startXpos = player.getPosition().x;
@@ -100,12 +104,19 @@ public class LevelController {
 
 	private void stopPlayer(int incX, int incY)
 	{
-		player.setState(State.IDLE);
-		player.getAcceleration().x = 0;
-		player.getVelocity().x = 0;
-		player.getAcceleration().y = 0;
-		player.getVelocity().y = 0;
+		if(!(player.getState() == State.SLIDING && level.getBlocks()[(int) (startXpos + incX)][(int) (startYpos + incY)].isSlippery() && !level.getBlocks()[(int) (startXpos + (2 * incX))][(int) (startYpos + (2 * incY))].isSolid()))	
+		{
+			player.setState(State.IDLE);
+			player.getAcceleration().x = 0;
+			player.getVelocity().x = 0;
+			player.getAcceleration().y = 0;
+			player.getVelocity().y = 0;
+		}
 		player.getPosition().set(new Vector2(startXpos + incX, startYpos + incY));
+		startXpos = startXpos + incX;
+		startYpos = startYpos + incY;
+		
+		
 	}
 
 	//Determines if the player can move in a specific direction (char d).
@@ -131,8 +142,8 @@ public class LevelController {
 	
 	private boolean pushBlockToLiquid(int x, int y){
 		if(level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
-			level.getBlocks()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false);
-			level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false);	
+			level.getBlocks()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false);
+			level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false,false);	
 			return true;
 		}
 		
