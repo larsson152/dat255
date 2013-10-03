@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.dat255.Wood.model.Block;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
@@ -30,22 +31,22 @@ public class LevelRenderer {
 	private AtlasRegion playerDown;
 	private AtlasRegion wallBlockTexture;
 	private AtlasRegion pushBlockTexture;
-	
-	private SpriteBatch spriteBatch;
-	private boolean debug = false;
-	private int width;
-	private int height;
 	private AtlasRegion lavaBlockTexture;
 	private AtlasRegion iceBlockTexture;
 	private AtlasRegion waterBlockTexture;
 	private AtlasRegion sandBlockTexture;
 	private AtlasRegion goalBlockTexture;
-	private AtlasRegion buttonOnTexture;
-	private AtlasRegion buttonOffTexture;
-	private AtlasRegion horizontalDoorOpenTexture;
-	private AtlasRegion horizontalDoorClosedTexture;
-	private AtlasRegion verticalDoorOpenTexture;
-	private AtlasRegion VerticalDoorClosedTexture;
+	private AtlasRegion emptyBlockTexture;
+	private AtlasRegion redTeleportTexture;
+	private AtlasRegion greenTeleportTexture;
+	private AtlasRegion keyBlockTexture;
+	private AtlasRegion keyholeBlockTexture;
+	
+	private SpriteBatch spriteBatch;
+	private boolean debug = false;
+	private int width;
+	private int height;
+	
 	
 	public LevelRenderer(Level level, boolean debug)
 	{
@@ -109,7 +110,11 @@ public class LevelRenderer {
 				block = blocks[i][j];
 				if(block != null)
 				{
-					if(block.getBlockId() == '1')
+					if(block.getBlockId() == '0')
+					{
+						spriteBatch.draw(emptyBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '1')
 					{
 						spriteBatch.draw(wallBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
@@ -133,29 +138,26 @@ public class LevelRenderer {
 					{
 						spriteBatch.draw(iceBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					else if(block.getBlockId() == '7')
+					else if(block.getBlockId() == 'K')
 					{
-						spriteBatch.draw(buttonOnTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(keyBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					else if(block.getBlockId() == '8')
+					else if(block.getBlockId() == 'H')
 					{
-						spriteBatch.draw(buttonOffTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(keyholeBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					else if(block.getBlockId() == '9')
+					else if(block.getBlockId() == 'T')
 					{
-						spriteBatch.draw(horizontalDoorOpenTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(greenTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					else if(block.getBlockId() == 'A')
+					else if(block.getBlockId() == 't')
 					{
-						spriteBatch.draw(horizontalDoorClosedTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(redTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
+					
 					else if(block.getBlockId() == 'G')
 					{
 						spriteBatch.draw(goalBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
-					}
-					else if(block.getBlockId() == '0')
-					{
-						//Rita inget aka tomt block.
 					}
 				}
 			}
@@ -203,13 +205,11 @@ public class LevelRenderer {
 		waterBlockTexture = atlas.findRegion("Water_64x64");
 		sandBlockTexture = atlas.findRegion("Sand_64x64");
 		goalBlockTexture = atlas.findRegion("Goal_64x64");
-		buttonOnTexture = atlas.findRegion("Button_On_64x64");
-		buttonOffTexture = atlas.findRegion("Button_Off_64x64");
-		horizontalDoorOpenTexture = atlas.findRegion("Horizontal_Door_Open_64x64");
-		horizontalDoorClosedTexture = atlas.findRegion("Horizontal_Door_Closed_64x64");
-		verticalDoorOpenTexture = atlas.findRegion("Vertical_Door_Open_64x64");
-		VerticalDoorClosedTexture = atlas.findRegion("Vertical_Door_Closed_64x64");
-		
+		emptyBlockTexture = atlas.findRegion("EmptyBlock_64x64");
+		greenTeleportTexture = atlas.findRegion("Green_Teleport_64x64");
+		redTeleportTexture = atlas.findRegion("Red_Teleport_64x64");
+		keyBlockTexture = atlas.findRegion("Key_64x64");
+		keyholeBlockTexture = atlas.findRegion("Keyhole_64x64");
 	}
 	
 
