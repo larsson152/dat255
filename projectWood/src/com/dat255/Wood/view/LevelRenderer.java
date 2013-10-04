@@ -59,6 +59,12 @@ public class LevelRenderer {
 	private AtlasRegion goalBlockTexture;
 	private AtlasRegion buttonOnTexture;
 	private AtlasRegion ButtonOffTexture;
+	private AtlasRegion keyBlockTexture;
+	private AtlasRegion keyholeBlockTexture;
+	private AtlasRegion greenTeleportTexture;
+	private AtlasRegion redTeleportTexture;
+	private AtlasRegion emptyBlockTexture;
+
 	private AtlasRegion horizontalDoorOpenTexture;
 	private AtlasRegion horizontalDoorClosedTexture;
 	private AtlasRegion verticalDoorOpenTexture;
@@ -71,10 +77,10 @@ public class LevelRenderer {
 		this.orthoCamera.update(); //From libgdx API: Recalculates the projection and view matrix of this camera and the Frustum planes.
 		this.debug = debug;
 		spriteBatch = new SpriteBatch();
-		
+
 		loadTextures();
 	}
-	
+
 	/**
 	 * Renders the level. Draws blocks, draws the player and sets up the camera
 	 */
@@ -87,8 +93,8 @@ public class LevelRenderer {
 		spriteBatch.end();
 		this.orthoCamera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
 		orthoCamera.update();
-		
-		
+
+
 		if(debug == true)
 		{
 			//drawDebug();
@@ -117,7 +123,7 @@ public class LevelRenderer {
 		debugRenderer.rect(x1, y1, rect.width, rect.height);
 		debugRenderer.end();
 	}*/
-	
+
 	/**
 	 * Helpmethod that draws the blocks
 	 */
@@ -178,7 +184,7 @@ public class LevelRenderer {
 					{
 						spriteBatch.draw(redTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
-					
+
 					else if(block.getBlockId() == 'G')
 					{
 						spriteBatch.draw(goalBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
@@ -187,11 +193,11 @@ public class LevelRenderer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Helpmethod that draws the player
 	 */
-	
+
 	private void drawPlayer()
 	{
 
@@ -245,11 +251,11 @@ public class LevelRenderer {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	/**
 	 * Method that loads the textures.
 	 */
-	
+
 	private void loadTextures()
 	{
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/images/textures.pack"));
@@ -266,6 +272,12 @@ public class LevelRenderer {
 		horizontalDoorClosedTexture = atlas.findRegion("Horizontal_Door_Closed_64x64");
 		verticalDoorOpenTexture = atlas.findRegion("Vertical_Door_Open_64x64");
 		VerticalDoorClosedTexture = atlas.findRegion("Vertical_Door_Closed_64x64");
+		keyBlockTexture = atlas.findRegion("Key_64x64");
+		keyholeBlockTexture = atlas.findRegion("Keyhole_64x64");
+		greenTeleportTexture = atlas.findRegion("Green_Teleport_64x64");
+		redTeleportTexture = atlas.findRegion("Red_Teleport_64x64");
+		emptyBlockTexture = atlas.findRegion("EmptyBlock_64x64");
+
 
 		TextureAtlas atlasAnimation = new TextureAtlas(Gdx.files.internal("data/images/animchar/animchar.pack"));
 		idleLeft = atlasAnimation.findRegion("left-idle");

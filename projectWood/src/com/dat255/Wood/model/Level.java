@@ -16,15 +16,15 @@ public class Level {
 
 	//The player
 	private Player player;
-	
+
 	//An array containing all Blocks.
 	private Block[][] collisionLayer;
 	private float levelScore;
 
-	
 
-	
-	
+
+
+
 	/**
 	 * This method returns an array of blocks
 	 * @return An array of blocks.
@@ -67,17 +67,17 @@ public class Level {
 		collisionLayer = new Block[16][16];
 		FileHandle file = Gdx.files.internal("data/levels/level1.txt");
 		String text = file.readString();
-		
+
 		for(int y=15, z=0 ;y>=0 ;y--, z++){						
 			for(int x=0;x<=15;x++){
 				char c = text.charAt(x+z*18);
-				
+
 				//collisionLayer[x][y] = new Block(new Vector2(x,y), c, false, true);
 				if(c == '1'){
 					//New WallBlock.
 					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, true,false,false);
 				}
-				
+
 				else if(c == '2')
 				{
 					//New PushBlock
@@ -133,7 +133,7 @@ public class Level {
 					player = new Player(new Vector2(x,y));
 					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
-				
+
 				else
 				{
 					//New Empty Block
@@ -142,8 +142,8 @@ public class Level {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * This method switches place of two blocks in the level.
 	 * @param x1 The x-coordinate of the first block
@@ -156,11 +156,11 @@ public class Level {
 	{
 		Block temp = collisionLayer[x1][y1];
 		Block temp2 = collisionLayer[x2][y2];
-		
+
 		collisionLayer[x1][y1] = temp2;
 		collisionLayer[x2][y2] = temp;
 	}
-	
+
 	/**
 	 * This method sets the current worth of a level.
 	 * @s The value we want the level to be worth
@@ -169,7 +169,7 @@ public class Level {
 	public void setLevelScore(float s){
 		levelScore = s;				 
 	}
-	
+
 	/**
 	 * This method decrements the levelscore of the level. If the levelscore is 0
 	 * the decrementation does nothing.
@@ -180,7 +180,7 @@ public class Level {
 			levelScore--;
 		}
 	}
-	
+
 	/**
 	 * This method returns the current worth of the level.
 	 * @return The current levelscore
@@ -189,7 +189,7 @@ public class Level {
 	public float getLevelScore() {
 		return levelScore;	
 	}
-	
 
+}
 
 
