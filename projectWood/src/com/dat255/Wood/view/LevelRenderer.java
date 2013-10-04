@@ -19,7 +19,7 @@ public class LevelRenderer {
 	//CONSTANTS
 	//private static final float CAMERA_WIDTH = 9f;
 	//private static final float CAMERA_HEIGHT = 16f;
-	private static final float RUNNING_FRAME_DURATION = 0.125f;
+	private static final float WALKING_FRAME_DURATION = 0.175f;
 
 	private Level level;
 	private OrthographicCamera orthoCamera;
@@ -208,39 +208,37 @@ public class LevelRenderer {
 		verticalDoorOpenTexture = atlas.findRegion("Vertical_Door_Open_64x64");
 		VerticalDoorClosedTexture = atlas.findRegion("Vertical_Door_Closed_64x64");
 
-		TextureAtlas atlasAnimation = new TextureAtlas(Gdx.files.internal("data/images/animchar/animchar.txt"));
+		TextureAtlas atlasAnimation = new TextureAtlas(Gdx.files.internal("data/images/animchar/animchar.pack"));
 		idleLeft = atlasAnimation.findRegion("left-idle");
 		idleRight = new TextureRegion(idleLeft);
 		idleRight.flip(true, false);
 		idleDown = atlasAnimation.findRegion("down-idle");
-		idleUp = new TextureRegion(idleDown);
-		idleUp.flip(false, true);
+		idleUp = atlasAnimation.findRegion("up-idle");
 
 		//Add textures for every step in the animation for each direction
 		TextureRegion[] walkLeftFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkLeftFrames[i] = atlasAnimation.findRegion("left-move-" + (i + 1));
 		}
-		leftAnimation = new Animation(RUNNING_FRAME_DURATION, walkLeftFrames);
+		leftAnimation = new Animation(WALKING_FRAME_DURATION, walkLeftFrames);
 
 		TextureRegion[] walkRightFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkRightFrames[i] = new TextureRegion(walkLeftFrames[i]);
 			walkRightFrames[i].flip(true, false);
 		}
-		rightAnimation = new Animation(RUNNING_FRAME_DURATION, walkRightFrames);
+		rightAnimation = new Animation(WALKING_FRAME_DURATION, walkRightFrames);
 
 		TextureRegion[] walkDownFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
 			walkDownFrames[i] = atlasAnimation.findRegion("down-move-" + (i + 1));
 		}
-		downAnimation = new Animation(RUNNING_FRAME_DURATION, walkDownFrames);
+		downAnimation = new Animation(WALKING_FRAME_DURATION, walkDownFrames);
 
 		TextureRegion[] walkUpFrames = new TextureRegion[2];
 		for (int i = 0; i < 2; i++) {
-			walkUpFrames[i] = new TextureRegion(walkDownFrames[i]);
-			walkUpFrames[i].flip(false, true);
+			walkUpFrames[i] = atlasAnimation.findRegion("up-move-" + (i + 1));
 		}
-		upAnimation = new Animation(RUNNING_FRAME_DURATION, walkUpFrames);
+		upAnimation = new Animation(WALKING_FRAME_DURATION, walkUpFrames);
 	}
 }
