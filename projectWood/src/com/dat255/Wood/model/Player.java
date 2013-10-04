@@ -41,6 +41,8 @@ public class Player {
 	State state; //State, the players current state.
 	public FacingDirection direction;
 	
+	private float stateTime = 0; //Variable to know how far in one "step" the player has walked
+	
 	
 	/**
 	 * Constructor for the player.
@@ -94,6 +96,7 @@ public class Player {
 	 */
 	public void update(float delta)
 	{
+		stateTime = stateTime + delta;
 		position.add(velocity.cpy().scl(delta));
 	}
 	
@@ -141,6 +144,10 @@ public class Player {
 	public State getState()
 	{
 		return state;
+	}
+	public float getStateTime()
+	{
+		return stateTime;
 	}
 
 }
