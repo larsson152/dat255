@@ -106,22 +106,22 @@ public class Level {
 				else if(c == 'K')
 				{
 					//New KeyBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 'H')
 				{
 					//New KeyHoleBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 'T')
 				{
 					//New GreenTeleportBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 't')
 				{
 					//New RedTeleportBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
+					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
 				}
 				else if(c == 'G')
 				{
