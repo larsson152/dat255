@@ -13,6 +13,12 @@ import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.FacingDirection;
 
+
+
+/**
+ * This class renders the level and its objects
+ *
+ */
 public class LevelRenderer {
 	
 	//CONSTANTS
@@ -52,7 +58,11 @@ public class LevelRenderer {
 	private int width;
 	private int height;
 	
-	
+	/**
+	 * Constructor for LevelRenderer
+	 * @param level The level going to be rendered
+	 * @param debug 
+	 */
 	public LevelRenderer(Level level, boolean debug)
 	{
 		this.level = level;
@@ -65,6 +75,9 @@ public class LevelRenderer {
 		loadTextures();
 	}
 	
+	/**
+	 * Renders the level. Draws blocks, draws the player and sets up the camera
+	 */
 	public void render()
 	{
 		spriteBatch.setProjectionMatrix(orthoCamera.combined);
@@ -104,6 +117,10 @@ public class LevelRenderer {
 		debugRenderer.rect(x1, y1, rect.width, rect.height);
 		debugRenderer.end();
 	}*/
+	
+	/**
+	 * Helpmethod that draws the blocks
+	 */
 	
 	private void drawBlocks()
 	{
@@ -172,6 +189,10 @@ public class LevelRenderer {
 		}
 	}
 	
+	/**
+	 * Helpmethod that draws the player
+	 */
+	
 	private void drawPlayer()
 	{
 		Player player = level.getPlayer();
@@ -198,6 +219,10 @@ public class LevelRenderer {
 		this.width = width;
 		this.height = height;
 	}
+	
+	/**
+	 * Method that loads the textures.
+	 */
 	
 	private void loadTextures()
 	{
