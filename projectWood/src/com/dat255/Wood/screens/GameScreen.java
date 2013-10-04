@@ -4,6 +4,8 @@ package com.dat255.Wood.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,13 +16,18 @@ import com.dat255.Wood.controller.LevelController;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.view.LevelRenderer;
 
+
+/**
+ * This class represents a game screen where a dpad and score
+ * display is rendered.
+ *
+ */
 public class GameScreen implements Screen{
 
 	//INSTANCE VARIABLES
 	private Level level;
 	private LevelRenderer renderer;
 	private LevelController controller;
-
 	private Stage stage;
 	private int width;
 	private int height;
@@ -32,10 +39,14 @@ public class GameScreen implements Screen{
 	private ImageButton buttonCenter;
 	private ImageButton buttonLeft;
 
-
-	//From libgdx wiki:
-	//Method called by the game loop from the application every time rendering should be performed.
-	//Game logic updates are usually also performed in this method.
+	private SpriteBatch scoreBatch;
+	BitmapFont scoreFont;
+	
+	/**From libgdx wiki:
+	*Method called by the game loop from the application every time rendering should be performed.
+	*Game logic updates are usually also performed in this method.
+	*@param delta Seconds since last frame
+	 */
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
@@ -45,25 +56,32 @@ public class GameScreen implements Screen{
 		controller.update(delta);
 		renderer.render();
 		
+		scoreBatch.begin();
+		scoreFont.draw(scoreBatch,"score: "+ level.getLevelScore(), 25, 100);
+		scoreBatch.end();
+		
 		stage.act(delta);
 		stage.draw();
 	}
 
-	//From libgdx wiki:
-	//This method is called every time the game screen is re-sized and the game is not in the paused state.
-	//It is also called once just after the create() method.
-	//
-	//The parameters are the new width and height the screen has been resized to in pixels.
+	/**From libgdx wiki:
+	*This method is called every time the game screen is re-sized and the game is not in the paused state.
+	*It is also called once just after the create() method.
+	*The parameters are the new width and height the screen has been resized to in pixels.
+	*@param width new width in pixels
+	*@param height new height in pixels
+	*/
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		renderer.setSize(width, height);
 		this.width = width;
 		this.height = height;
 	}
 
-	//From libgdx API documentation:
-	//Called when this screen becomes the current screen for a Game.
+	/**From libgdx API documentation:
+	 *Called when this screen becomes the current screen for a Game.
+	 *The method also sets up the d-pad and scoredisplay. 
+	 */
 	@Override
 	public void show() {
 
@@ -78,6 +96,11 @@ public class GameScreen implements Screen{
 		atlas = new TextureAtlas("data/images/dpad/dpad.txt");
 		dpadSkin = new Skin(atlas);
 		
+		//Set up the score display
+		scoreBatch = new SpriteBatch();
+		scoreFont = new BitmapFont();
+		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
+		
 		//Call the function for adding the d-pad
 		addDpad();
 		//Add Actors for all direction buttons
@@ -88,6 +111,10 @@ public class GameScreen implements Screen{
 		stage.addActor(buttonCenter);
 
 	}
+	
+	/**
+	 * This method adds the whole d-pad to the screen.
+	 */
 
 	private void addDpad() {
 		addDpadCenter();
@@ -111,18 +138,18 @@ public class GameScreen implements Screen{
 		//Add listener to make it clickable
 		buttonDown.addListener(new ClickListener(){
 			
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-			{
-				controller.downPressed();
-				return true;
-			}
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+		{
+			controller.downPressed();
+			return true;
+		}
 			
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
-			{
+		@Override
+		public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+		{
 				controller.downReleased();
-			}
+		}
 		});
 	}
 

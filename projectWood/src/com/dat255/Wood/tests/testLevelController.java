@@ -1,4 +1,4 @@
-package com.dat255.Wood.tests;
+/*package com.dat255.Wood.tests;
 
 import junit.framework.TestCase;
 
@@ -65,4 +65,4 @@ public void testBlockPosY(){
 }
 
 
-}
+}*/

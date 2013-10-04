@@ -3,44 +3,114 @@ textures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-Block_64x64
+EmptyBlock_64x64
   rotate: false
-  xy: 2, 2
+  xy: 1, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-GroundBlock_64x64
+Goal_64x64
   rotate: false
-  xy: 68, 2
+  xy: 1, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Green_Teleport_64x64
+  rotate: false
+  xy: 67, 133
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Ice_64x64
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Keyhole_64x64
+  rotate: false
+  xy: 67, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Key_64x64
+  rotate: false
+  xy: 133, 133
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Lava_64x64
+  rotate: false
+  xy: 67, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+PushBlock_64x64
+  rotate: false
+  xy: 133, 67
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Red_DOWN_64x64
   rotate: false
-  xy: 134, 2
+  xy: 199, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Red_LEFT_64x64
   rotate: false
-  xy: 200, 2
+  xy: 133, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Red_RIGHT_64x64
   rotate: false
-  xy: 266, 2
+  xy: 199, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Red_Teleport_64x64
+  rotate: false
+  xy: 265, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Red_UP_64x64
   rotate: false
-  xy: 332, 2
+  xy: 199, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Sand_64x64
+  rotate: false
+  xy: 265, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+WallBlock_64x64
+  rotate: false
+  xy: 331, 133
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Water_64x64
+  rotate: false
+  xy: 265, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

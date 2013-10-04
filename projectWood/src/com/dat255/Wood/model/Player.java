@@ -3,16 +3,28 @@ package com.dat255.Wood.model;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * This class represents the player ingame.
+ */
+
 public class Player {
 	
 	public enum State{
-		IDLE, WALKING, DYING
+		IDLE, WALKING, DYING, SLIDING;
+
+		State(){
+			
+		}
 	}
 	
 	//FACING DIRECTIONS
 	public enum FacingDirection
 	{
-		LEFT, RIGHT, UP, DOWN
+		LEFT, RIGHT, UP, DOWN;
+		
+		FacingDirection(){
+			
+		}
 	}
 	
 	
@@ -20,6 +32,8 @@ public class Player {
 	public static final float SPEED = 2f;
 	public static final float SIZE = 1f;
 	
+	private String name;
+	private int score;
 	private Vector2 position; //Position Vector with X and Y components.
 	private Vector2 acceleration; //Acceleration Vector with X and Y components.
 	private Vector2 velocity; //Velocity Vector with X and Y components.
@@ -27,10 +41,15 @@ public class Player {
 	State state; //State, the players current state.
 	public FacingDirection direction;
 	
+	private float stateTime = 0; //Variable to know how far in one "step" the player has walked
 	
 	
+	/**
+	 * Constructor for the player.
+	 * @param position A vector with a position
+	 */
 	
-	//CONSTRUCTOR
+	
 	public Player(Vector2 position)
 	{
 		this.position = position;
@@ -41,66 +60,94 @@ public class Player {
 		this.direction = FacingDirection.DOWN;
 	}
 	
-	//Returns the players bounding box.
+	//Empty contructor for Serialization
+	public Player(){
+		
+	}
+
+	
+	/**Returns the players bounding box.
+	 * @return bounds The bounding box
+	 */
+	
 	public Rectangle getBounds()
 	{
 		return bounds;
 	}
 	
-	//Returns the players position.
+	/**Returns the players position.
+	 * @return position The player position
+	 */
 	public Vector2 getPosition()
 	{
 		return position;
 	}
 	
-	//Changes the players state to newState.
+	/**Changes the players state to newState.
+	 * @param newState The state to be set
+	 */
 	public void setState(State newState)
 	{
 		this.state = newState;
 	}
 	
-	//Moves the players position by the velocity times the time since last frame, in x and y. (we only use either only x or only y)
+	/**Moves the players position by the velocity times the time since last frame, in x and y. (we only use either only x or only y)
+	 * @param delta Time since last frame
+	 */
 	public void update(float delta)
 	{
+		stateTime = stateTime + delta;
 		position.add(velocity.cpy().scl(delta));
 	}
 	
-	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
-	public void setFacingLeft(boolean facingLeft)
+	/**Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
+	 * @param facingDirection The direction we switch to
+	 */
+	public void setFacingDirection(FacingDirection facingDirection)
 	{
-		if(facingLeft)
-		{
-			this.direction = FacingDirection.LEFT;
-		}
-		else if(!facingLeft)
-		{
-			this.direction = FacingDirection.RIGHT;
-		}
+		this.direction = facingDirection;
 	}
 	
-	//Sets the players direction which it faces. (The renderer will use this to know which texture to draw.)
-	public void setFacingUp(boolean facingUp)
-	{
-		if(facingUp)
-		{
-			this.direction = FacingDirection.UP;
-		}
-		else if(!facingUp)
-		{
-			this.direction = FacingDirection.DOWN;
-		}		
-	}
-	
-	//Returns the player acceleration vector.
+	/**Returns the player acceleration vector.
+	 * @return acceleration The acceleration of the player
+	 */
 	public Vector2 getAcceleration()
 	{
 		return acceleration;
 	}
 	
-	//Returns the players velocity vector.
+	/**Returns the players velocity vector.
+	 * @return velocity A vector with velocity
+	 */
 	public Vector2 getVelocity()
 	{
 		return velocity;
+	}
+	
+	/**Returns the player name
+	 * @return name The name of the player
+	 */
+	public String getName(){
+		return name;
+	}
+	
+	/**Returns the score of the player
+	 * @return score The score of the player
+	 */
+	public int getScore(){
+		return score;
+	}
+	
+	/**Returns the current state of the player
+	 * @return state The current state of the player.
+	 */
+	public State getState()
+	{
+		return state;
+	}
+	public float getStateTime()
+	{
+		return stateTime;
 	}
 
 }
