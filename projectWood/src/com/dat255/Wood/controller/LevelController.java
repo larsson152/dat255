@@ -9,6 +9,13 @@ import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
 
+
+/**
+ * This controller class is a supervisor for all activities on a level.
+ * on a level. It makes sure the timer ticks and the state of the level,
+ * whether it is completed or the game is paused.
+ *
+ */
 public class LevelController {
 
 	
@@ -37,6 +44,14 @@ public class LevelController {
 		keys.put(Keys.DOWN, false);
 	};
 
+	/**
+	 * Constructor for LevelController.
+	 * It loads a level and a player and sets all starting
+	 * booleans to proper values
+	 * @param level The level that will be loaded
+	 *
+	 */
+	
 	public LevelController(Level level)
 	{
 		this.level = level;
@@ -87,6 +102,15 @@ public class LevelController {
 	{
 		keys.put(Keys.DOWN, false);
 	}
+	
+	/**
+	 * This method is run repeatedly. It increases the timer as long
+	 * as the game is not paused or gameover has been activated.
+	 * The timer will also only tick if a second has passed. It also
+	 * checks for input from the user. It also looks for interactions with
+	 * different kinds of blocks.
+	 * @param delta Seconds since last frame
+	 */
 
 	public void update(float delta)
 	{
@@ -106,6 +130,12 @@ public class LevelController {
 		
 
 	}
+	
+	/**
+	* This method moves the player 
+	* @param dirX X-coordinate
+	* @param dirY Y-coordinate
+	*/
 
 	private void movePlayer(int dirX, int dirY)
 	{

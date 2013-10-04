@@ -4,6 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 
+
+
+/**
+ * This class represents a level in the game. It will contain 
+ * the player and a certain amounts of blocks with various attributes.
+ * A level is also worth a certain amount of points.
+ *
+ */
 public class Level {
 
 	//The player
@@ -13,27 +21,46 @@ public class Level {
 	private Block[][] collisionLayer;
 	private float levelScore;
 
-	//Get functions
+	
 
-	//Get the blocks
+	
+	
+	/**
+	 * This method returns an array of blocks
+	 * @return An array of blocks.
+	 *
+	 */
 	public Block[][] getBlocks()
 	{
 		return collisionLayer;
 	}
 
-	//Get the player
+	/**
+	 * This method returns the player for the game.
+	 * @return The player
+	 *
+	 */
 	public Player getPlayer()
 	{
 		return player;
 	}
 
-	//CONSTRUCTOR
+	/**
+	 * The constructor immediately creates a level with the 
+	 * createLevel method. (see below)
+	 *
+	 */
 	public Level()
 	{
 		createLevel();
 	}
 
-	//Creates a for now test Level
+	/**
+	 * This method creates our level. It reads a level from a textfile
+	 * and generates the level accordingly. It sets up the players location,
+	 * blocks of various kinds and the worth of the level in score.
+	 *
+	 */
 	private void createLevel()
 	{
 		setLevelScore(20);
@@ -70,7 +97,15 @@ public class Level {
 		}
 	}
 	
-	//Swaps two blocks in the current level. 
+	
+	/**
+	 * This method switches place of two blocks in the level.
+	 * @param x1 The x-coordinate of the first block
+	 * @param y1 The y-coordinate of the first block
+	 * @param x2 The x-coordinate of the second block
+	 * @param y2 The y-coordinate of the second block
+	 *
+	 */
 	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
 	{
 		Block temp = collisionLayer[x1][y1];
@@ -80,20 +115,31 @@ public class Level {
 		collisionLayer[x2][y2] = temp;
 	}
 	
-
-	
+	/**
+	 * This method sets the current worth of a level.
+	 * @s The value we want the level to be worth
+	 *
+	 */
 	public void setLevelScore(float s){
-		levelScore = s;				//Sets the current worth of the level.
+		levelScore = s;				 
 	}
 	
+	/**
+	 * This method decrements the levelscore of the level. If the levelscore is 0
+	 * the decrementation does nothing.
+	 *
+	 */
 	public void decrementScore(){
 		if(levelScore > 0){
 			levelScore--;
-		}else{
-			levelScore = 0;
 		}
 	}
-
+	
+	/**
+	 * This method returns the current worth of the level.
+	 * @return The current levelscore
+	 *
+	 */
 	public float getLevelScore() {
 		return levelScore;	
 	}
