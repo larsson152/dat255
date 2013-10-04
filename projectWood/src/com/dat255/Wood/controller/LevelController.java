@@ -198,6 +198,24 @@ public class LevelController {
 		
 		return false;
 	}
+	
+	//Om spelaren står på ett teleportBlock så teleporteras spelaraen till teleportBlockets tviling block
+	public void teleportPlayer(){
+		
+		char tpBlockId = (char) level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
+		
+		if(tpBlockId!='T' && tpBlockId!='t')
+			return;
+		
+		for(int x=0;x<16;x++){						
+			for(int y=0;y<16;y++){
+				if(level.getBlocks()[x][y].getBlockId()==tpBlockId && !(new Vector2((float)x,(float)y).equals(level.getPlayer().getPosition()))){
+					level.getPlayer().getPosition().set(new Vector2((float)x,(float)y));
+					return;
+				}
+			}
+		}		
+	}
 
 	private void processInput()
 	{
@@ -246,21 +264,25 @@ public class LevelController {
 			{
 				stopPlayer(1,0);
 				rightReleased();
+				teleportPlayer();
 			}
 			else if ((player.getPosition().y - startYpos) > 1)
 			{
 				stopPlayer(0,1);
 				upReleased();
+				teleportPlayer();
 			}
 			else if (Math.abs((player.getPosition().x - startXpos)) > 1)
 			{
 				stopPlayer(-1,0);
 				leftReleased();
+				teleportPlayer();
 			}
 			else if (Math.abs((player.getPosition().y - startYpos)) > 1)
 			{
 				stopPlayer(0,-1);
 				downReleased();
+				teleportPlayer();
 			}
 		}
 
