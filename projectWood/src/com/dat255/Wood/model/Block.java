@@ -11,16 +11,18 @@ public class Block {
 	public static final float SPEED = 2.5f;
 	public static final float SIZE = 1f;
 	
-	private int blockId;
+	private char blockId;
 	private Vector2 position;
 	private Vector2 velocity; //Velocity Vector with X and Y components.
 	private Rectangle bounds;
 	
 	private boolean moveable = false;
 	private boolean solid = false;
+	private boolean liquid = false;
+	private boolean slippery = false;
 	
 	//CONSTRUCTOR
-	public Block(Vector2 position, int blockId, boolean moveable, boolean solid)
+	public Block(Vector2 position, char blockId, boolean moveable, boolean solid, boolean liquid, boolean slippery)
 	{
 		this.position = position;
 		this.velocity = new Vector2();
@@ -28,6 +30,8 @@ public class Block {
 		this.blockId = blockId;
 		this.moveable = moveable;
 		this.solid = solid;
+		this.liquid = liquid;
+		this.slippery = slippery;
 	}
 	
 	//Returns the bounding box of the block.
@@ -71,5 +75,14 @@ public class Block {
 	{
 		return solid;
 	}
+	
+	public boolean isLiquid()
+	{
+		return liquid;
+	}
 
+	public boolean isSlippery()
+	{
+		return slippery;
+	}
 }
