@@ -38,9 +38,9 @@ public class GameScreen implements Screen{
 	private ImageButton buttonRight;
 	private ImageButton buttonCenter;
 	private ImageButton buttonLeft;
-
+	
 	private SpriteBatch scoreBatch;
-	BitmapFont scoreFont;
+	private BitmapFont scoreFont;
 	
 	/**From libgdx wiki:
 	*Method called by the game loop from the application every time rendering should be performed.
@@ -57,7 +57,7 @@ public class GameScreen implements Screen{
 		renderer.render();
 		
 		scoreBatch.begin();
-		scoreFont.draw(scoreBatch,"score: "+ level.getLevelScore(), 25, 100);
+		scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ level.getLevelScore(), 25, 100);
 		scoreBatch.end();
 		
 		stage.act(delta);
