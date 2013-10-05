@@ -19,7 +19,7 @@ public class WoodGame extends Game {
 	private GameScreen gameScreen;
 	private SplashScreen splashScreen;
 	private GameClient client;
-	private Player player;
+	private String name;
 	
 	//From libgdx wiki: Method called once when the application is created.
 	@Override
@@ -41,5 +41,9 @@ public class WoodGame extends Game {
 		
 		client.getClient().sendTCP(null);
 		
+	}
+	
+	public void setName(String name){
+		this.name = name;
 	}
 }
