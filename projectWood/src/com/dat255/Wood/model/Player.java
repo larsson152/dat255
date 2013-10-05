@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
 	
 	public enum State{
-		IDLE, WALKING, DYING, SLIDING;
+		IDLE, WALKING, DEAD, SLIDING;
 
 		State(){
 			
@@ -42,6 +42,8 @@ public class Player {
 	public FacingDirection direction;
 	
 	private float stateTime = 0; //Variable to know how far in one "step" the player has walked
+	
+	private boolean hasKey;  //if true if player has picked up a key
 	
 	
 	/**
@@ -148,6 +150,14 @@ public class Player {
 	public float getStateTime()
 	{
 		return stateTime;
+	}
+	
+	public boolean hasKey(){
+		return hasKey;
+	}
+	
+	public void setKey(boolean keyValue){
+		hasKey=keyValue;
 	}
 
 }
