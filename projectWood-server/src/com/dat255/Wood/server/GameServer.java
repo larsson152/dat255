@@ -1,14 +1,11 @@
 package com.dat255.Wood.server;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.ArrayMap;
 import com.dat255.Wood.model.Player;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
@@ -17,10 +14,10 @@ import com.esotericsoftware.minlog.Log;
 public class GameServer {
 
 	private Server server;
-	private HashMap<String, Integer> userMap;
-	
+	private ArrayMap<String, Integer> scoreMap;
 
 	public GameServer() throws IOException{
+		scoreMap = new ArrayMap<String,Integer>(1000);
 		server = new Server();
 		registerPackets();
 		NetworkListener nl = new NetworkListener();
@@ -28,8 +25,6 @@ public class GameServer {
 		server.addListener(nl);
 		server.bind(1337);
 		server.start();
-		userMap = new HashMap<String, Integer>();
-		addNewUser(null);
 	}
 
 	private void registerPackets(){
@@ -46,32 +41,28 @@ public class GameServer {
 		try {
 			new GameServer();
 			Log.set(Log.LEVEL_DEBUG);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-	}
-	
-	public void addNewUser(Player player){
-	
-		userMap.put("patrik", 999);
-		userMap.put("kirtap", 500);
-		userMap.put("rikpat", 100);
-		//sort();
-		System.out.println(userMap);
+
 	}
 	
 	public Server getServer(){
-		return this.server;
+		return server;
 	}
-	
-	public Integer getScore(String name){
 
-		return null;
+	public ArrayMap<String,Integer> getScoreMap(){
+		return scoreMap;
 	}
-	
-	public HashMap<String, Integer> getHighscore(){
-		return userMap;
+
+	public void addPlayer(String name){
+		if(!scoreMap.containsKey(name)){
+			scoreMap.put(name, 0);
+		}
 	}
+
+	public void updateScore(String name, int score){
+		scoreMap.put(name, score);		
+	}
+
 }

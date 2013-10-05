@@ -1,7 +1,8 @@
-package com.dat255.Wood.model;
+package com.dat255.Wood.controller;
 
-import java.util.HashMap;
-
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ArrayMap;
+import com.dat255.Wood.model.GameClient;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -22,9 +23,10 @@ public class NetworkListener extends Listener {
 	}
 
 	public void received(Connection c, Object o) {
-		if(o instanceof Player){
-			System.out.println("[CLIENT] Player was successfully sent and recieved!");
-		}else if (o instanceof HashMap){
+		if(o instanceof ArrayMap){
+			ArrayMap<String, Integer> o2 = (ArrayMap<String, Integer>) o;
+			gClient.getHighScore().setHighScore(o2);			
+		}else if (o instanceof Array){
 			System.out.println("[CLIENT] Recieved High Score.");
 		}
 	}
