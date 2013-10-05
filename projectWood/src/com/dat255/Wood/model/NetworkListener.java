@@ -14,12 +14,11 @@ public class NetworkListener extends Listener {
 	}
 	
 	public void connected(Connection arg0) {
-		System.out.println("[CLIENT] You have connected.");
-		gClient.getClient().sendTCP(gClient.getPlayer());
+		System.out.println("[CLIENT] You are now connected.");
 	}
 
 	public void disconnected(Connection arg0) {
-		System.out.println("[CLIENT] You have disconnected.");
+		System.out.println("[CLIENT] You are now disconnected.");
 	}
 
 	public void received(Connection c, Object o) {

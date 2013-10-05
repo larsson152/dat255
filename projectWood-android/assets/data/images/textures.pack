@@ -3,42 +3,42 @@ textures.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-Button_Off_64x64
+EmptyBlock_64x64
   rotate: false
   xy: 1, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Button_On_64x64
+Goal_64x64
   rotate: false
   xy: 1, 67
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Goal_64x64
+Green_Teleport_64x64
   rotate: false
   xy: 67, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Horizontal_Door_Closed_64x64
+Ice_64x64
   rotate: false
   xy: 1, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Horizontal_Door_Open_64x64
+Keyhole_64x64
   rotate: false
   xy: 67, 67
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Ice_64x64
+Key_64x64
   rotate: false
   xy: 133, 133
   size: 64, 64
@@ -80,44 +80,37 @@ Red_RIGHT_64x64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Red_UP_64x64
+Red_Teleport_64x64
   rotate: false
   xy: 265, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Sand_64x64
+Red_UP_64x64
   rotate: false
   xy: 199, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Vertical_Door_Closed_64x64
+Sand_64x64
   rotate: false
   xy: 265, 67
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-Vertical_Door_Open_64x64
+WallBlock_64x64
   rotate: false
   xy: 331, 133
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-WallBlock_64x64
-  rotate: false
-  xy: 265, 1
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 Water_64x64
   rotate: false
-  xy: 331, 67
+  xy: 265, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
