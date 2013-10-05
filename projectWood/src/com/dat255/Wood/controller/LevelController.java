@@ -173,6 +173,8 @@ public class LevelController {
 	{
 		int deltaX = dX;
 		int deltaY = dY;
+		
+		unlockDoor(dX,dY);
 
 		if((level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isMoveable()) && 
 				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].isSolid() == false))
@@ -188,7 +190,7 @@ public class LevelController {
 		return (!(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isSolid()));
 
 	}
-	
+	//If a block is on a liquid block,  replaces them both with ground blocks
 	private boolean pushBlockToLiquid(int x, int y){
 		if(level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
 			level.getBlocks()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false);
@@ -199,7 +201,7 @@ public class LevelController {
 		return false;
 	}
 	
-	//Om spelaren står på ett teleportBlock så teleporteras spelaraen till teleportBlockets tviling block
+	//Teleports the player between 2 twin teleports block
 	public void teleportPlayer(){
 		
 		char tpBlockId = (char) level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
@@ -215,6 +217,32 @@ public class LevelController {
 				}
 			}
 		}		
+	}
+	//picks upp a key if player dont have one
+	public void isOnKey(){
+		if(level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
+			if(!player.hasKey()){
+			player.setKey(true);
+			level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
+			}
+			
+		}
+	}
+	//if player has a key ,removes the players key and replaces the door with a ground block
+	public void unlockDoor(int dx,int dy){
+		if((level.getBlocks()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
+			level.getPlayer().setKey(false);
+			level.getBlocks()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
+		}
+		
+	}
+	
+	public void doBlockLogic(){
+		if(!((level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0')){
+			teleportPlayer();
+			isOnKey();
+		
+		}
 	}
 
 	private void processInput()
@@ -264,25 +292,25 @@ public class LevelController {
 			{
 				stopPlayer(1,0);
 				rightReleased();
-				teleportPlayer();
+				doBlockLogic();
 			}
 			else if ((player.getPosition().y - startYpos) > 1)
 			{
 				stopPlayer(0,1);
 				upReleased();
-				teleportPlayer();
+				doBlockLogic();
 			}
 			else if (Math.abs((player.getPosition().x - startXpos)) > 1)
 			{
 				stopPlayer(-1,0);
 				leftReleased();
-				teleportPlayer();
+				doBlockLogic();
 			}
 			else if (Math.abs((player.getPosition().y - startYpos)) > 1)
 			{
 				stopPlayer(0,-1);
 				downReleased();
-				teleportPlayer();
+				doBlockLogic();
 			}
 		}
 
