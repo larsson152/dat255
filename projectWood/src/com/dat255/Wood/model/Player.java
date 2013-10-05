@@ -7,6 +7,10 @@ import com.badlogic.gdx.math.Vector2;
  * This class represents the player ingame.
  */
 
+/**
+ * @author
+ *
+ */
 public class Player {
 
 	public enum State{
@@ -152,18 +156,32 @@ public class Player {
 		return stateTime;
 	}
 
+	/**
+	 * @return True if the player has at least one key. False otherwise.
+	 */
 	public boolean hasKey(){
 		if( keys > 0)
 			return true;
 		return false;
 	}
 
+	/**
+	 * Increases the number of keys the player has by one.
+	 */
 	public void increaseKey(){
 		keys += 1;
 	}
+	
+	/**
+	 * Decreases the number of keys the player has by one.
+	 */
 	public void decreaseKey(){
 		keys -= 1;
 	}
+	
+	/**
+	 * @return keys the number of keys the player has.
+	 */
 	public int getNoOfKeys() {
 		return keys;
 	}
