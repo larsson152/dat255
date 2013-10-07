@@ -93,7 +93,7 @@ public class GameScreen implements Screen{
 		controller = new LevelController(level);
 		
 		//Create the skin for the d-pad
-		atlas = new TextureAtlas("textures/dpad.txt");
+		atlas = new TextureAtlas("data/images/dpad/dpad.txt");
 		dpadSkin = new Skin(atlas);
 		
 		//Set up the score display

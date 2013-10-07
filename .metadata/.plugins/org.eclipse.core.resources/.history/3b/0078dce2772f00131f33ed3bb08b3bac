@@ -65,7 +65,7 @@ public class Level {
 	{
 		setLevelScore(20);
 		collisionLayer = new Block[16][16];
-		FileHandle file = Gdx.files.internal("levels/level1.txt");
+		FileHandle file = Gdx.files.internal("data/levels/level1.txt");
 		String text = file.readString();
 
 		for(int y=15, z=0 ;y>=0 ;y--, z++){						

@@ -55,11 +55,12 @@ public class LevelRenderer {
 	private AtlasRegion fireBlockTexture;
 	private AtlasRegion iceBlockTexture;
 	private AtlasRegion waterBlockTexture;
+	private AtlasRegion sandBlockTexture;
 	private AtlasRegion goalBlockTexture;
 	private AtlasRegion keyBlockTexture;
 	private AtlasRegion keyholeBlockTexture;
-	private AtlasRegion yellowTeleportTexture;
-	private AtlasRegion blueTeleportTexture;
+	private AtlasRegion greenTeleportTexture;
+	private AtlasRegion redTeleportTexture;
 	private AtlasRegion groundBlockTexture;
 	private AtlasRegion emptyBlockTexture;
 	
@@ -154,6 +155,10 @@ public class LevelRenderer {
 					{
 						spriteBatch.draw(fireBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
+					else if(block.getBlockId() == '5')
+					{
+						spriteBatch.draw(sandBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
 					else if(block.getBlockId() == '6')
 					{
 						spriteBatch.draw(iceBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
@@ -168,12 +173,13 @@ public class LevelRenderer {
 					}
 					else if(block.getBlockId() == 'T')
 					{
-						spriteBatch.draw(yellowTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(greenTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
 					else if(block.getBlockId() == 't')
 					{
-						spriteBatch.draw(blueTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(redTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
+
 					else if(block.getBlockId() == 'G')
 					{
 						spriteBatch.draw(goalBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
@@ -255,11 +261,22 @@ public class LevelRenderer {
 		goalBlockTexture = atlas.findRegion("finish");
 		keyBlockTexture = atlas.findRegion("key");
 		keyholeBlockTexture = atlas.findRegion("lock");
-		yellowTeleportTexture = atlas.findRegion("yellowTeleport");
-		blueTeleportTexture = atlas.findRegion("blueTeleport");
+		greenTeleportTexture = atlas.findRegion("yellowTeleport");
+		redTeleportTexture = atlas.findRegion("blueTeleport");
 		groundBlockTexture = atlas.findRegion("ground");
 		fireBlockTexture = atlas.findRegion("fire");
 		emptyBlockTexture = atlas.findRegion("empty");
+		
+		//Texturer som inte används
+		/*
+		sandBlockTexture = atlas.findRegion("Sand_64x64");
+		horizontalDoorOpenTexture = atlas.findRegion("Horizontal_Door_Open_64x64");
+		horizontalDoorClosedTexture = atlas.findRegion("Horizontal_Door_Closed_64x64");
+		verticalDoorOpenTexture = atlas.findRegion("Vertical_Door_Open_64x64");
+		VerticalDoorClosedTexture = atlas.findRegion("Vertical_Door_Closed_64x64");
+		buttonOnTexture = atlas.findRegion("Button_On_64x64");
+		ButtonOffTexture = atlas.findRegion("Button_Off_64x64");*/
+
 		
 		//Character textures
 		TextureAtlas atlasAnimation = new TextureAtlas(Gdx.files.internal("textures/animchar.pack"));

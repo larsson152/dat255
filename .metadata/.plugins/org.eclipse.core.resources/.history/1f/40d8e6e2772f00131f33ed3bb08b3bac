@@ -57,12 +57,12 @@ public class MainMenu implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 
-		atlas = new TextureAtlas("textures/button.pack");
+		atlas = new TextureAtlas("buttons/button.pack");
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		white = new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false);
+		white = new BitmapFont(Gdx.files.internal("data/fonts/font.fnt"), false);
 
 		TextButtonStyle exitTextButtonStyle = new TextButtonStyle();
 		exitTextButtonStyle.up = skin.getDrawable("buttonExit.up");
@@ -79,7 +79,7 @@ public class MainMenu implements Screen {
 
 		});
 
-		backgroundSprite = new Sprite(new Texture("images/MenuBackground.png"));
+		backgroundSprite = new Sprite(new Texture("img/MenuBackground.png"));
 		backgroundSpriteDraw = new SpriteDrawable(backgroundSprite);
 
 		TextButtonStyle playTextButtonStyle = new TextButtonStyle();

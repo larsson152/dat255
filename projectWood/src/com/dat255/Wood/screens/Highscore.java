@@ -37,7 +37,7 @@ public class Highscore implements Screen {
 	@Override
 	public void show() {
         spriteBatch = new SpriteBatch();
-        hsTexture = new Texture(Gdx.files.internal("data/images/highscore.png"));
+        hsTexture = new Texture(Gdx.files.internal("images/highscore.png"));
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class UserNameScreen implements Screen {
 	@Override
 	public void show() {
         spriteBatch = new SpriteBatch();
-        connTexture = new Texture(Gdx.files.internal("data/images/connecting.png"));
+        connTexture = new Texture(Gdx.files.internal("images/connecting.png"));
         
         UserTextInputListener listener = new UserTextInputListener(game);
         Gdx.input.getTextInput(listener, "Enter username", "");
