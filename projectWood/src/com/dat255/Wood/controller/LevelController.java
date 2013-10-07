@@ -33,6 +33,7 @@ public class LevelController {
 	private Player player;
 	private float startXpos, startYpos, actionBlockStartXpos, actionBlockStartYpos;
 	private Block actionBlock = null;
+	private Block oldActionBlockGround = null;
 
 	static HashMap<LevelController.Keys, Boolean> keys = new HashMap<LevelController.Keys, Boolean>();
 
@@ -246,14 +247,20 @@ public class LevelController {
 	{
 		Block[][] collisionLayer = level.getBlocks();
 		
+		if(oldActionBlockGround == null)
+		{
+			oldActionBlockGround = new Block(new Vector2(x1,y1), '0', false, false,false,false);
+		}
+		
 		Block temp = collisionLayer[x1][y1];
 		Block temp2 = collisionLayer[x2][y2];
 		
 		temp.getPosition().set(x2, y2);
-		temp2.getPosition().set(x1, y1);
 
-		collisionLayer[x1][y1] = temp2;
+		collisionLayer[x1][y1] = oldActionBlockGround;
 		collisionLayer[x2][y2] = temp;
+		
+		oldActionBlockGround = temp2;
 	}
 
 	private void processInput()
