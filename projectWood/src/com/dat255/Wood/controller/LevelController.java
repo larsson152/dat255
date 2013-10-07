@@ -160,7 +160,7 @@ public class LevelController {
 			player.getAcceleration().y = 0;
 			player.getVelocity().y = 0;
 		}
-		player.getPosition().set(new Vector2(startXpos + incX, startYpos + incY));
+		player.getPosition().set(startXpos + incX, startYpos + incY);
 		startXpos = startXpos + incX;
 		startYpos = startYpos + incY;
 		
@@ -241,6 +241,20 @@ public class LevelController {
 		
 		}
 	}
+	
+	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
+	{
+		Block[][] collisionLayer = level.getBlocks();
+		
+		Block temp = collisionLayer[x1][y1];
+		Block temp2 = collisionLayer[x2][y2];
+		
+		temp.getPosition().set(x2, y2);
+		temp2.getPosition().set(x1, y1);
+
+		collisionLayer[x1][y1] = temp2;
+		collisionLayer[x2][y2] = temp;
+	}
 
 	private void processInput()
 	{
@@ -319,8 +333,8 @@ public class LevelController {
 			{
 				if(pushBlockToLiquid(1,0)==false){
 					actionBlock.getVelocity().x = 0;
-					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos + 1),(int) actionBlockStartYpos);
-					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos + 1, actionBlockStartYpos));
+					switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos + 1),(int) actionBlockStartYpos);
+					actionBlock.getPosition().set(actionBlockStartXpos + 1, actionBlockStartYpos);
 				}
 				actionBlock = null;
 				
@@ -329,8 +343,8 @@ public class LevelController {
 			{
 				if(pushBlockToLiquid(0,1)==false){
 					actionBlock.getVelocity().y = 0;
-					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos + 1);
-					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos + 1));
+					switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos + 1);
+					actionBlock.getPosition().set(actionBlockStartXpos , actionBlockStartYpos + 1);
 				}
 				actionBlock = null;
 				
@@ -339,8 +353,8 @@ public class LevelController {
 			{
 				if(pushBlockToLiquid(0,-1)==false){
 					actionBlock.getVelocity().y = 0;
-					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos - 1);
-					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos , actionBlockStartYpos - 1));
+					switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos ),(int) actionBlockStartYpos - 1);
+					actionBlock.getPosition().set(actionBlockStartXpos , actionBlockStartYpos - 1);
 				}
 				actionBlock = null;
 				
@@ -349,8 +363,8 @@ public class LevelController {
 			{
 				if(pushBlockToLiquid(-1,0)==false){
 					actionBlock.getVelocity().x = 0;
-					level.switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos - 1),(int) actionBlockStartYpos);
-					actionBlock.getPosition().set(new Vector2(actionBlockStartXpos - 1 , actionBlockStartYpos));
+					switchCollisionBlocks((int) actionBlockStartXpos,(int) actionBlockStartYpos,(int) (actionBlockStartXpos - 1),(int) actionBlockStartYpos);
+					actionBlock.getPosition().set(actionBlockStartXpos - 1 , actionBlockStartYpos);
 				}
 				actionBlock = null;
 				

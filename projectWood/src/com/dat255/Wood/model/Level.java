@@ -144,22 +144,7 @@ public class Level {
 	}
 
 
-	/**
-	 * This method switches place of two blocks in the level.
-	 * @param x1 The x-coordinate of the first block
-	 * @param y1 The y-coordinate of the first block
-	 * @param x2 The x-coordinate of the second block
-	 * @param y2 The y-coordinate of the second block
-	 *
-	 */
-	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
-	{
-		Block temp = collisionLayer[x1][y1];
-		Block temp2 = collisionLayer[x2][y2];
 
-		collisionLayer[x1][y1] = temp2;
-		collisionLayer[x2][y2] = temp;
-	}
 
 	/**
 	 * This method sets the current worth of a level.
