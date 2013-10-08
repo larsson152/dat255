@@ -29,15 +29,20 @@ public class GameScreen implements Screen{
 	private LevelRenderer renderer;
 	private LevelController controller;
 	private Stage stage;
+	private Stage pauseStage;
 	private int width;
 	private int height;
 	private TextureAtlas atlas;
+	private TextureAtlas pauseAtlas;
 	private Skin dpadSkin;
+	private Skin pauseSkin;
 	private ImageButton buttonUp;
 	private ImageButton buttonDown;
 	private ImageButton buttonRight;
 	private ImageButton buttonCenter;
 	private ImageButton buttonLeft;
+	private ImageButton pauseButton;
+	private boolean paused;
 	
 	private SpriteBatch scoreBatch;
 	private BitmapFont scoreFont;
@@ -53,15 +58,24 @@ public class GameScreen implements Screen{
 		Gdx.gl20.glClearColor(0, 0, 0.2f, 1); //Clears the screen with the color (R,G,B,A)
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		controller.update(delta);
-		renderer.render();
-		
-		scoreBatch.begin();
-		scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ level.getLevelScore(), 25, 100);
-		scoreBatch.end();
-		
-		stage.act(delta);
-		stage.draw();
+		if(!paused)
+		{
+			controller.update(delta);
+			renderer.render();
+
+			scoreBatch.begin();
+			scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ level.getLevelScore(), 25, 100);
+			scoreBatch.end();
+
+			stage.act(delta);
+			stage.draw();
+		}
+		else
+		{
+			renderer.render();
+			pauseStage.act(delta);
+			pauseStage.draw();
+		}
 	}
 
 	/**From libgdx wiki:
@@ -109,7 +123,44 @@ public class GameScreen implements Screen{
 		stage.addActor(buttonLeft);
 		stage.addActor(buttonRight);
 		stage.addActor(buttonCenter);
+		
+		//PauseScreen stuff
+		pauseAtlas = new TextureAtlas("images/pause.pack");
+		pauseSkin = new Skin(pauseAtlas);
+		pauseStage = new Stage();
+		addPauseButton();
+		pauseStage.addActor(pauseButton);
 
+	}
+	
+	private void addPauseButton()
+	{
+		//Set the visuals
+		pauseButton = new ImageButton(pauseSkin.getDrawable("pause_screen"));
+		pauseButton.setBackground(pauseSkin.getDrawable("pause_screen"));
+
+		//Set size and position
+		//pauseButton.setHeight(Gdx.graphics.getHeight()/4);
+		//pauseButton.setWidth(Gdx.graphics.getWidth()/1.2f);
+		pauseButton.setX((Gdx.graphics.getWidth()/2) - (pauseButton.getWidth()/2));
+		pauseButton.setY(Gdx.graphics.getHeight()/2);
+
+		//Add listener to make it clickable
+		pauseButton.addListener(new ClickListener(){
+
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+			{
+				paused = false;
+				Gdx.input.setInputProcessor(stage);
+			}
+		});
 	}
 	
 	/**
@@ -269,8 +320,8 @@ public class GameScreen implements Screen{
 	//A good place to save the game state.
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		Gdx.input.setInputProcessor(pauseStage);
+		paused = true;
 	}
 
 	//From libgdx wiki:
