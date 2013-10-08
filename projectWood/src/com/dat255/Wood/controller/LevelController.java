@@ -309,25 +309,21 @@ public class LevelController {
 			if ((player.getPosition().x - startXpos) > 1)
 			{
 				stopPlayer(1,0);
-				rightReleased();
 				doBlockLogic();
 			}
 			else if ((player.getPosition().y - startYpos) > 1)
 			{
 				stopPlayer(0,1);
-				upReleased();
 				doBlockLogic();
 			}
 			else if (Math.abs((player.getPosition().x - startXpos)) > 1)
 			{
 				stopPlayer(-1,0);
-				leftReleased();
 				doBlockLogic();
 			}
 			else if (Math.abs((player.getPosition().y - startYpos)) > 1)
 			{
 				stopPlayer(0,-1);
-				downReleased();
 				doBlockLogic();
 			}
 		}
