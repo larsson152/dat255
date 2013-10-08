@@ -3,6 +3,7 @@ package com.dat255.Wood.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -43,6 +44,9 @@ public class GameScreen implements Screen{
 	private ImageButton buttonLeft;
 	private ImageButton pauseButton;
 	private boolean paused;
+	
+	private Music bckMusic;
+	
 	
 	private SpriteBatch scoreBatch;
 	private BitmapFont scoreFont;
@@ -114,6 +118,12 @@ public class GameScreen implements Screen{
 		scoreBatch = new SpriteBatch();
 		scoreFont = new BitmapFont();
 		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
+		
+		//Set up music
+		bckMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/vaxeln_halla.wav"));
+		bckMusic.setLooping(true);
+		bckMusic.setVolume(0.5f);
+		bckMusic.play();
 		
 		//Call the function for adding the d-pad
 		addDpad();
