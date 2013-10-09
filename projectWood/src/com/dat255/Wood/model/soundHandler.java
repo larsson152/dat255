@@ -10,9 +10,16 @@ import com.badlogic.gdx.audio.Sound;
  */
 
 
+/**
+ * @author Henrik
+ *
+ */
 public class soundHandler {
 	private static Sound pickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bell.wav"));
 	private static Music bckMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/vaxeln_halla.wav"));
+	private static Sound waterSound = Gdx.audio.newSound(Gdx.files.internal("sounds/water.wav"));
+	private static Sound unlockSound = Gdx.audio.newSound(Gdx.files.internal("sounds/unlock.wav"));
+	private static Sound teleportSound = Gdx.audio.newSound(Gdx.files.internal("sounds/teleport.wav"));
 	
 	public soundHandler(){
 		
@@ -39,9 +46,33 @@ public class soundHandler {
 		pickSound.play(2.0f);
 	}
 	
+	/**
+	 *  Plays a sound of something being dropped in water.
+	 */
+	public static void playWater() {
+		waterSound.play(2.0f);
+	}
+	
+	/**
+	 * Plays the sound of unlocking a door.
+	 */
+	public static void playUnlock() {
+		unlockSound.play(2.0f);
+	}
+	
+	/**
+	 * Plays the sound of something teleporting.
+	 */
+	public static void playTeleport() {
+		teleportSound.play(2.0f);
+	}
+	
 	public static void dispose(){
 		bckMusic.dispose();
 		pickSound.dispose();
+		waterSound.dispose();
+		unlockSound.dispose();
+		teleportSound.dispose();
 	}
 
 }

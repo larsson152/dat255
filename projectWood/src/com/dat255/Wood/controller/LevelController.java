@@ -195,6 +195,7 @@ public class LevelController {
 	//If a block is on a liquid block,  replaces them both with ground blocks
 	private boolean pushBlockToLiquid(int x, int y){
 		if(level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
+			soundHandler.playWater();
 			level.getBlocks()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false);
 			level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false,false);	
 			return true;
@@ -211,6 +212,7 @@ public class LevelController {
 		if(tpBlockId!='T' && tpBlockId!='t')
 			return;
 		
+		soundHandler.playTeleport();
 		for(int x=0;x<16;x++){						
 			for(int y=0;y<16;y++){
 				if(level.getBlocks()[x][y].getBlockId()==tpBlockId && !(new Vector2((float)x,(float)y).equals(level.getPlayer().getPosition()))){
@@ -232,6 +234,7 @@ public class LevelController {
 	public void unlockDoor(int dx,int dy){
 		if((level.getBlocks()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
+			soundHandler.playUnlock();
 			level.getBlocks()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
 		}
 		
