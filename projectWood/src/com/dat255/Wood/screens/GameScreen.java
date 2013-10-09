@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255.Wood.controller.LevelController;
 import com.dat255.Wood.model.Level;
+import com.dat255.Wood.model.soundHandler;
 import com.dat255.Wood.view.LevelRenderer;
 
 
@@ -45,7 +46,7 @@ public class GameScreen implements Screen{
 	private ImageButton pauseButton;
 	private boolean paused;
 	
-	private Music bckMusic;
+	
 	
 	
 	private SpriteBatch scoreBatch;
@@ -120,10 +121,7 @@ public class GameScreen implements Screen{
 		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
 		
 		//Set up music
-		bckMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/vaxeln_halla.wav"));
-		bckMusic.setLooping(true);
-		bckMusic.setVolume(0.5f);
-		bckMusic.play();
+		soundHandler.setUpMusic();
 		
 		//Call the function for adding the d-pad
 		addDpad();
@@ -348,6 +346,7 @@ public class GameScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
+		soundHandler.dispose();
 	}
 
 }

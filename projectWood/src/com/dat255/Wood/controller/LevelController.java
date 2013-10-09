@@ -8,6 +8,7 @@ import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
+import com.dat255.Wood.model.soundHandler;
 
 
 /**
@@ -223,6 +224,7 @@ public class LevelController {
 	public void isOnKey(){
 		if(level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
+			soundHandler.playPick();
 			level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
 		}
 	}
