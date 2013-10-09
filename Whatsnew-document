@@ -1,0 +1,28 @@
+"What's new" document
+=======================
+
+Release 1: 
+Created a character and a tile based game map on which the character could move in two directions.
+Added a splash screen. 
+
+Release 2: 
+The character can now move in all four directions and collide with obstacles. 
+Added a main menu. 
+The character was maneuvered by touching the different areas of the screen.
+Added game feature: Movable blocks
+
+Release 3: 
+Improved the controls, by adding a d-pad to move the character. 
+Score count added.
+Added game feature: Water tiles
+
+Release 4: 
+New graphics, including animated character movement. 
+Game music.
+Highscore server.
+Pause screen.
+Level select.
+Added game features: Ice tiles on which the character slides. Keys and locks. Teleports. Goal-tile
+
+Release 5: 
+Bug fixes and polish
