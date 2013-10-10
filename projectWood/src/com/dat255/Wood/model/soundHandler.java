@@ -43,28 +43,28 @@ public class soundHandler {
 	
 	public static void playPick(){
 		
-		pickSound.play(2.0f);
+		pickSound.play(3.5f);
 	}
 	
 	/**
 	 *  Plays a sound of something being dropped in water.
 	 */
 	public static void playWater() {
-		waterSound.play(2.0f);
+		waterSound.play(0.2f);
 	}
 	
 	/**
 	 * Plays the sound of unlocking a door.
 	 */
 	public static void playUnlock() {
-		unlockSound.play(2.0f);
+		unlockSound.play(3.5f);
 	}
 	
 	/**
 	 * Plays the sound of something teleporting.
 	 */
 	public static void playTeleport() {
-		teleportSound.play(2.0f);
+		teleportSound.play(0.2f);
 	}
 	
 	public static void dispose(){
