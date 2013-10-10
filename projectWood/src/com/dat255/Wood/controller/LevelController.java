@@ -142,7 +142,7 @@ public class LevelController {
 	private void movePlayer(int dirX, int dirY)
 	{
 		player.setState(State.WALKING);
-		if(level.getBlocks()[(int) (player.getPosition().x + dirX)][(int) (player.getPosition().y + dirY)].isSlippery())
+		if(level.getGroundLayer()[(int) (player.getPosition().x + dirX)][(int) (player.getPosition().y + dirY)].isSlippery())
 		{
 			player.setState(State.SLIDING);
 		}
@@ -154,7 +154,7 @@ public class LevelController {
 
 	private void stopPlayer(int incX, int incY)
 	{
-		if(!(player.getState() == State.SLIDING && level.getBlocks()[(int) (startXpos + incX)][(int) (startYpos + incY)].isSlippery() && !level.getBlocks()[(int) (startXpos + (2 * incX))][(int) (startYpos + (2 * incY))].isSolid()))	
+		if(!(player.getState() == State.SLIDING && level.getGroundLayer()[(int) (startXpos + incX)][(int) (startYpos + incY)].isSlippery() && !level.getCollisionLayer()[(int) (startXpos + (2 * incX))][(int) (startYpos + (2 * incY))].isSolid()))	
 		{
 			player.setState(State.IDLE);
 			player.getAcceleration().x = 0;
@@ -164,9 +164,7 @@ public class LevelController {
 		}
 		player.getPosition().set(startXpos + incX, startYpos + incY);
 		startXpos = startXpos + incX;
-		startYpos = startYpos + incY;
-		
-		
+		startYpos = startYpos + incY;	
 	}
 
 	//Determines if the player can move in a specific direction (char d).
@@ -178,10 +176,10 @@ public class LevelController {
 		
 		unlockDoor(dX,dY);
 
-		if((level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isMoveable()) && 
-				(level.getBlocks()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].isSolid() == false))
+		if((level.getCollisionLayer()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isMoveable()) && 
+				(level.getCollisionLayer()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].isSolid() == false))
 		{
-			actionBlock = level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY];
+			actionBlock = level.getCollisionLayer()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY];
 			actionBlock.getVelocity().x = deltaX * Block.SPEED;
 			actionBlock.getVelocity().y = deltaY * Block.SPEED;
 			actionBlockStartXpos = actionBlock.getPosition().x;
@@ -189,33 +187,33 @@ public class LevelController {
 			return true;
 		}
 		//Move if the adjacent block is not solid.
-		return (!(level.getBlocks()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isSolid()));
-
+		return (!(level.getCollisionLayer()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isSolid()));
 	}
+	
 	//If a block is on a liquid block,  replaces them both with ground blocks
 	private boolean pushBlockToLiquid(int x, int y){
-		if(level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
+		if(level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
 			soundHandler.playWater();
-			level.getBlocks()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false);
-			level.getBlocks()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false,false);	
+			level.getCollisionLayer()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false); //Kan vara fel här
+			level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false,false);	
 			return true;
 		}
-		
 		return false;
 	}
 	
 	//Teleports the player between 2 twin teleports block
 	public void teleportPlayer(){
-		
-		char tpBlockId = (char) level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
-		
+
+		char tpBlockId = (char) level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
+
 		if(tpBlockId!='T' && tpBlockId!='t')
 			return;
 		
 		soundHandler.playTeleport();
+
 		for(int x=0;x<16;x++){						
 			for(int y=0;y<16;y++){
-				if(level.getBlocks()[x][y].getBlockId()==tpBlockId && !(new Vector2((float)x,(float)y).equals(level.getPlayer().getPosition()))){
+				if(level.getGroundLayer()[x][y].getBlockId()==tpBlockId && !(new Vector2((float)x,(float)y).equals(level.getPlayer().getPosition()))){
 					level.getPlayer().getPosition().set(new Vector2((float)x,(float)y));
 					return;
 				}
@@ -224,24 +222,24 @@ public class LevelController {
 	}
 	//picks upp a key if player dont have one
 	public void isOnKey(){
-		if(level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
+		if(level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
 			soundHandler.playPick();
-			level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
+			level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
 		}
 	}
 	//if player has a key ,removes the players key and replaces the door with a ground block
 	public void unlockDoor(int dx,int dy){
-		if((level.getBlocks()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
+		if((level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
 			soundHandler.playUnlock();
-			level.getBlocks()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
+			level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
 		}
 		
 	}
 	
 	public void doBlockLogic(){
-		if(!((level.getBlocks()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0')){
+		if(!(((level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0')) || !(((level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0'))){
 			teleportPlayer();
 			isOnKey();
 		
@@ -250,7 +248,7 @@ public class LevelController {
 	
 	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
 	{
-		Block[][] collisionLayer = level.getBlocks();
+		Block[][] collisionLayer = level.getCollisionLayer();
 		
 		if(oldActionBlockGround == null)
 		{

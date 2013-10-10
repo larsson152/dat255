@@ -87,43 +87,16 @@ public class LevelRenderer {
 		spriteBatch.end();
 		this.orthoCamera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
 		orthoCamera.update();
-
-
-		if(debug == true)
-		{
-			//drawDebug();
-		}
 	}
 
-	/*
-	private void drawDebug()
-	{
-		debugRenderer.setProjectionMatrix(orthoCamera.combined);
-		debugRenderer.begin(ShapeType.Line);
-		for(Block block : level.getBlocks())
-		{
-			Rectangle rect = block.getBounds();
-			float x1 = block.getPosition().x + rect.x;
-			float y1 = block.getPosition().y + rect.y;
-			debugRenderer.setColor(new Color(1, 0, 0, 1));
-			debugRenderer.rect(x1, y1, rect.width, rect.height);
-		}
-
-		Player player = level.getPlayer();
-		Rectangle rect = player.getBounds();
-		float x1 = player.getPosition().x + rect.x;
-		float y1 = player.getPosition().y + rect.y;
-		debugRenderer.setColor(new Color(0, 1, 0, 1));
-		debugRenderer.rect(x1, y1, rect.width, rect.height);
-		debugRenderer.end();
-	}*/
 
 	/**
 	 * Helpmethod that draws the blocks
 	 */
 	private void drawBlocks()
 	{
-		Block[][] blocks = level.getBlocks();
+		Block[][] groundLayer = level.getGroundLayer();
+		Block[][] collisionLayer = level.getCollisionLayer();
 		Block block = null;
 
 
@@ -131,20 +104,12 @@ public class LevelRenderer {
 		{
 			for(int j = 0; j < 16; j++)
 			{
-				block = blocks[i][j];
+				block = groundLayer[i][j];
 				if(block != null)
 				{
 					if(block.getBlockId() == '0')
 					{
 						spriteBatch.draw(groundBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
-					}
-					else if(block.getBlockId() == '1')
-					{
-						spriteBatch.draw(wallBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
-					}
-					else if(block.getBlockId() == '2')
-					{
-						spriteBatch.draw(pushBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
 					else if(block.getBlockId() == '3')
 					{
@@ -168,15 +133,46 @@ public class LevelRenderer {
 					}
 					else if(block.getBlockId() == 'T')
 					{
-						spriteBatch.draw(yellowTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(blueTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
 					else if(block.getBlockId() == 't')
 					{
-						spriteBatch.draw(blueTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+						spriteBatch.draw(yellowTeleportTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
 					else if(block.getBlockId() == 'G')
 					{
 						spriteBatch.draw(goalBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+				}
+			}
+		}
+		
+		for(int i = 0; i < 16; i++)
+		{
+			for(int j = 0; j < 16; j++)
+			{
+				block = collisionLayer[i][j];
+				if(block != null)
+				{
+					if(block.getBlockId() == '0')
+					{
+						spriteBatch.draw(emptyBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '1')
+					{
+						spriteBatch.draw(wallBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == '2')
+					{
+						spriteBatch.draw(pushBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == 'K')
+					{
+						spriteBatch.draw(keyBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
+					}
+					else if(block.getBlockId() == 'H')
+					{
+						spriteBatch.draw(keyholeBlockTexture, block.getPosition().x, block.getPosition().y, Block.SIZE, Block.SIZE);
 					}
 				}
 			}
