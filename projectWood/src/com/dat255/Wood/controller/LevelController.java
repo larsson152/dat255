@@ -209,7 +209,7 @@ public class LevelController {
 
 		for(int x=0;x<16;x++){						
 			for(int y=0;y<16;y++){
-				if(level.getGroundLayer()[x][y].getBlockId()==tpBlockId && !(new Vector2((float)x,(float)y).equals(level.getPlayer().getPosition()))){
+				if(level.getGroundLayer()[x][y].getBlockId()==tpBlockId && !(new Vector2((float)x,(float)y).equals(level.getPlayer().getPosition())) && !(level.getCollisionLayer()[x][y].isSolid())){
 					level.getPlayer().getPosition().set(new Vector2((float)x,(float)y));
 					return;
 				}
