@@ -150,6 +150,7 @@ public class Level {
 					//The player is initialized to start at this position, and an empty block is added to the array as the player always start on a empty block.
 					player = new Player(new Vector2(x,y));
 					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 
 				else
