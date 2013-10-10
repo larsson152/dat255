@@ -151,6 +151,10 @@ public class LevelController {
 		startXpos = player.getPosition().x;
 		startYpos = player.getPosition().y;
 	}
+	
+	/**
+	* This method stops the player
+	*/
 
 	private void stopPlayer(int incX, int incY)
 	{
@@ -200,8 +204,9 @@ public class LevelController {
 		}
 		return false;
 	}
-	
-	//Teleports the player between 2 twin teleports block
+	/**
+	* This method teleports the player between 2 twinteleporter blocks.
+	*/
 	public void teleportPlayer(){
 
 		char tpBlockId = (char) level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
@@ -220,7 +225,10 @@ public class LevelController {
 			}
 		}		
 	}
-	//picks upp a key if player dont have one
+	/**
+	* This method picks up a key for the player if he does not have one.
+	*/
+
 	public void isOnKey(){
 		if(level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
@@ -228,7 +236,14 @@ public class LevelController {
 			level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
 		}
 	}
-	//if player has a key ,removes the players key and replaces the door with a ground block
+	
+	/**
+	* This method removes the key from a player and opens a door. And then replaces the door with
+	* a ground block
+	* @param dx The x coordinate of the door
+	* @param dy the y coordinate of the door
+	*/
+	
 	public void unlockDoor(int dx,int dy){
 		if((level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
