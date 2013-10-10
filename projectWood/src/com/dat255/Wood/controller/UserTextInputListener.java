@@ -16,7 +16,7 @@ public class UserTextInputListener implements TextInputListener {
 	   @Override
 	   public void input (String text) {
 		   game.setName(text);
-		   new HighScore(text).sendHighScore();
+		   new HighScore(text).send();
 		   game.playGame();
 	   }
 

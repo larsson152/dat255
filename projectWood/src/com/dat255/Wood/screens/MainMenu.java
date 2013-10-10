@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.dat255.Wood.WoodGame;
+import com.dat255.Wood.model.HighScore;
 
 public class MainMenu implements Screen {
 
@@ -33,7 +34,7 @@ public class MainMenu implements Screen {
 	public MainMenu(WoodGame game){
 		this.game = game;
 	}
-	
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -74,7 +75,8 @@ public class MainMenu implements Screen {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.exit();
+				//Gdx.app.exit();
+				new HighScore("test").getHighScore();
 			}
 
 		});
@@ -92,8 +94,12 @@ public class MainMenu implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				//((Game) Gdx.app.getApplicationListener()).setScreen(new PlayLevel(game));
-				game.setScreen(new UserNameScreen(game));
-				}
+				//game.setScreen(new UserNameScreen(game));
+				new HighScore("Patrik",100).send();
+				new HighScore("kirtap",50).send();
+				new HighScore("test",500).send();
+
+			}
 		});
 
 		table.setBackground(backgroundSpriteDraw);

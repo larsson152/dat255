@@ -1,12 +1,8 @@
 package com.dat255.Wood.server;
 
 import java.io.IOException;
-import java.util.HashMap;
-
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ArrayMap;
-import com.dat255.Wood.model.Player;
+import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
@@ -29,22 +25,9 @@ public class GameServer {
 
 	private void registerPackets(){
 		Kryo kryo = server.getKryo();
-		kryo.register(Player.class);
-		kryo.register(Vector2.class);
-		kryo.register(Rectangle.class);
-		kryo.register(Player.FacingDirection.class);
-		kryo.register(Player.State.class);
-		kryo.register(HashMap.class);
-	}
-
-	public static void main(String[] args){
-		try {
-			new GameServer();
-			Log.set(Log.LEVEL_DEBUG);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		kryo.register(HighScore.class);
+		kryo.register(ArrayMap.class);
+		kryo.register(Object[].class);
 	}
 	
 	public Server getServer(){
@@ -63,6 +46,15 @@ public class GameServer {
 
 	public void updateScore(String name, int score){
 		scoreMap.put(name, score);		
+	}
+	
+	public static void main(String[] args){
+		try {
+			new GameServer();
+			Log.set(Log.LEVEL_DEBUG);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

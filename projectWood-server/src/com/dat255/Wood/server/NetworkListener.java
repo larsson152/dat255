@@ -22,17 +22,20 @@ public class NetworkListener extends Listener {
 
 	public void received(Connection c, Object o) {
 		if(o instanceof HighScore){
-			
+			System.out.println("Server recieved a Highscore-object!");
 			HighScore hs = (HighScore) o;
 			
-			if(hs.getLocalScore() == -1){
+			if(hs.getLocalScore() == -1 && !hs.isGetter()){
+				System.out.println("Adding player.");
 				gServer.addPlayer(hs.getName());
+			}else if (hs.isGetter()){
+				System.out.println("Returning Scoremap.");
+				gServer.getServer().sendToTCP(c.getID(), gServer.getScoreMap());				
 			}else{
+				System.out.println("Updating score.");
 				gServer.updateScore(hs.getName(), hs.getLocalScore());
 			}
 			
-		}else if(o == null){
-			gServer.getServer().sendToTCP(c.getID(), gServer.getScoreMap());
 		}
 	}
 }

@@ -1,44 +1,60 @@
 package com.dat255.Wood.model;
 
+import java.io.Serializable;
+
 import com.badlogic.gdx.utils.ArrayMap;
 
-public class HighScore {
+public class HighScore implements Serializable {
 
 	private String name = null;
 	private int score = -1 ;
 	private ArrayMap<String, Integer> topTen;
+	private boolean isGetterType = false;
 	
-	public HighScore(String name, int score){
-		this.name = name;
-		this.score = score;
+	
+	
+	
+	public HighScore(){
+		
 	}
 	
 	public HighScore(String name){
 		this.name = name;		
 	}
 	
-	public void sendHighScore(){
-		new GameClient().send(this);			
+	public HighScore(String name, int score){
+		this.name = name;
+		this.score = score;
 	}
 	
-	public int getServerScore(String name){
-		return 0;
-	}
 	
-	public int getLocalScore(){
-		return score;
+	
+	public void send(){
+		isGetterType = false;
+		new GameClient().send(this);
 	}
 	
 	public ArrayMap<String, Integer> getHighScore(){
-		new GameClient().send(null);
+		isGetterType = true;
+		new GameClient().send(this);
 		return topTen;
-	}
-	
-	public void setHighScore(ArrayMap<String, Integer> topTen){
-		this.topTen = topTen;
 	}
 	
 	public String getName(){
 		return name;
 	}
+
+	public void setHighScore(ArrayMap<String, Integer> topTen) {
+		this.topTen = topTen;
+	}
+
+	public int getLocalScore() {
+		return score;
+	}
+	
+	public boolean isGetter(){
+		return isGetterType;
+	}
+	
+	
 }
