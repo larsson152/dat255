@@ -118,10 +118,7 @@ public class LevelController {
 	{
 		if(!isPaused && !gameOver){
 			GameTimer.updateFps();
-			if(GameTimer.returnTicked() == true){
-				level.decrementScore();
-				GameTimer.unTick();
-			}
+			
 			processInput();
 			player.update(delta);
 			if(actionBlock != null)

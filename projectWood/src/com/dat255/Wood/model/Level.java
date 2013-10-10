@@ -21,7 +21,7 @@ public class Level {
 	private Block[][] collisionLayer;
 	private Block[][] groundLayer;
 	private Block[][] topLayer;
-	private float levelScore;
+	
 
 
 
@@ -75,7 +75,7 @@ public class Level {
 	 */
 	private void createLevel()
 	{
-		setLevelScore(20);
+		
 		collisionLayer = new Block[16][16];
 		groundLayer = new Block[16][16];
 		FileHandle file = Gdx.files.internal("levels/level1.txt");
@@ -170,29 +170,21 @@ public class Level {
 	 * @s The value we want the level to be worth
 	 *
 	 */
-	public void setLevelScore(float s){
-		levelScore = s;				 
-	}
+	
 
 	/**
 	 * This method decrements the levelscore of the level. If the levelscore is 0
 	 * the decrementation does nothing.
 	 *
 	 */
-	public void decrementScore(){
-		if(levelScore > 0){
-			levelScore--;
-		}
-	}
+	
 
 	/**
 	 * This method returns the current worth of the level.
 	 * @return The current levelscore
 	 *
 	 */
-	public float getLevelScore() {
-		return levelScore;	
-	}
+	
 
 }
 
