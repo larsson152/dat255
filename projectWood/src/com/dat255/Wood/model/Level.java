@@ -19,6 +19,8 @@ public class Level {
 
 	//An array containing all Blocks.
 	private Block[][] collisionLayer;
+	private Block[][] groundLayer;
+	private Block[][] topLayer;
 	private float levelScore;
 
 
@@ -30,9 +32,19 @@ public class Level {
 	 * @return An array of blocks.
 	 *
 	 */
-	public Block[][] getBlocks()
+	public Block[][] getCollisionLayer()
 	{
 		return collisionLayer;
+	}
+	
+	public Block[][] getGroundLayer()
+	{
+		return groundLayer;
+	}
+	
+	public Block[][] getTopLayer()
+	{
+		return topLayer;
 	}
 
 	/**
@@ -65,6 +77,7 @@ public class Level {
 	{
 		setLevelScore(20);
 		collisionLayer = new Block[16][16];
+		groundLayer = new Block[16][16];
 		FileHandle file = Gdx.files.internal("levels/level1.txt");
 		String text = file.readString();
 
@@ -76,68 +89,74 @@ public class Level {
 				if(c == '1'){
 					//New WallBlock.
 					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, true,false,false);
+					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 
 				else if(c == '2')
 				{
 					//New PushBlock
 					collisionLayer[x][y]= new Block(new Vector2(x,y), c, true, true,false,false);
+					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 				else if(c == '3')
 				{
 					//New WaterBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true,false);
+					groundLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 				else if(c == '4')
 				{
 					//New LavaBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true,false);
-				}
-				else if(c == '5')
-				{
-					//New SandBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					groundLayer[x][y]= new Block(new Vector2(x,y), c, false, false,true,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 				else if(c == '6')
 				{
 					//New IceBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
+					groundLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,true);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 				else if(c == 'K')
 				{
 					//New KeyBlock
 					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 				else if(c == 'H')
 				{
 					//New KeyHoleBlock
 					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, true,false,false);
+					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 				else if(c == 'T')
 				{
-					//New GreenTeleportBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					//New BlueTeleportBlock
+					groundLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 				else if(c == 't')
 				{
-					//New RedTeleportBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					//New YellowTeleportBlock
+					groundLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 				else if(c == 'G')
 				{
 					//New GoalBlock
-					collisionLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					groundLayer[x][y]= new Block(new Vector2(x,y), c, false, false,false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 				else if(c == 's'){
 					//The player is initialized to start at this position, and an empty block is added to the array as the player always start on a empty block.
 					player = new Player(new Vector2(x,y));
-					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
+					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
 				}
 
 				else
 				{
 					//New Empty Block
-					collisionLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
+					groundLayer[x][y] = new Block(new Vector2(x,y), '0', false, false,false,false);
+					collisionLayer[x][y] = new Block(new Vector2(x,y), 'D', false, false,false,false);
 				}
 			}
 		}
