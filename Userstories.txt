@@ -13,4 +13,6 @@ User stories for project "Wood"
 
 - As a user I would like to be a able to choose between a number of different levels to increase the time you can play.
 
+- I would like the game to pause if I was to receive a phone call.
+
 - In the game I would like to be able to interact with different objects and blocks to unlock new parts of the level and to further explore the world of "Wood". 
