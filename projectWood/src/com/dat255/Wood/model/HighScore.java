@@ -1,6 +1,7 @@
 package com.dat255.Wood.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.ArrayMap;
 
@@ -8,7 +9,7 @@ public class HighScore implements Serializable {
 
 	private String name = null;
 	private int score = -1 ;
-	private ArrayMap<String, Integer> topTen;
+	private ArrayList<HighScore> topTen;
 	private boolean isGetterType = false;
 	
 	
@@ -34,7 +35,7 @@ public class HighScore implements Serializable {
 		new GameClient().send(this);
 	}
 	
-	public ArrayMap<String, Integer> getHighScore(){
+	public ArrayList<HighScore> getHighScore(){
 		isGetterType = true;
 		new GameClient().send(this);
 		return topTen;
@@ -44,7 +45,7 @@ public class HighScore implements Serializable {
 		return name;
 	}
 
-	public void setHighScore(ArrayMap<String, Integer> topTen) {
+	public void setHighScore(ArrayList<HighScore> topTen) {
 		this.topTen = topTen;
 	}
 

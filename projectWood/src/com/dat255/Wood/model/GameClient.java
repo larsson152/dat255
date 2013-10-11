@@ -1,6 +1,7 @@
 package com.dat255.Wood.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -28,9 +29,8 @@ public class GameClient {
 	private void registerPackets(){
 		Kryo kryo = client.getKryo();
 		kryo.register(HighScore.class);
-		kryo.register(ArrayMap.class);
-		kryo.register(Object[].class);
-
+		kryo.register(ArrayList.class);
+		//kryo.register(Object[].class);
 	}
 	
 	public HighScore getHighScore(){

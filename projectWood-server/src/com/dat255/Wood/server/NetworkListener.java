@@ -27,13 +27,15 @@ public class NetworkListener extends Listener {
 			
 			if(hs.getLocalScore() == -1 && !hs.isGetter()){
 				System.out.println("Adding player.");
-				gServer.addPlayer(hs.getName());
+				gServer.addPlayer(hs);
 			}else if (hs.isGetter()){
 				System.out.println("Returning Scoremap.");
-				gServer.getServer().sendToTCP(c.getID(), gServer.getScoreMap());				
+				gServer.getServer().sendToTCP(c.getID(), gServer.getScoreList());				
 			}else{
-				System.out.println("Updating score.");
-				gServer.updateScore(hs.getName(), hs.getLocalScore());
+				//System.out.println("Updating score.");
+				//gServer.updateScore(hs.getName(), hs.getLocalScore());
+				System.out.println("Adding player.");
+				gServer.addPlayer(hs);
 			}
 			
 		}

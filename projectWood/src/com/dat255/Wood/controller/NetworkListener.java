@@ -1,11 +1,10 @@
 package com.dat255.Wood.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ArrayMap;
-import com.badlogic.gdx.utils.Sort;
 import com.dat255.Wood.model.GameClient;
+import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -27,15 +26,15 @@ public class NetworkListener extends Listener {
 	}
 
 	public void received(Connection c, Object o) {
-		if(o instanceof ArrayMap){
-			ArrayMap<String, Integer> o2 = (ArrayMap<String, Integer>) o;
+		if(o instanceof ArrayList){
+			ArrayList<HighScore> o2 = (ArrayList<HighScore>) o;
 			gClient.getHighScore().setHighScore(o2);
 			
-			System.out.println("Storleken på arraymapen är: " + o2.size);
+			System.out.println("Storleken på arraymapen är: " + o2.size());
 					
 			
-			for(int score: o2.values()){
-				System.out.println("Score: " +score);
+			for(HighScore hs: o2){
+				System.out.println("Score: " +hs.getLocalScore());
 			}
 			
 		}else if (o instanceof Array){

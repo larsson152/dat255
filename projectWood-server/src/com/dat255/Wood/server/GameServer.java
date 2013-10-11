@@ -1,6 +1,9 @@
 package com.dat255.Wood.server;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import com.badlogic.gdx.utils.ArrayMap;
 import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.kryo.Kryo;
@@ -11,9 +14,11 @@ public class GameServer {
 
 	private Server server;
 	private ArrayMap<String, Integer> scoreMap;
+	private ArrayList<HighScore> scoreList;
 
 	public GameServer() throws IOException{
 		scoreMap = new ArrayMap<String,Integer>(1000);
+		scoreList = new ArrayList<>();
 		server = new Server();
 		registerPackets();
 		NetworkListener nl = new NetworkListener();
@@ -26,8 +31,8 @@ public class GameServer {
 	private void registerPackets(){
 		Kryo kryo = server.getKryo();
 		kryo.register(HighScore.class);
-		kryo.register(ArrayMap.class);
-		kryo.register(Object[].class);
+		kryo.register(ArrayList.class);
+		//kryo.register(Object[].class);
 	}
 	
 	public Server getServer(){
@@ -38,14 +43,23 @@ public class GameServer {
 		return scoreMap;
 	}
 
-	public void addPlayer(String name){
+	/*public void addPlayer(String name){
 		if(!scoreMap.containsKey(name)){
 			scoreMap.put(name, 0);
 		}
+	}*/
+	
+	public void addPlayer(HighScore hs){
+		scoreList.add(hs);
+		Collections.sort(scoreList, new ScoreComparator());
 	}
 
-	public void updateScore(String name, int score){
-		scoreMap.put(name, score);		
+	public void updateScore(HighScore hs){
+				for(HighScore score: scoreList){
+					if(score.getName().equals(hs.getName())){
+						
+					}
+				}
 	}
 	
 	public static void main(String[] args){
@@ -55,6 +69,11 @@ public class GameServer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public ArrayList<HighScore> getScoreList() {
+
+		return scoreList;
 	}
 
 }
