@@ -3,6 +3,7 @@ package com.dat255.Wood.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,8 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.controller.LevelController;
+import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
+import com.dat255.Wood.model.SoundHandler;
 import com.dat255.Wood.view.LevelRenderer;
 
 
@@ -28,20 +32,35 @@ public class GameScreen implements Screen{
 	private Level level;
 	private LevelRenderer renderer;
 	private LevelController controller;
+	private WoodGame game;
 	private Stage stage;
+	private Stage pauseStage;
 	private int width;
 	private int height;
 	private TextureAtlas atlas;
+	private TextureAtlas pauseAtlas;
 	private Skin dpadSkin;
+	private Skin pauseSkin;
 	private ImageButton buttonUp;
 	private ImageButton buttonDown;
 	private ImageButton buttonRight;
 	private ImageButton buttonCenter;
 	private ImageButton buttonLeft;
-
-	private SpriteBatch scoreBatch;
-	BitmapFont scoreFont;
+	private ImageButton pauseButton;
+	private boolean paused;
+	private int levelNumber;
 	
+	
+	
+	
+	private SpriteBatch scoreBatch;
+	private BitmapFont scoreFont;
+	
+	public GameScreen(int index,WoodGame game) {
+		levelNumber = index;
+		this.game = game;
+	}
+
 	/**From libgdx wiki:
 	*Method called by the game loop from the application every time rendering should be performed.
 	*Game logic updates are usually also performed in this method.
@@ -53,15 +72,24 @@ public class GameScreen implements Screen{
 		Gdx.gl20.glClearColor(0, 0, 0.2f, 1); //Clears the screen with the color (R,G,B,A)
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		controller.update(delta);
-		renderer.render();
-		
-		scoreBatch.begin();
-		scoreFont.draw(scoreBatch,"score: "+ level.getLevelScore(), 25, 100);
-		scoreBatch.end();
-		
-		stage.act(delta);
-		stage.draw();
+		if(!paused)
+		{
+			controller.update(delta);
+			renderer.render();
+
+			scoreBatch.begin();
+			scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ GameTimer.getTime(), 25, 100);
+			scoreBatch.end();
+
+			stage.act(delta);
+			stage.draw();
+		}
+		else
+		{
+			renderer.render();
+			pauseStage.act(delta);
+			pauseStage.draw();
+		}
 	}
 
 	/**From libgdx wiki:
@@ -88,18 +116,22 @@ public class GameScreen implements Screen{
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		level = new Level();
+		level = new Level(levelNumber);
 		renderer = new LevelRenderer(level, true);
-		controller = new LevelController(level);
+		controller = new LevelController(level,game);
 		
 		//Create the skin for the d-pad
-		atlas = new TextureAtlas("data/images/dpad/dpad.txt");
+		atlas = new TextureAtlas("textures/dpad.txt");
 		dpadSkin = new Skin(atlas);
 		
 		//Set up the score display
+		GameTimer.resetLevelTime();
 		scoreBatch = new SpriteBatch();
 		scoreFont = new BitmapFont();
 		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
+		
+		//Set up music
+		SoundHandler.setUpMusic();
 		
 		//Call the function for adding the d-pad
 		addDpad();
@@ -109,7 +141,44 @@ public class GameScreen implements Screen{
 		stage.addActor(buttonLeft);
 		stage.addActor(buttonRight);
 		stage.addActor(buttonCenter);
+		
+		//PauseScreen stuff
+		pauseAtlas = new TextureAtlas("images/pause.pack");
+		pauseSkin = new Skin(pauseAtlas);
+		pauseStage = new Stage();
+		addPauseButton();
+		pauseStage.addActor(pauseButton);
 
+	}
+	
+	private void addPauseButton()
+	{
+		//Set the visuals
+		pauseButton = new ImageButton(pauseSkin.getDrawable("pause_screen"));
+		pauseButton.setBackground(pauseSkin.getDrawable("pause_screen"));
+
+		//Set size and position
+		//pauseButton.setHeight(Gdx.graphics.getHeight()/4);
+		//pauseButton.setWidth(Gdx.graphics.getWidth()/1.2f);
+		pauseButton.setX((Gdx.graphics.getWidth()/2) - (pauseButton.getWidth()/2));
+		pauseButton.setY(Gdx.graphics.getHeight()/2);
+
+		//Add listener to make it clickable
+		pauseButton.addListener(new ClickListener(){
+
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+			{
+				paused = false;
+				Gdx.input.setInputProcessor(stage);
+			}
+		});
 	}
 	
 	/**
@@ -248,6 +317,11 @@ public class GameScreen implements Screen{
 		buttonCenter.setX((float)Gdx.graphics.getWidth() - 2*buttonCenter.getWidth());
 		buttonCenter.setY((float) buttonCenter.getHeight());
 	}
+	
+	public Level getLevel(){
+		
+		return level;
+	}
 
 	//From libgdx API documentation:
 	//Called when this screen is no longer the current screen for a Game.
@@ -264,8 +338,8 @@ public class GameScreen implements Screen{
 	//A good place to save the game state.
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		Gdx.input.setInputProcessor(pauseStage);
+		paused = true;
 	}
 
 	//From libgdx wiki:
@@ -282,6 +356,7 @@ public class GameScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
+		SoundHandler.dispose();
 	}
 
 }

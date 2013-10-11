@@ -15,6 +15,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.tween.SpriteAccessor;
 
+
+/**
+ * Used to fade in the splash screen, fade it out and continue to main menu
+ * @author Patrik Larsson
+ *
+ */
 public class SplashScreen implements Screen {
 
 	private SpriteBatch batch;
@@ -53,7 +59,7 @@ public class SplashScreen implements Screen {
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-		Texture splashTexture = new Texture("data/images/splash.png");
+		Texture splashTexture = new Texture("images/splash.png");
 		//Texture.setEnforcePotImages(false);
 		splash = new Sprite(splashTexture);
 		splash.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

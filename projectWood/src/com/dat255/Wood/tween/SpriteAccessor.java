@@ -1,9 +1,14 @@
 package com.dat255.Wood.tween;
 
 import aurelienribon.tweenengine.TweenAccessor;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+
+/**
+ * Used to help splash screen with fading
+ * @author Patrik Larsson
+ *
+ */
 public class SpriteAccessor implements TweenAccessor<Sprite> {
 
 	public static final int ALPHA = 0;

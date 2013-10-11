@@ -16,7 +16,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.dat255.Wood.WoodGame;
+import com.dat255.Wood.model.HighScore;
+import com.esotericsoftware.tablelayout.Cell;
 
+
+/**
+ * Hold a stage with all the actors on the screen. E.g Play-button and Exit-button.
+ * @author Patrik Larsson
+ *
+ */
 public class MainMenu implements Screen {
 
 	private Stage stage;
@@ -33,13 +41,13 @@ public class MainMenu implements Screen {
 	public MainMenu(WoodGame game){
 		this.game = game;
 	}
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
-		//table.drawDebug(stage);
 		stage.draw();
 
 
@@ -57,12 +65,12 @@ public class MainMenu implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 
-		atlas = new TextureAtlas("buttons/button.pack");
+		atlas = new TextureAtlas("textures/button.pack");
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		white = new BitmapFont(Gdx.files.internal("data/fonts/font.fnt"), false);
+		white = new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false);
 
 		TextButtonStyle exitTextButtonStyle = new TextButtonStyle();
 		exitTextButtonStyle.up = skin.getDrawable("buttonExit.up");
@@ -79,7 +87,7 @@ public class MainMenu implements Screen {
 
 		});
 
-		backgroundSprite = new Sprite(new Texture("img/MenuBackground.png"));
+		backgroundSprite = new Sprite(new Texture("images/MenuBackground.png"));
 		backgroundSpriteDraw = new SpriteDrawable(backgroundSprite);
 
 		TextButtonStyle playTextButtonStyle = new TextButtonStyle();
@@ -91,16 +99,20 @@ public class MainMenu implements Screen {
 		buttonPlay.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//((Game) Gdx.app.getApplicationListener()).setScreen(new PlayLevel(game));
-				game.playGame();
+				game.setScreen(new UserNameScreen(game));
 			}
 		});
 
 		table.setBackground(backgroundSpriteDraw);
 		table.add(buttonPlay);
 		table.add(buttonExit);
-		table.getCell(buttonPlay).spaceRight(60);
-		table.debug();
+		for(Cell tempCell : table.getCells())
+		{
+			tempCell.height(Gdx.graphics.getWidth()/(table.getCells().size() + 1));
+			tempCell.width(Gdx.graphics.getWidth()/(table.getCells().size() + 1));
+			tempCell.space(10f);
+		}
+		table.validate();
 		stage.addActor(table);
 	}
 

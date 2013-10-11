@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 
-//WORKING NAME FOR CLASS
 public class Block {
 	
 	//INSTANCE VARIABLES
@@ -22,6 +21,14 @@ public class Block {
 	private boolean slippery = false;
 	
 	//CONSTRUCTOR
+	/**
+	 * @param position Position of the block as a Vector2.
+	 * @param blockId Id for the block used to create it.
+	 * @param moveable 
+	 * @param solid 
+	 * @param liquid 
+	 * @param slippery
+	 */
 	public Block(Vector2 position, char blockId, boolean moveable, boolean solid, boolean liquid, boolean slippery)
 	{
 		this.position = position;
@@ -34,53 +41,74 @@ public class Block {
 		this.slippery = slippery;
 	}
 	
-	//Returns the bounding box of the block.
+	/**
+	 * @return the bounding box of the block.
+	 */
 	public Rectangle getBounds()
 	{
 		return bounds;
 	}
 	
-	//Returns the blocks current position.
+	/**
+	 * @return the blocks current position.
+	 */
 	public Vector2 getPosition()
 	{
 		return position;
 	}
 	
-	//Returns the blocks id.
+	/**
+	 * @return the blocks id.
+	 */
 	public int getBlockId()
 	{
 		return blockId;
 	}
 	
-	//Returns the current Velocity Vector2.
+	/**
+	 * @return the current Velocity Vector2.
+	 */
 	public Vector2 getVelocity()
 	{
 		return velocity;
 	}
 	
-	//Updates the Blocks position in regards to the velocity it travels.
+	/**
+	 * Updates the Blocks position in regards to the velocity it travels.
+	 * @param delta Time elapsed since last update
+	 */
 	public void update(float delta)
 	{
 		position.add(velocity.cpy().scl(delta));
 	}
 	
-	//Returns whether the Block is moveable or not.
+	/**
+	 * @return True if the block is movable, else false
+	 */
 	public boolean isMoveable()
 	{
 		return moveable;
 	}
 	
-	//Returns whether the Block is solid or not.
+	/**
+	 * @return True if the block is solid, else false
+	 */
 	public boolean isSolid()
 	{
 		return solid;
 	}
 	
+	/**
+	 * @return True if the block is liquid, else false
+	 */
 	public boolean isLiquid()
 	{
 		return liquid;
 	}
 
+	/**
+	 * @return True if the block is slippery, else false
+	 */
 	public boolean isSlippery()
 	{
 		return slippery;

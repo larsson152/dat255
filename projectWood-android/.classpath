@@ -8,5 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="/projectWood/libs/gdx.jar" sourcepath="/projectWood/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry exported="true" kind="lib" path="/projectWood/libs/kryonet-2.18-all.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
