@@ -75,8 +75,7 @@ public class MainMenu implements Screen {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//Gdx.app.exit();
-				new HighScore("test").getHighScore();
+				Gdx.app.exit();
 			}
 
 		});
@@ -93,12 +92,7 @@ public class MainMenu implements Screen {
 		buttonPlay.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//((Game) Gdx.app.getApplicationListener()).setScreen(new PlayLevel(game));
-				//game.setScreen(new UserNameScreen(game));
-				new HighScore("Patrik",100).send();
-				new HighScore("kirtap",50).send();
-				new HighScore("test",500).send();
-
+				game.setScreen(new UserNameScreen(game));
 			}
 		});
 

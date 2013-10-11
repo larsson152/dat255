@@ -4,6 +4,11 @@ import java.util.Comparator;
 
 import com.dat255.Wood.model.HighScore;
 
+/**
+ * Used to compare highscore objects according to their score values. Sorts the collection from high to low.
+ * @author Patrik Larsson
+ *
+ */
 public class ScoreComparator implements Comparator<HighScore>
 {
 	@Override

@@ -10,14 +10,21 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 
+/**
+ * Handles the highscore list and binds the port
+ * @author Patrik Larsson
+ *
+ */
 public class GameServer {
 
+	//The kryonet server handling all connections
 	private Server server;
-	private ArrayMap<String, Integer> scoreMap;
+	//All highscores
 	private ArrayList<HighScore> scoreList;
 
+	
+	//Initiate the server and starts it.
 	public GameServer() throws IOException{
-		scoreMap = new ArrayMap<String,Integer>(1000);
 		scoreList = new ArrayList<>();
 		server = new Server();
 		registerPackets();
@@ -28,31 +35,37 @@ public class GameServer {
 		server.start();
 	}
 
+	/**
+	 * Used to register all packets that is going to be sent to client
+	 */
 	private void registerPackets(){
 		Kryo kryo = server.getKryo();
 		kryo.register(HighScore.class);
 		kryo.register(ArrayList.class);
-		//kryo.register(Object[].class);
 	}
 	
+	/**
+	 * Returns the kryonet server
+	 * @return server
+	 */
 	public Server getServer(){
 		return server;
 	}
 
-	public ArrayMap<String,Integer> getScoreMap(){
-		return scoreMap;
-	}
-
-	/*public void addPlayer(String name){
-		if(!scoreMap.containsKey(name)){
-			scoreMap.put(name, 0);
-		}
-	}*/
-	
+	/**
+	 * Adding the player in the right position in the list
+	 * @param hs The highscore object that will be added to the list
+	 */
 	public void addPlayer(HighScore hs){
 		scoreList.add(hs);
 		Collections.sort(scoreList, new ScoreComparator());
 	}
+
+	/**
+	 * 	//NOT IMPLEMENTED YET!\\
+	 * Updates the score of an existing user
+	 * @param hs The highscore object tha is going to be updated
+	 */
 
 	public void updateScore(HighScore hs){
 				for(HighScore score: scoreList){
@@ -62,6 +75,12 @@ public class GameServer {
 				}
 	}
 	
+	public ArrayList<HighScore> getScoreList() {
+
+		return scoreList;
+	}
+	
+	//main() for starting initialization of server
 	public static void main(String[] args){
 		try {
 			new GameServer();
@@ -70,10 +89,4 @@ public class GameServer {
 			e.printStackTrace();
 		}
 	}
-
-	public ArrayList<HighScore> getScoreList() {
-
-		return scoreList;
-	}
-
 }
