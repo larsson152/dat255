@@ -8,6 +8,11 @@ import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+/**
+ * Handles incoming connections and transmissions from server
+ * @author Patrik Larsson
+ *
+ */
 public class NetworkListener extends Listener {
 
 	private GameClient gClient;

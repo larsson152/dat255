@@ -8,6 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.controller.UserTextInputListener;
 
+
+/**
+ * Brings up a text box where user can enter username.
+ * @author Patrik Larsson
+ *
+ */
 public class UserNameScreen implements Screen {
 
 	private SpriteBatch spriteBatch;

@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.utils.ArrayMap;
 
+/**
+ * Stores users name and score and can send it to a server
+ * @author Patrik Larsson
+ *
+ */
 public class HighScore implements Serializable {
 
 	private String name = null;

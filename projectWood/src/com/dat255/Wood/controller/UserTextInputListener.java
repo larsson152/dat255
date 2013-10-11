@@ -6,6 +6,11 @@ import com.dat255.Wood.model.HighScore;
 import com.dat255.Wood.screens.LevelSelect;
 import com.dat255.Wood.screens.MainMenu;
 
+/**
+ * Used to get the input from username dialog box.
+ * @author Patrik Larsson
+ *
+ */
 public class UserTextInputListener implements TextInputListener {
 	
 	private WoodGame game;
