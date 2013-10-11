@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.badlogic.gdx.utils.ArrayMap;
 import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
