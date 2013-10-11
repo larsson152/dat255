@@ -2,15 +2,11 @@ package com.dat255.Wood.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ArrayMap;
+import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.controller.NetworkListener;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
 
 /**
  * Handles the connections with server and sends object to server
@@ -21,12 +17,22 @@ public class GameClient {
 
 	private Client client; 
 	private HighScore hs;
-
+	
 	public GameClient(){
 		client = new Client(); // The Client is used for handling communication with the Server
 		registerPackets();	// Used to register all the classes that will be sent over network
 		NetworkListener nl = new NetworkListener(); // Methods on this object is called when something is recieved or transmitted
-		nl.init(this);	// Gives the listener access to the client for future use
+		nl.init(this,hs);	// Gives the listener access to the client for future use
+		client.addListener(nl);
+		client.start();
+	}
+
+	public GameClient(HighScore hs){
+		this.hs = hs;
+		client = new Client(); // The Client is used for handling communication with the Server
+		registerPackets();	// Used to register all the classes that will be sent over network
+		NetworkListener nl = new NetworkListener(); // Methods on this object is called when something is recieved or transmitted
+		nl.init(this,hs);	// Gives the listener access to the client for future use
 		client.addListener(nl);
 		client.start();	
 	}
@@ -43,7 +49,6 @@ public class GameClient {
 	}
 
 	public void send(HighScore hs){
-		this.hs = hs;
 		//Trying to connect to the server
 		//NOTE! IP address has to be changed when testing the server!
 		try {

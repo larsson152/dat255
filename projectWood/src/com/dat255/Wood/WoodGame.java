@@ -1,8 +1,11 @@
 package com.dat255.Wood;
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.dat255.Wood.model.GameClient;
+import com.dat255.Wood.model.HighScore;
 import com.dat255.Wood.screens.GameScreen;
 import com.dat255.Wood.screens.SplashScreen;
 
@@ -16,13 +19,13 @@ public class WoodGame extends Game {
 	//MainMenuScreen mainMenuScreen;
 	private GameScreen gameScreen;
 	private SplashScreen splashScreen;
-	private GameClient client;
 	private String name;
+	private ArrayList<HighScore> scoreList;
 	
 	//From libgdx wiki: Method called once when the application is created.
 	@Override
 	public void create() {
-		client = new GameClient();
+		scoreList = new HighScore(this).getHighScore();
 		gameScreen = new GameScreen(1);
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);

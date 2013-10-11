@@ -3,7 +3,7 @@ package com.dat255.Wood.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.utils.ArrayMap;
+import com.dat255.Wood.WoodGame;
 
 /**
  * Stores users name and score and can send it to a server
@@ -16,12 +16,12 @@ public class HighScore implements Serializable {
 	private int score = -1 ;
 	private ArrayList<HighScore> topTen;
 	private boolean isGetterType = false;
+	private WoodGame game;
 	
 	
 	
-	
-	public HighScore(){
-		
+	public HighScore(WoodGame game){
+		this.game = game;
 	}
 	
 	public HighScore(String name){
