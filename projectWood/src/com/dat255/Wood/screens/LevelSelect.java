@@ -18,11 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.dat255.Wood.WoodGame;
+import com.esotericsoftware.tablelayout.Cell;
 
 public class LevelSelect implements Screen {
 
 	private Stage stage;
 	private Skin skin;
+	private BitmapFont white;
 	private TextureAtlas atlas;
 	private Table table;
 	private ImageButton button1, button2;
@@ -48,6 +50,7 @@ public class LevelSelect implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
+		stage.setViewport(width, height, true);
 
 
 	}
@@ -62,14 +65,25 @@ public class LevelSelect implements Screen {
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		backgroundSprite = new Sprite(new Texture("images/MenuBackground.png"));
+		backgroundSpriteDraw = new SpriteDrawable(backgroundSprite);
 
+		white = new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false);
+		
+		TextButtonStyle levelTextButtonStyle = new TextButtonStyle();
+		levelTextButtonStyle.up = skin.getDrawable("buttonPlay.up");
+		levelTextButtonStyle.down = skin.getDrawable("buttonPlay.down");
+		levelTextButtonStyle.font = white;
+		
+		int k = 0;
 
 		final FileHandle[] files = Gdx.files.internal("levels/").list();
 
 		for(int i = 0; i < files.length; i++) {
 
 			final int index = i+1; //+1 is so that level1 is first, not level0
-			ImageButton temp = new ImageButton(skin.getDrawable("buttonPlay.up"));
+			TextButton temp = new TextButton("" + index, levelTextButtonStyle);
 
 			temp.addListener(
 					new ClickListener()
@@ -82,9 +96,23 @@ public class LevelSelect implements Screen {
 					});
 
 			table.add(temp);
-			table.getCell(temp).spaceRight(60);
-			table.row();
+			k++;
+			if(k > 3)
+			{
+				table.row();
+				k=0;
+			}
+			
 		}
+		
+		
+		for(Cell tempCell : table.getCells())
+		{
+			tempCell.height(Gdx.graphics.getWidth()/(table.getCells().size() + 1));
+			tempCell.width(Gdx.graphics.getWidth()/(table.getCells().size() + 1));
+			tempCell.space(10f);
+		}
+		table.setBackground(backgroundSpriteDraw);
 		table.validate();
 		stage.addActor(table);
 	}
