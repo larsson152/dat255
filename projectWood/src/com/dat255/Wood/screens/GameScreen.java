@@ -17,7 +17,7 @@ import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.controller.LevelController;
 import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
-import com.dat255.Wood.model.soundHandler;
+import com.dat255.Wood.model.SoundHandler;
 import com.dat255.Wood.view.LevelRenderer;
 
 
@@ -131,7 +131,7 @@ public class GameScreen implements Screen{
 		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
 		
 		//Set up music
-		soundHandler.setUpMusic();
+		SoundHandler.setUpMusic();
 		
 		//Call the function for adding the d-pad
 		addDpad();
@@ -356,7 +356,7 @@ public class GameScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
-		soundHandler.dispose();
+		SoundHandler.dispose();
 	}
 
 }

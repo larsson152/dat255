@@ -9,7 +9,7 @@ import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
-import com.dat255.Wood.model.soundHandler;
+import com.dat255.Wood.model.SoundHandler;
 import com.dat255.Wood.screens.Highscore;
 import com.dat255.Wood.screens.LevelSelect;
 
@@ -201,7 +201,7 @@ public class LevelController {
 	//If a block is on a liquid block,  replaces them both with ground blocks
 	private boolean pushBlockToLiquid(int x, int y){
 		if(level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
-			soundHandler.playWater();
+			SoundHandler.playWater();
 			level.getCollisionLayer()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false); //Kan vara fel här
 			level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false,false);	
 			return true;
@@ -218,7 +218,7 @@ public class LevelController {
 		if(tpBlockId!='T' && tpBlockId!='t')
 			return;
 		
-		soundHandler.playTeleport();
+		SoundHandler.playTeleport();
 
 		for(int x=0;x<16;x++){						
 			for(int y=0;y<16;y++){
@@ -236,7 +236,7 @@ public class LevelController {
 	public void isOnKey(){
 		if(level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
-			soundHandler.playPick();
+			SoundHandler.playPick();
 			level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
 		}
 	}
@@ -251,7 +251,7 @@ public class LevelController {
 	public void unlockDoor(int dx,int dy){
 		if((level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
-			soundHandler.playUnlock();
+			SoundHandler.playUnlock();
 			level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
 		}
 		
@@ -290,12 +290,15 @@ public class LevelController {
 	public void isOnFatalBlock(){
 		if(level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].isLiquid()){
 			player.setState(State.DEAD);
+			SoundHandler.stopAllSound();
 		}
 	}
 	
 	public void isOnGoalBlock(){
 		if(level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='G'){
 			levelWon = true;
+			SoundHandler.stopAllSound();
+			SoundHandler.playApplause();
 			game.setScreen(new Highscore(game));
 		}
 	}
