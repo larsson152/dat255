@@ -23,7 +23,7 @@ public class WoodGame extends Game {
 	@Override
 	public void create() {
 		client = new GameClient();
-		gameScreen = new GameScreen(1);
+		gameScreen = new GameScreen(1,this);
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);
 	}

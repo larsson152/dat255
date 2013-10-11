@@ -3,12 +3,15 @@ package com.dat255.Wood.controller;
 import java.util.HashMap;
 
 import com.badlogic.gdx.math.Vector2;
+import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.Block;
 import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
 import com.dat255.Wood.model.soundHandler;
+import com.dat255.Wood.screens.Highscore;
+import com.dat255.Wood.screens.LevelSelect;
 
 
 /**
@@ -24,6 +27,8 @@ public class LevelController {
 	public boolean levelWon;
 	public boolean gameOver;
 	
+	public LevelSelect levelSelect;
+	
 
 	enum Keys
 	{
@@ -32,6 +37,7 @@ public class LevelController {
 
 	private Level level;
 	private Player player;
+	private WoodGame game;
 	private float startXpos, startYpos, actionBlockStartXpos, actionBlockStartYpos;
 	private Block actionBlock = null;
 	private Block oldActionBlockGround = null;
@@ -54,10 +60,11 @@ public class LevelController {
 	 *
 	 */
 	
-	public LevelController(Level level)
+	public LevelController(Level level,WoodGame game)
 	{
 		this.level = level;
 		this.player = level.getPlayer();
+		this.game = game;
 		isPaused = false;
 		levelWon = false;
 		gameOver = false;
@@ -254,6 +261,8 @@ public class LevelController {
 		if(!(((level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0')) || !(((level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0'))){
 			teleportPlayer();
 			isOnKey();
+			isOnFatalBlock();
+			isOnGoalBlock();
 		
 		}
 	}
@@ -276,6 +285,19 @@ public class LevelController {
 		collisionLayer[x2][y2] = temp;
 		
 		oldActionBlockGround = temp2;
+	}
+	
+	public void isOnFatalBlock(){
+		if(level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].isLiquid()){
+			player.setState(State.DEAD);
+		}
+	}
+	
+	public void isOnGoalBlock(){
+		if(level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='G'){
+			levelWon = true;
+			game.setScreen(new Highscore(game));
+		}
 	}
 
 	private void processInput()
@@ -341,6 +363,11 @@ public class LevelController {
 				stopPlayer(0,-1);
 				doBlockLogic();
 			}
+		}
+		
+		if(player.getState()==State.DEAD){
+			gameOver=true;
+			game.setScreen(new LevelSelect(game));
 		}
 
 		if(actionBlock != null)
