@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 
+/**
+ * Shows a list of all the five best scores
+ * @author Patrik Larsson
+ *
+ */
 public class Highscore implements Screen {
 
     private SpriteBatch spriteBatch;

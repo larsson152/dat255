@@ -15,6 +15,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.tween.SpriteAccessor;
 
+
+/**
+ * Used to fade in the splash screen, fade it out and continue to main menu
+ * @author Patrik Larsson
+ *
+ */
 public class SplashScreen implements Screen {
 
 	private SpriteBatch batch;

@@ -19,6 +19,12 @@ import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.tablelayout.Cell;
 
+
+/**
+ * Hold a stage with all the actors on the screen. E.g Play-button and Exit-button.
+ * @author Patrik Larsson
+ *
+ */
 public class MainMenu implements Screen {
 
 	private Stage stage;

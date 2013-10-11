@@ -12,6 +12,11 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 
+/**
+ * Handles the connections with server and sends object to server
+ * @author Patrik Larsson
+ *
+ */
 public class GameClient {
 
 	private Client client; 

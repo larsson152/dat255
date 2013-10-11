@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dat255.Wood.WoodGame;
 
+/**
+ * Shows "connecting.." while the client connects to the server
+ * @author Patrik Larsson
+ *
+ */
 public class ConnectingScreen implements Screen {
 
 	private SpriteBatch spriteBatch;
