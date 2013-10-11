@@ -24,7 +24,7 @@ public class WoodGame extends Game {
 	//From libgdx wiki: Method called once when the application is created.
 	@Override
 	public void create() {
-		gameScreen = new GameScreen();
+		gameScreen = new GameScreen(1);
 		//client = new GameClient(new Player(new Vector2(4,2)));
 		splashScreen = new SplashScreen(this);
 		//updateScore();

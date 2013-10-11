@@ -46,6 +46,7 @@ public class GameScreen implements Screen{
 	private ImageButton buttonLeft;
 	private ImageButton pauseButton;
 	private boolean paused;
+	private int levelNumber;
 	
 	
 	
@@ -53,6 +54,10 @@ public class GameScreen implements Screen{
 	private SpriteBatch scoreBatch;
 	private BitmapFont scoreFont;
 	
+	public GameScreen(int index) {
+		levelNumber = index;
+	}
+
 	/**From libgdx wiki:
 	*Method called by the game loop from the application every time rendering should be performed.
 	*Game logic updates are usually also performed in this method.
@@ -108,7 +113,7 @@ public class GameScreen implements Screen{
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		level = new Level();
+		level = new Level(levelNumber);
 		renderer = new LevelRenderer(level, true);
 		controller = new LevelController(level);
 		
