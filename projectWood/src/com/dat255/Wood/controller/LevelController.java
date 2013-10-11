@@ -8,6 +8,7 @@ import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
+import com.dat255.Wood.model.soundHandler;
 
 
 /**
@@ -117,10 +118,7 @@ public class LevelController {
 	{
 		if(!isPaused && !gameOver){
 			GameTimer.updateFps();
-			if(GameTimer.returnTicked() == true){
-				level.decrementScore();
-				GameTimer.unTick();
-			}
+			
 			processInput();
 			player.update(delta);
 			if(actionBlock != null)
@@ -150,6 +148,10 @@ public class LevelController {
 		startXpos = player.getPosition().x;
 		startYpos = player.getPosition().y;
 	}
+	
+	/**
+	* This method stops the player
+	*/
 
 	private void stopPlayer(int incX, int incY)
 	{
@@ -192,20 +194,24 @@ public class LevelController {
 	//If a block is on a liquid block,  replaces them both with ground blocks
 	private boolean pushBlockToLiquid(int x, int y){
 		if(level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
+			soundHandler.playWater();
 			level.getCollisionLayer()[(int)actionBlockStartXpos][(int) actionBlockStartYpos] = new Block(new Vector2(actionBlockStartXpos, actionBlockStartYpos), '0', false, false,false,false); //Kan vara fel här
 			level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y] = new Block(new Vector2(actionBlockStartXpos+x, actionBlockStartYpos+y), '0', false, false,false,false);	
 			return true;
 		}
 		return false;
 	}
-	
-	//Teleports the player between 2 twin teleports block
+	/**
+	* This method teleports the player between 2 twinteleporter blocks.
+	*/
 	public void teleportPlayer(){
 
 		char tpBlockId = (char) level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
 
 		if(tpBlockId!='T' && tpBlockId!='t')
 			return;
+		
+		soundHandler.playTeleport();
 
 		for(int x=0;x<16;x++){						
 			for(int y=0;y<16;y++){
@@ -216,17 +222,29 @@ public class LevelController {
 			}
 		}		
 	}
-	//picks upp a key if player dont have one
+	/**
+	* This method picks up a key for the player if he does not have one.
+	*/
+
 	public void isOnKey(){
 		if(level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
+			soundHandler.playPick();
 			level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
 		}
 	}
-	//if player has a key ,removes the players key and replaces the door with a ground block
+	
+	/**
+	* This method removes the key from a player and opens a door. And then replaces the door with
+	* a ground block
+	* @param dx The x coordinate of the door
+	* @param dy the y coordinate of the door
+	*/
+	
 	public void unlockDoor(int dx,int dy){
 		if((level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
+			soundHandler.playUnlock();
 			level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
 		}
 		

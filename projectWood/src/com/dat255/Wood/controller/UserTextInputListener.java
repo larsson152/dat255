@@ -3,6 +3,7 @@ package com.dat255.Wood.controller;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.HighScore;
+import com.dat255.Wood.screens.LevelSelect;
 import com.dat255.Wood.screens.MainMenu;
 
 public class UserTextInputListener implements TextInputListener {
@@ -17,7 +18,7 @@ public class UserTextInputListener implements TextInputListener {
 	   public void input (String text) {
 		   game.setName(text);
 		   new HighScore(text).send();
-		   game.playGame();
+		   game.setScreen(new LevelSelect(game));
 	   }
 
 	   @Override

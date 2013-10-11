@@ -14,7 +14,7 @@ public class GameTimer {
 	private static long start = 0;
 	public static int levelTime = 0;
 	
-	private static boolean ticked;
+	
 	
 	
 	/**
@@ -24,41 +24,28 @@ public class GameTimer {
 	public static void updateFps(){
 		currentFps++;
 		if(System.currentTimeMillis() - start >= 1000){
-			levelTime += 1;
-			ticked = true;
-			Fps = currentFps;
-			currentFps = 0;
-			start = System.currentTimeMillis();
-			
-			
-			
-			
-			
+			if(!(levelTime >= 1000)){
+				levelTime += 1;
+				Fps = currentFps;
+				currentFps = 0;
+				start = System.currentTimeMillis();
+			}else{
+				levelTime = 1000;
+			}
 		}
 	}
 	
-	/**
-	 * This static boolean method is used in LevelControllers update method.
-	 * It makes sure that the score is decreasing by one as the timer updates
-	 * and not repeatedly so the score lowers faster than the amount of seconds.
-	 *
-	 */
-	public static void unTick(){
-		ticked = false;
+	
+	
+	
+	
+	public static long getTime(){
+		return levelTime;
 	}
 	
-	/**
-	 * This static method returns the "ticked" boolean to see
-	 * what state it is in.
-	 */
-	
-	public static boolean returnTicked() {
-		
-		return ticked;
+	public static void resetLevelTime(){
+		levelTime = 0;
 	}
-	
-	
-	
 	
 
 }
