@@ -38,7 +38,9 @@ public class UserNameScreen implements Screen {
         connTexture = new Texture(Gdx.files.internal("images/connecting.png"));
         
         UserTextInputListener listener = new UserTextInputListener(game);
-        Gdx.input.getTextInput(listener, "Enter username", "");
+        Gdx.input.getTextInput(listener, "Enter username (must be more than 3 characters)", "");
+        
+        
 	}
 
 	@Override

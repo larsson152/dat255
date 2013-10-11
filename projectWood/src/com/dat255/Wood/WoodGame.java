@@ -2,9 +2,7 @@ package com.dat255.Wood;
 
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.math.Vector2;
 import com.dat255.Wood.model.GameClient;
-import com.dat255.Wood.model.Player;
 import com.dat255.Wood.screens.GameScreen;
 import com.dat255.Wood.screens.SplashScreen;
 
@@ -25,7 +23,7 @@ public class WoodGame extends Game {
 	@Override
 	public void create() {
 		gameScreen = new GameScreen();
-		//client = new GameClient(new Player(new Vector2(4,2)));
+		client = new GameClient();
 		splashScreen = new SplashScreen(this);
 		//updateScore();
 		
@@ -36,14 +34,12 @@ public class WoodGame extends Game {
 	{
 		setScreen(gameScreen);
 	}
-
-	public void updateScore(){
-		
-		client.getClient().sendTCP(null);
-		
-	}
 	
 	public void setName(String name){
 		this.name = name;
+	}
+	
+	public String getName(){
+		return name;
 	}
 }

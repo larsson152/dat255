@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.dat255.Wood.WoodGame;
+import com.dat255.Wood.model.HighScore;
 
 public class MainMenu implements Screen {
 
@@ -33,13 +34,13 @@ public class MainMenu implements Screen {
 	public MainMenu(WoodGame game){
 		this.game = game;
 	}
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		stage.act(delta);
-		//table.drawDebug(stage);
 		stage.draw();
 
 
@@ -91,9 +92,8 @@ public class MainMenu implements Screen {
 		buttonPlay.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				//((Game) Gdx.app.getApplicationListener()).setScreen(new PlayLevel(game));
 				game.setScreen(new UserNameScreen(game));
-				}
+			}
 		});
 
 		table.setBackground(backgroundSpriteDraw);
