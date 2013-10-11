@@ -3,6 +3,7 @@ package com.dat255.Wood.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,7 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.dat255.Wood.controller.LevelController;
+import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
+import com.dat255.Wood.model.soundHandler;
 import com.dat255.Wood.view.LevelRenderer;
 
 
@@ -44,6 +47,9 @@ public class GameScreen implements Screen{
 	private ImageButton pauseButton;
 	private boolean paused;
 	
+	
+	
+	
 	private SpriteBatch scoreBatch;
 	private BitmapFont scoreFont;
 	
@@ -64,7 +70,7 @@ public class GameScreen implements Screen{
 			renderer.render();
 
 			scoreBatch.begin();
-			scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ level.getLevelScore(), 25, 100);
+			scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ GameTimer.getTime(), 25, 100);
 			scoreBatch.end();
 
 			stage.act(delta);
@@ -111,9 +117,13 @@ public class GameScreen implements Screen{
 		dpadSkin = new Skin(atlas);
 		
 		//Set up the score display
+		GameTimer.resetLevelTime();
 		scoreBatch = new SpriteBatch();
 		scoreFont = new BitmapFont();
 		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
+		
+		//Set up music
+		soundHandler.setUpMusic();
 		
 		//Call the function for adding the d-pad
 		addDpad();
@@ -338,6 +348,7 @@ public class GameScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
+		soundHandler.dispose();
 	}
 
 }
