@@ -13,14 +13,14 @@ import com.dat255.Wood.WoodGame;
  * @author Patrik Larsson
  *
  */
-public class Highscore implements Screen {
+public class HighScoreScreen implements Screen {
 
     private SpriteBatch spriteBatch;
     private Texture hsTexture;
     private WoodGame game;
     private BitmapFont font;
     
-    public Highscore(WoodGame game)
+    public HighScoreScreen(WoodGame game)
     {
             this.game = game;
     }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.HighScore;
+import com.esotericsoftware.tablelayout.Cell;
 
 
 /**
@@ -105,8 +106,13 @@ public class MainMenu implements Screen {
 		table.setBackground(backgroundSpriteDraw);
 		table.add(buttonPlay);
 		table.add(buttonExit);
-		table.getCell(buttonPlay).spaceRight(60);
-		table.debug();
+		for(Cell tempCell : table.getCells())
+		{
+			tempCell.height(Gdx.graphics.getWidth()/(table.getCells().size() + 1));
+			tempCell.width(Gdx.graphics.getWidth()/(table.getCells().size() + 1));
+			tempCell.space(10f);
+		}
+		table.validate();
 		stage.addActor(table);
 	}
 

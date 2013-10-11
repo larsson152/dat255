@@ -13,10 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.controller.LevelController;
 import com.dat255.Wood.model.GameTimer;
 import com.dat255.Wood.model.Level;
-import com.dat255.Wood.model.soundHandler;
+import com.dat255.Wood.model.SoundHandler;
 import com.dat255.Wood.view.LevelRenderer;
 
 
@@ -31,6 +32,7 @@ public class GameScreen implements Screen{
 	private Level level;
 	private LevelRenderer renderer;
 	private LevelController controller;
+	private WoodGame game;
 	private Stage stage;
 	private Stage pauseStage;
 	private int width;
@@ -54,8 +56,9 @@ public class GameScreen implements Screen{
 	private SpriteBatch scoreBatch;
 	private BitmapFont scoreFont;
 	
-	public GameScreen(int index) {
+	public GameScreen(int index,WoodGame game) {
 		levelNumber = index;
+		this.game = game;
 	}
 
 	/**From libgdx wiki:
@@ -115,7 +118,7 @@ public class GameScreen implements Screen{
 
 		level = new Level(levelNumber);
 		renderer = new LevelRenderer(level, true);
-		controller = new LevelController(level);
+		controller = new LevelController(level,game);
 		
 		//Create the skin for the d-pad
 		atlas = new TextureAtlas("textures/dpad.txt");
@@ -128,7 +131,7 @@ public class GameScreen implements Screen{
 		scoreFont.setColor(2.0f, 2.0f, 1.0f, 1.0f);
 		
 		//Set up music
-		soundHandler.setUpMusic();
+		SoundHandler.setUpMusic();
 		
 		//Call the function for adding the d-pad
 		addDpad();
@@ -353,7 +356,7 @@ public class GameScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
-		soundHandler.dispose();
+		SoundHandler.dispose();
 	}
 
 }

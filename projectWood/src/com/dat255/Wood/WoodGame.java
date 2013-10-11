@@ -26,7 +26,7 @@ public class WoodGame extends Game {
 	@Override
 	public void create() {
 		scoreList = new HighScore(this).getHighScore();
-		gameScreen = new GameScreen(1);
+		gameScreen = new GameScreen(1,this);
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);
 	}
@@ -42,5 +42,9 @@ public class WoodGame extends Game {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public void updateHighscore(){
+		scoreList = new HighScore(this).getHighScore();
 	}
 }
