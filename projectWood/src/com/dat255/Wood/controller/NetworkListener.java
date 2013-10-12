@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.GameClient;
 import com.dat255.Wood.model.HighScore;
+import com.dat255.Wood.screens.HighScoreScreen;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -26,7 +27,8 @@ public class NetworkListener extends Listener {
 	
 	public void connected(Connection arg0) {
 		System.out.println("[CLIENT] You are now connected.");
-		gClient.getClient().sendTCP(gClient.getHighScore());
+		System.out.println("Sending highscore");
+		gClient.getClient().sendTCP(hs);
 	}
 
 	public void disconnected(Connection arg0) {
@@ -36,8 +38,8 @@ public class NetworkListener extends Listener {
 	public void received(Connection c, Object o) {
 		if(o instanceof ArrayList){
 			ArrayList<HighScore> o2 = (ArrayList<HighScore>) o;
-			hs.setHighScore(o2);
-			
+			WoodGame.setScoreList(o2);
+			System.out.println("Setting high score screen");			
 		}
 	}
 }

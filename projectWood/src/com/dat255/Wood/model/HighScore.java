@@ -13,48 +13,41 @@ import com.dat255.Wood.WoodGame;
 public class HighScore implements Serializable {
 
 	private String name = null;
-	private int score = -1 ;
-	private ArrayList<HighScore> topTen;
+	private long score = -1 ;
 	private boolean isGetterType = false;
-	private WoodGame game;
+	//private WoodGame game;
 	
 	
+	public HighScore() {
 	
-	public HighScore(WoodGame game){
-		this.game = game;
 	}
 	
 	public HighScore(String name){
 		this.name = name;		
 	}
 	
-	public HighScore(String name, int score){
+	public HighScore(String name, long score){
+
 		this.name = name;
 		this.score = score;
 	}
-	
-	
-	
+		
 	public void send(){
 		isGetterType = false;
-		new GameClient().send(this);
+		new GameClient(this).send(this);
 	}
 	
-	public ArrayList<HighScore> getHighScore(){
+	public void updateScorelist(){
+		System.out.println("Updating score list...");
 		isGetterType = true;
-		new GameClient().send(this);
-		return topTen;
+		new GameClient(this).send(this);
 	}
-	
+		
 	public String getName(){
 		return name;
 	}
 
-	public void setHighScore(ArrayList<HighScore> topTen) {
-		this.topTen = topTen;
-	}
-
-	public int getLocalScore() {
+	public long getLocalScore() {
 		return score;
 	}
 	

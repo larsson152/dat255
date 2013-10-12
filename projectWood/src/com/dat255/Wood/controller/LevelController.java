@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.Block;
 import com.dat255.Wood.model.GameTimer;
+import com.dat255.Wood.model.HighScore;
 import com.dat255.Wood.model.Level;
 import com.dat255.Wood.model.Player;
 import com.dat255.Wood.model.Player.State;
@@ -229,6 +230,7 @@ public class LevelController {
 			}
 		}		
 	}
+	
 	/**
 	* This method picks up a key for the player if he does not have one.
 	*/
@@ -299,6 +301,8 @@ public class LevelController {
 			levelWon = true;
 			SoundHandler.stopAllSound();
 			SoundHandler.playApplause();
+			
+			new HighScore(game.getName(), GameTimer.getTime()).updateScorelist();
 			game.setScreen(new HighScoreScreen(game));
 		}
 	}

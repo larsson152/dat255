@@ -38,6 +38,7 @@ public class NetworkListener extends Listener {
 				gServer.addPlayer(hs);
 			}else if (hs.isGetter()){
 				System.out.println("Returning Scoremap.");
+				gServer.updatePlayer(hs);
 				gServer.getServer().sendToTCP(c.getID(), gServer.getScoreList());				
 			}else{
 				System.out.println("Adding player.");

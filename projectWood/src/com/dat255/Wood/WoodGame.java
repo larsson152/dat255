@@ -20,12 +20,12 @@ public class WoodGame extends Game {
 	private GameScreen gameScreen;
 	private SplashScreen splashScreen;
 	private String name;
-	private ArrayList<HighScore> scoreList;
+	private static ArrayList<HighScore> scoreList;
 	
 	//From libgdx wiki: Method called once when the application is created.
 	@Override
 	public void create() {
-		scoreList = new HighScore(this).getHighScore();
+		scoreList = new ArrayList<HighScore>();
 		gameScreen = new GameScreen(1,this);
 		splashScreen = new SplashScreen(this);
 		setScreen(splashScreen);
@@ -43,8 +43,14 @@ public class WoodGame extends Game {
 	public String getName(){
 		return name;
 	}
-	
-	public void updateHighscore(){
-		scoreList = new HighScore(this).getHighScore();
+		
+	public static void setScoreList(ArrayList<HighScore> scoreList) {
+		WoodGame.scoreList = scoreList;
 	}
+	
+	public ArrayList<HighScore> getScoreList() {
+		return scoreList;
+	}
+
+
 }
