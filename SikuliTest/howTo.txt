@@ -1,0 +1,5 @@
+1.Use an emulator with resulution 480x800 , ex Nexus S
+2.Start the game, let it run until you can press the green arrow or the redcross but dont press anything.
+3.Start sikuli and load the test file.
+4.Run the test, make sure that when the test run that the emulator screen is visible .
+5.Dont touch anything just let the test run , the test can sometimes be slow depending on the emulator and computer.
