@@ -16,10 +16,7 @@ import com.dat255.Wood.screens.LevelSelect;
 
 
 /**
- * This controller class is a supervisor for all activities on a level.
- * on a level. It makes sure the timer ticks and the state of the level,
- * whether it is completed or the game is paused.
- *
+ * This class modifies the model classes based on input from a user, and implements most of the game's logic.
  */
 public class LevelController {
 
@@ -58,9 +55,9 @@ public class LevelController {
 	 * It loads a level and a player and sets all starting
 	 * booleans to proper values
 	 * @param level The level that will be loaded
+	 * @param game used for advancing between screens.
 	 *
 	 */
-	
 	public LevelController(Level level,WoodGame game)
 	{
 		this.level = level;
@@ -121,7 +118,6 @@ public class LevelController {
 	 * different kinds of blocks.
 	 * @param delta Seconds since last frame
 	 */
-
 	public void update(float delta)
 	{
 		if(!isPaused && !gameOver){
@@ -139,30 +135,37 @@ public class LevelController {
 	}
 	
 	/**
-	* This method moves the player 
-	* @param dirX X-coordinate
-	* @param dirY Y-coordinate
+	* This method moves the player. (Only one of the input parameters should be allowed to be non-zero and the non zero-value must be +1/-1 but not more.)
+	* @param dirX direction in x-plane.(for example -1 moves the player to the left and +1 moves the player to the right.)
+	* @param dirY direction in y-plane.(for example -1 moves the player to the down and +1 moves the player to the up.)
 	*/
 
 	private void movePlayer(int dirX, int dirY)
 	{
 		player.setState(State.WALKING);
+		
+		//Checks if
 		if(level.getGroundLayer()[(int) (player.getPosition().x + dirX)][(int) (player.getPosition().y + dirY)].isSlippery())
 		{
 			player.setState(State.SLIDING);
 		}
+		//Sets the players velocity to go in the direction in which he will be moving.
 		player.getVelocity().x = dirX * Player.SPEED;
 		player.getVelocity().y = dirY * Player.SPEED;
+		//Saves the players position before he starts to move, so that we later on can know when he has moved 1 unit from his starting position.
 		startXpos = player.getPosition().x;
 		startYpos = player.getPosition().y;
 	}
 	
 	/**
 	* This method stops the player
+	* @param incX the direction the players position should be incremented with when done moving.
+	* @param incY the direction the players position should be incremented with when done moving.
 	*/
 
 	private void stopPlayer(int incX, int incY)
 	{
+		//Checks if the right circumstances are met for the player to be allowed so stop.
 		if(!(player.getState() == State.SLIDING && level.getGroundLayer()[(int) (startXpos + incX)][(int) (startYpos + incY)].isSlippery() && !level.getCollisionLayer()[(int) (startXpos + (2 * incX))][(int) (startYpos + (2 * incY))].isSolid()))	
 		{
 			player.setState(State.IDLE);
@@ -176,8 +179,12 @@ public class LevelController {
 		startYpos = startYpos + incY;	
 	}
 
-	//Determines if the player can move in a specific direction (char d).
-	//And if there is a actionBlock in front of him interact with it.
+	/**
+	*Determines if the player can move in a specific direction (char d).
+	*And if there is a actionBlock in front of him interact with it.
+	* @param dX direction the player should move in the x-plane.
+	* @param dY direction the player should move in the y-plane.
+	*/
 	private boolean canMoveTo(int dX, int dY)
 	{
 		int deltaX = dX;
@@ -185,6 +192,7 @@ public class LevelController {
 		
 		unlockDoor(dX,dY);
 
+		//If the adjacent block in the direction the player is moving to is an actionBlock save it in ActionBlock variable and apply velocity as well as save its starting position. 
 		if((level.getCollisionLayer()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isMoveable()) && 
 				(level.getCollisionLayer()[(int) (player.getPosition().x + (2 * deltaX))][(int) player.getPosition().y + (2 * deltaY)].isSolid() == false))
 		{
@@ -210,7 +218,7 @@ public class LevelController {
 		return false;
 	}
 	/**
-	* This method teleports the player between 2 twinteleporter blocks.
+	* This method teleports the player between 2 twin teleportation blocks.
 	*/
 	public void teleportPlayer(){
 
@@ -234,7 +242,6 @@ public class LevelController {
 	/**
 	* This method picks up a key for the player if he does not have one.
 	*/
-
 	public void isOnKey(){
 		if(level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
@@ -249,7 +256,6 @@ public class LevelController {
 	* @param dx The x coordinate of the door
 	* @param dy the y coordinate of the door
 	*/
-	
 	public void unlockDoor(int dx,int dy){
 		if((level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
@@ -259,6 +265,9 @@ public class LevelController {
 		
 	}
 	
+	/**
+	 * Checks if the player is standing on a block that incorporates special logic.
+	 */
 	public void doBlockLogic(){
 		if(!(((level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0')) || !(((level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()) == '0'))){
 			teleportPlayer();
@@ -269,6 +278,13 @@ public class LevelController {
 		}
 	}
 	
+	/**
+	 * Switches place of 2 collisionblocks with each other.
+	 * @param x1 x position of 1st block.
+	 * @param y1 y position of 1st block.
+	 * @param x2 x position of 2nd block.
+	 * @param y2 y position of 2nd block.
+	 */
 	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
 	{
 		Block[][] collisionLayer = level.getCollisionLayer();
@@ -289,6 +305,9 @@ public class LevelController {
 		oldActionBlockGround = temp2;
 	}
 	
+	/**
+	 * Checks if the player is standing on an fatal block, if so set his state to dead.
+	 */
 	public void isOnFatalBlock(){
 		if(level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].isLiquid()){
 			player.setState(State.DEAD);
@@ -296,6 +315,9 @@ public class LevelController {
 		}
 	}
 	
+	/**
+	 * Checks if the player is standing on a goal block, if so set boolean levelWon to true which will finish the level.
+	 */
 	public void isOnGoalBlock(){
 		if(level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='G'){
 			levelWon = true;
@@ -307,8 +329,12 @@ public class LevelController {
 		}
 	}
 
+	/**
+	 * Processes the input, and makes the player move. Also handles some movement and actionBlock logic aswell as checking if the game is over. (Will be reworked when time is available).
+	 */
 	private void processInput()
 	{
+		//Check if any of the keys are pressed down and if so check if the player can move in that direction and if thats true start moveing the player in the desired direction.
 		if(player.getState() == Player.State.IDLE)
 		{
 			if(keys.get(Keys.LEFT))
@@ -347,7 +373,9 @@ public class LevelController {
 				}
 			}
 		}
-
+		
+		
+		//If the player is moving and have moved more than 1 unit from its startPosition, then stop the Player and do some blockLogic checks.		
 		if(player.getState() != State.IDLE)
 		{
 			if ((player.getPosition().x - startXpos) > 1)
@@ -372,11 +400,14 @@ public class LevelController {
 			}
 		}
 		
+		
+		//If the players state is dead then set gameOver to true and go back to the LevelSelect screen.
 		if(player.getState()==State.DEAD){
 			gameOver=true;
 			game.setScreen(new LevelSelect(game));
 		}
 
+		//If there is an active actionBlock check if it has moved more than 1 unit and if so finish its movement logic.
 		if(actionBlock != null)
 		{
 					
