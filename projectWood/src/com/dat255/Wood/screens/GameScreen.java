@@ -78,7 +78,7 @@ public class GameScreen implements Screen{
 			renderer.render();
 
 			scoreBatch.begin();
-			scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Score: "+ GameTimer.getTime(), 25, 100);
+			scoreFont.draw(scoreBatch,"Keys: " + level.getPlayer().getNoOfKeys() + " Time: "+ GameTimer.getTime(), 25, 100);
 			scoreBatch.end();
 
 			stage.act(delta);
