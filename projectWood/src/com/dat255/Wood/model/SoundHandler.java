@@ -21,48 +21,55 @@ public class SoundHandler {
 	private static Sound unlockSound = Gdx.audio.newSound(Gdx.files.internal("sounds/unlock.wav"));
 	private static Sound teleportSound = Gdx.audio.newSound(Gdx.files.internal("sounds/teleport.wav"));
 	private static Sound applauseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/applause.wav"));
-	
+
 	public SoundHandler(){
-		
-		
+
+
 	}
-	
+
 	/**
 	 * This method starts the background music and sets it looping.
 	 */
-	
+
 	public static void setUpMusic(){
-		
+
 		bckMusic.setLooping(true);
 		bckMusic.setVolume(0.5f);
 		bckMusic.play();
 	}
-	
+
+	/**
+	 * Stops the backgroundmusic
+	 */
 	public static void stopBackgroundMusic(){
 		bckMusic.stop();
 	}
-	
+
 	/**
 	 * This method plays the sound when you pick up something.
 	 */
-	
+
 	public static void playPick(){
-		
 		pickSound.play(3.5f);
 	}
-	
-public static void stopPick(){
-		
+
+	/**
+	 * This method stops the sound when you pick up something.
+	 */
+	public static void stopPick(){
 		pickSound.stop();
 	}
-	
+
 	/**
 	 *  Plays a sound of something being dropped in water.
 	 */
 	public static void playWater() {
 		waterSound.play(0.2f);
 	}
-	
+
+	/**
+	 * Stops the sound of something being dropped in water.
+	 */
 	public static void stopWater() {
 		waterSound.stop();
 	}
@@ -72,33 +79,45 @@ public static void stopPick(){
 	public static void playUnlock() {
 		unlockSound.play(3.5f);
 	}
-	
+
+	/**
+	 * Stops the sound of unlocking a door.
+	 */
 	public static void stopUnlock() {
 		unlockSound.stop();
 	}
-	
+
 	/**
 	 * Plays the sound of something teleporting.
 	 */
 	public static void playTeleport() {
 		teleportSound.play(0.2f);
 	}
-	
+
+	/**
+	 * Stops the sound of something teleporting.
+	 */
 	public static void stopTeleport() {
 		teleportSound.stop();
 	}
-	
+
 	/**
 	 * Plays an applause sound when the player wins a level.
 	 */
 	public static void playApplause() {
 		applauseSound.play(1.933f);
 	}
-	
+
+	/**
+	 * Stops the applause sound.
+	 */
 	public static void stopApplause() {
 		applauseSound.stop();
 	}
-	
+
+	/**
+	 * Stops all sounds.
+	 */
 	public static void stopAllSound() {
 		stopPick();
 		stopWater();
@@ -107,7 +126,10 @@ public static void stopPick(){
 		stopApplause();
 		stopBackgroundMusic();
 	}
-	
+
+	/**
+	 * Disposes every sound and music.
+	 */
 	public static void dispose(){
 		bckMusic.dispose();
 		pickSound.dispose();

@@ -162,31 +162,6 @@ public class Level {
 			}
 		}
 	}
-
-
-
-
-	/**
-	 * This method sets the current worth of a level.
-	 * @s The value we want the level to be worth
-	 *
-	 */
-	
-
-	/**
-	 * This method decrements the levelscore of the level. If the levelscore is 0
-	 * the decrementation does nothing.
-	 *
-	 */
-	
-
-	/**
-	 * This method returns the current worth of the level.
-	 * @return The current levelscore
-	 *
-	 */
-	
-
 }
 
 

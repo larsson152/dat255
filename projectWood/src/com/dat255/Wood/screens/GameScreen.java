@@ -151,6 +151,9 @@ public class GameScreen implements Screen{
 
 	}
 	
+	/**
+	 * Adds a pause button that appears when the game is paused.
+	 */
 	private void addPauseButton()
 	{
 		//Set the visuals
@@ -193,6 +196,9 @@ public class GameScreen implements Screen{
 		addDpadRight();
 	}
 
+	/**
+	 * Adds the dpad's down part
+	 */
 	private void addDpadDown() {
 		//Set the visuals
 		buttonDown = new ImageButton(dpadSkin.getDrawable("dpad_down"));
@@ -222,6 +228,9 @@ public class GameScreen implements Screen{
 		});
 	}
 
+	/**
+	 * Adds the dpad's right part
+	 */
 	private void addDpadRight() {
 		//Set the visuals
 		buttonRight = new ImageButton(dpadSkin.getDrawable("dpad_right"));
@@ -250,6 +259,9 @@ public class GameScreen implements Screen{
 		});
 	}
 
+	/**
+	 * Adds the dpad's up part
+	 */
 	private void addDpadUp() {
 		//Set the visuals
 		buttonUp = new ImageButton(dpadSkin.getDrawable("dpad_up"));
@@ -278,6 +290,9 @@ public class GameScreen implements Screen{
 		});
 	}
 
+	/**
+	 * Adds the dpad's left part
+	 */
 	private void addDpadLeft() {
 		//Set the visuals
 		buttonLeft = new ImageButton(dpadSkin.getDrawable("dpad_left"));
@@ -306,6 +321,9 @@ public class GameScreen implements Screen{
 		});
 	}
 
+	/**
+	 * Adds the dpad's center part
+	 */
 	private void addDpadCenter() {
 		//Set the visuals
 		buttonCenter = new ImageButton(dpadSkin.getDrawable("dpad_center"));
@@ -318,8 +336,10 @@ public class GameScreen implements Screen{
 		buttonCenter.setY((float) buttonCenter.getHeight());
 	}
 	
+	/**
+	 * @return level the current level.
+	 */
 	public Level getLevel(){
-		
 		return level;
 	}
 
@@ -327,7 +347,6 @@ public class GameScreen implements Screen{
 	//Called when this screen is no longer the current screen for a Game.
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
 	}
 
@@ -346,7 +365,6 @@ public class GameScreen implements Screen{
 	//This method is only called on Android, when the application resumes from a paused state.
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -354,7 +372,6 @@ public class GameScreen implements Screen{
 	//Called when the application is destroyed. It is preceded by a call to pause().
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
 		SoundHandler.dispose();
 	}

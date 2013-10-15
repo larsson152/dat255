@@ -47,7 +47,7 @@ public class GameClient {
 		//NOTE! IP address has to be changed when testing the server!
 		try {
 			System.out.println("Trying to connect!");
-			client.connect(5000, "192.168.1.132", 1337);	//NOTE! IP address has to be changed when testing the server!
+			client.connect(5000, "192.168.1.2", 1337);	//NOTE! IP address has to be changed when testing the server!
 			System.out.println("Connected!");
 		} catch (IOException e) {
 			System.out.println("Could not connect :(");
