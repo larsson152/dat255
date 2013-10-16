@@ -1,18 +1,18 @@
 User stories for project "Wood"
 ================================
 
-- As a user I would like an easy to play game, without the need of reading instructions.  
+- As a user I would like the game to be intuitive, so I can enjoy it without the need of reading instructions.  
 
-- As a user I would like a highscore list and a unique username, so that others can see how well I did in the game. 
+- As a user I would like a highscore list and a the possibility to use my own name, so that others can see how well I did in the game. 
 
 - As a user I would like music and sound effects when I play to enhance the gaming experience.
 
-- I would like to be able to move the character with an in-game D-pad, because a D-pad is more precise than swipe controls.
+- I would like to be able to move the character with an on-screen D-pad, because a D-pad is more precise than swipe or tilt controls.
 
-- To further improve the gaming experience I would as a user like to have a customizeable character, e.g. special shoes that allows me to walk on water, or a flammable suit that makes me immune to fire.
+- To further improve the gaming experience I would as a user like to have a customizeable character, e.g. flippers that allows me to swim through water, or a fire proof suit that makes me able to walk through fire.
 
-- As a user I would like to be a able to choose between a number of different levels to increase the time you can play.
+- As a user I would like to be a able to choose between a number of different levels to increase the games longevity.
 
-- I would like the game to pause if I was to receive a phone call.
+- I would like the game to automatically pause if I was to receive a phone call or do a different task.
 
 - In the game I would like to be able to interact with different objects and blocks to unlock new parts of the level and to further explore the world of "Wood". 
