@@ -125,11 +125,13 @@ public class LevelController {
 
 			processInput();
 			stopActionBlock();
+			gameOver();
 			player.update(delta);
 			if(actionBlock != null)
 			{
 				actionBlock.update(delta);
-			}	
+			}
+			
 		}	
 
 
@@ -320,6 +322,15 @@ public class LevelController {
 			SoundHandler.stopAllSound();
 		}
 	}
+	
+	public void gameOver()
+	{
+		//If the players state is dead then set gameOver to true and go back to the LevelSelect screen.
+		if(player.getState()==State.DEAD){
+			gameOver=true;
+			game.setScreen(new LevelSelect(game));
+		}
+	}
 
 	/**
 	 * Checks if the player is standing on a goal block, if so set boolean levelWon to true which will finish the level.
@@ -405,16 +416,6 @@ public class LevelController {
 				doBlockLogic();
 			}
 		}
-
-
-		//If the players state is dead then set gameOver to true and go back to the LevelSelect screen.
-		if(player.getState()==State.DEAD){
-			gameOver=true;
-			game.setScreen(new LevelSelect(game));
-		}
-
-
-
 	}
 
 	/**
