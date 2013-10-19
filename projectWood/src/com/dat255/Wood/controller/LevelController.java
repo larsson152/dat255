@@ -20,13 +20,13 @@ import com.dat255.Wood.screens.LevelSelect;
  */
 public class LevelController {
 
-	
+
 	public boolean isPaused;
 	public boolean levelWon;
 	public boolean gameOver;
-	
+
 	public LevelSelect levelSelect;
-	
+
 
 	enum Keys
 	{
@@ -109,7 +109,7 @@ public class LevelController {
 	{
 		keys.put(Keys.DOWN, false);
 	}
-	
+
 	/**
 	 * This method is run repeatedly. It increases the timer as long
 	 * as the game is not paused or gameover has been activated.
@@ -122,28 +122,29 @@ public class LevelController {
 	{
 		if(!isPaused && !gameOver){
 			GameTimer.updateFps();
-			
+
 			processInput();
+			stopActionBlock();
 			player.update(delta);
 			if(actionBlock != null)
 			{
 				actionBlock.update(delta);
 			}	
 		}	
-		
+
 
 	}
-	
+
 	/**
-	* This method moves the player. (Only one of the input parameters should be allowed to be non-zero and the non zero-value must be +1/-1 but not more.)
-	* @param dirX direction in x-plane.(for example -1 moves the player to the left and +1 moves the player to the right.)
-	* @param dirY direction in y-plane.(for example -1 moves the player to the down and +1 moves the player to the up.)
-	*/
+	 * This method moves the player. (Only one of the input parameters should be allowed to be non-zero and the non zero-value must be +1/-1 but not more.)
+	 * @param dirX direction in x-plane.(for example -1 moves the player to the left and +1 moves the player to the right.)
+	 * @param dirY direction in y-plane.(for example -1 moves the player to the down and +1 moves the player to the up.)
+	 */
 
 	private void movePlayer(int dirX, int dirY)
 	{
 		player.setState(State.WALKING);
-		
+
 		//Checks if
 		if(level.getGroundLayer()[(int) (player.getPosition().x + dirX)][(int) (player.getPosition().y + dirY)].isSlippery())
 		{
@@ -156,12 +157,12 @@ public class LevelController {
 		startXpos = player.getPosition().x;
 		startYpos = player.getPosition().y;
 	}
-	
+
 	/**
-	* This method stops the player
-	* @param incX the direction the players position should be incremented with when done moving.
-	* @param incY the direction the players position should be incremented with when done moving.
-	*/
+	 * This method stops the player
+	 * @param incX the direction the players position should be incremented with when done moving.
+	 * @param incY the direction the players position should be incremented with when done moving.
+	 */
 
 	private void stopPlayer(int incX, int incY)
 	{
@@ -180,16 +181,16 @@ public class LevelController {
 	}
 
 	/**
-	*Determines if the player can move in a specific direction (char d).
-	*And if there is a actionBlock in front of him interact with it.
-	* @param dX direction the player should move in the x-plane.
-	* @param dY direction the player should move in the y-plane.
-	*/
+	 *Determines if the player can move in a specific direction (char d).
+	 *And if there is a actionBlock in front of him interact with it.
+	 * @param dX direction the player should move in the x-plane.
+	 * @param dY direction the player should move in the y-plane.
+	 */
 	private boolean canMoveTo(int dX, int dY)
 	{
 		int deltaX = dX;
 		int deltaY = dY;
-		
+
 		unlockDoor(dX,dY);
 
 		//If the adjacent block in the direction the player is moving to is an actionBlock save it in ActionBlock variable and apply velocity as well as save its starting position. 
@@ -206,7 +207,7 @@ public class LevelController {
 		//Move if the adjacent block is not solid.
 		return (!(level.getCollisionLayer()[(int) (player.getPosition().x + deltaX)][(int) player.getPosition().y + deltaY].isSolid()));
 	}
-	
+
 	//If a block is on a liquid block,  replaces them both with ground blocks
 	private boolean pushBlockToLiquid(int x, int y){
 		if(level.getGroundLayer()[(int)actionBlockStartXpos+x][(int) actionBlockStartYpos+y].isLiquid()){
@@ -223,15 +224,15 @@ public class LevelController {
 		return false;
 	}
 	/**
-	* This method teleports the player between 2 twin teleportation blocks.
-	*/
+	 * This method teleports the player between 2 twin teleportation blocks.
+	 */
 	public void teleportPlayer(){
 
 		char tpBlockId = (char) level.getGroundLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId();
 
 		if(tpBlockId!='T' && tpBlockId!='t')
 			return;
-		
+
 		SoundHandler.playTeleport();
 
 		for(int x=0;x<16;x++){						
@@ -243,10 +244,10 @@ public class LevelController {
 			}
 		}		
 	}
-	
+
 	/**
-	* This method picks up a key for the player if he does not have one.
-	*/
+	 * This method picks up a key for the player if he does not have one.
+	 */
 	public void isOnKey(){
 		if(level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y].getBlockId()=='K'){
 			player.increaseKey();
@@ -254,22 +255,22 @@ public class LevelController {
 			level.getCollisionLayer()[(int) player.getPosition().x][(int) player.getPosition().y] =new Block(new Vector2(player.getPosition().x,player.getPosition().y), '0', false, false,false,false);
 		}
 	}
-	
+
 	/**
-	* This method removes the key from a player and opens a door. And then replaces the door with
-	* a ground block
-	* @param dx The x coordinate of the door
-	* @param dy the y coordinate of the door
-	*/
+	 * This method removes the key from a player and opens a door. And then replaces the door with
+	 * a ground block
+	 * @param dx The x coordinate of the door
+	 * @param dy the y coordinate of the door
+	 */
 	public void unlockDoor(int dx,int dy){
 		if((level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy].getBlockId()) == 'H' && level.getPlayer().hasKey()){
 			level.getPlayer().decreaseKey();
 			SoundHandler.playUnlock();
 			level.getCollisionLayer()[(int) player.getPosition().x+dx][(int) player.getPosition().y+dy] =new Block(new Vector2(player.getPosition().x+dx,player.getPosition().y+dy), '0', false, false,false,false);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Checks if the player is standing on a block that incorporates special logic.
 	 */
@@ -279,10 +280,10 @@ public class LevelController {
 			isOnKey();
 			isOnFatalBlock();
 			isOnGoalBlock();
-		
+
 		}
 	}
-	
+
 	/**
 	 * Switches place of 2 collisionblocks with each other.
 	 * @param x1 x position of 1st block.
@@ -293,23 +294,23 @@ public class LevelController {
 	public void switchCollisionBlocks(int x1, int y1, int x2, int y2)
 	{
 		Block[][] collisionLayer = level.getCollisionLayer();
-		
+
 		if(oldActionBlockGround == null)
 		{
 			oldActionBlockGround = new Block(new Vector2(x1,y1), '0', false, false,false,false);
 		}
-		
+
 		Block temp = collisionLayer[x1][y1];
 		Block temp2 = collisionLayer[x2][y2];
-		
+
 		temp.getPosition().set(x2, y2);
 
 		collisionLayer[x1][y1] = oldActionBlockGround;
 		collisionLayer[x2][y2] = temp;
-		
+
 		oldActionBlockGround = temp2;
 	}
-	
+
 	/**
 	 * Checks if the player is standing on an fatal block, if so set his state to dead.
 	 */
@@ -319,7 +320,7 @@ public class LevelController {
 			SoundHandler.stopAllSound();
 		}
 	}
-	
+
 	/**
 	 * Checks if the player is standing on a goal block, if so set boolean levelWon to true which will finish the level.
 	 */
@@ -328,7 +329,7 @@ public class LevelController {
 			levelWon = true;
 			SoundHandler.stopAllSound();
 			SoundHandler.playApplause();
-			
+
 			new HighScore(game.getName(), GameTimer.getTime()).updateScorelist();
 			game.setScreen(new HighScoreScreen(game));
 		}
@@ -378,8 +379,8 @@ public class LevelController {
 				}
 			}
 		}
-		
-		
+
+
 		//If the player is moving and have moved more than 1 unit from its startPosition, then stop the Player and do some blockLogic checks.		
 		if(player.getState() != State.IDLE)
 		{
@@ -404,19 +405,28 @@ public class LevelController {
 				doBlockLogic();
 			}
 		}
-		
-		
+
+
 		//If the players state is dead then set gameOver to true and go back to the LevelSelect screen.
 		if(player.getState()==State.DEAD){
 			gameOver=true;
 			game.setScreen(new LevelSelect(game));
 		}
 
-		//If there is an active actionBlock check if it has moved more than 1 unit and if so finish its movement logic.
+
+
+	}
+
+	/**
+	 * If there is an active actionBlock check if it has moved more than 1 unit and if so finish its movement logic.
+	 */
+	public void stopActionBlock()
+	{
+
 		if(actionBlock != null)
 		{
-					
-			
+
+
 			if ((actionBlock.getPosition().x - actionBlockStartXpos) > 1)
 			{
 				if(pushBlockToLiquid(1,0)==false){
@@ -425,7 +435,7 @@ public class LevelController {
 					actionBlock.getPosition().set(actionBlockStartXpos + 1, actionBlockStartYpos);
 				}
 				actionBlock = null;
-				
+
 			}
 			else if ((actionBlock.getPosition().y - actionBlockStartYpos) > 1)
 			{
@@ -435,7 +445,7 @@ public class LevelController {
 					actionBlock.getPosition().set(actionBlockStartXpos , actionBlockStartYpos + 1);
 				}
 				actionBlock = null;
-				
+
 			}
 			else if (Math.abs((actionBlock.getPosition().y - actionBlockStartYpos)) > 1)
 			{
@@ -445,7 +455,7 @@ public class LevelController {
 					actionBlock.getPosition().set(actionBlockStartXpos , actionBlockStartYpos - 1);
 				}
 				actionBlock = null;
-				
+
 			}
 			else if (Math.abs((actionBlock.getPosition().x - actionBlockStartXpos)) > 1)
 			{
@@ -455,10 +465,9 @@ public class LevelController {
 					actionBlock.getPosition().set(actionBlockStartXpos - 1 , actionBlockStartYpos);
 				}
 				actionBlock = null;
-				
+
 			}
 		}
-
 	}
 
 }
