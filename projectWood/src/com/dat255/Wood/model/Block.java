@@ -60,7 +60,7 @@ public class Block {
 	/**
 	 * @return the blocks id.
 	 */
-	public int getBlockId()
+	public char getBlockId()
 	{
 		return blockId;
 	}

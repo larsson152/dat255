@@ -18,6 +18,7 @@ public class SoundHandler {
 	private static Sound pickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bell.wav"));
 	private static Music bckMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/vaxeln_halla.wav"));
 	private static Sound waterSound = Gdx.audio.newSound(Gdx.files.internal("sounds/water.wav"));
+	private static Sound fireSound = Gdx.audio.newSound(Gdx.files.internal("sounds/fire.mp3"));
 	private static Sound unlockSound = Gdx.audio.newSound(Gdx.files.internal("sounds/unlock.wav"));
 	private static Sound teleportSound = Gdx.audio.newSound(Gdx.files.internal("sounds/teleport.wav"));
 	private static Sound applauseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/applause.wav"));
@@ -73,6 +74,21 @@ public class SoundHandler {
 	public static void stopWater() {
 		waterSound.stop();
 	}
+	
+	/**
+	 *  Plays a sound of a fire.
+	 */
+	public static void playFire() {
+		fireSound.play(0.2f);
+	}
+
+	/**
+	 * Stops the sound of a fire.
+	 */
+	public static void stopFire() {
+		fireSound.stop();
+	}
+	
 	/**
 	 * Plays the sound of unlocking a door.
 	 */
@@ -121,6 +137,7 @@ public class SoundHandler {
 	public static void stopAllSound() {
 		stopPick();
 		stopWater();
+		stopFire();
 		stopUnlock();
 		stopTeleport();
 		stopApplause();
@@ -134,8 +151,10 @@ public class SoundHandler {
 		bckMusic.dispose();
 		pickSound.dispose();
 		waterSound.dispose();
+		fireSound.dispose();
 		unlockSound.dispose();
 		teleportSound.dispose();
+		applauseSound.dispose();
 	}
 
 }
