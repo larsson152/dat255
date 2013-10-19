@@ -124,7 +124,8 @@ public class LevelController {
 			GameTimer.updateFps();
 
 			processInput();
-			stopActionBlock();
+			finishPlayerMovement();
+			finishActionBlockMovement();
 			gameOver();
 			player.update(delta);
 			if(actionBlock != null)
@@ -392,36 +393,13 @@ public class LevelController {
 		}
 
 
-		//If the player is moving and have moved more than 1 unit from its startPosition, then stop the Player and do some blockLogic checks.		
-		if(player.getState() != State.IDLE)
-		{
-			if ((player.getPosition().x - startXpos) > 1)
-			{
-				stopPlayer(1,0);
-				doBlockLogic();
-			}
-			else if ((player.getPosition().y - startYpos) > 1)
-			{
-				stopPlayer(0,1);
-				doBlockLogic();
-			}
-			else if (Math.abs((player.getPosition().x - startXpos)) > 1)
-			{
-				stopPlayer(-1,0);
-				doBlockLogic();
-			}
-			else if (Math.abs((player.getPosition().y - startYpos)) > 1)
-			{
-				stopPlayer(0,-1);
-				doBlockLogic();
-			}
-		}
+		
 	}
 
 	/**
 	 * If there is an active actionBlock check if it has moved more than 1 unit and if so finish its movement logic.
 	 */
-	public void stopActionBlock()
+	public void finishActionBlockMovement()
 	{
 
 		if(actionBlock != null)
@@ -469,6 +447,34 @@ public class LevelController {
 
 			}
 		}
+	}
+	
+	public void finishPlayerMovement()
+	{
+		//If the player is moving and have moved more than 1 unit from its startPosition, then stop the Player and do some blockLogic checks.		
+				if(player.getState() != State.IDLE)
+				{
+					if ((player.getPosition().x - startXpos) > 1)
+					{
+						stopPlayer(1,0);
+						doBlockLogic();
+					}
+					else if ((player.getPosition().y - startYpos) > 1)
+					{
+						stopPlayer(0,1);
+						doBlockLogic();
+					}
+					else if (Math.abs((player.getPosition().x - startXpos)) > 1)
+					{
+						stopPlayer(-1,0);
+						doBlockLogic();
+					}
+					else if (Math.abs((player.getPosition().y - startYpos)) > 1)
+					{
+						stopPlayer(0,-1);
+						doBlockLogic();
+					}
+				}
 	}
 
 }
