@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.HighScore;
-import com.dat255.Wood.screens.GameScreen;
-import com.dat255.Wood.screens.SplashScreen;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
