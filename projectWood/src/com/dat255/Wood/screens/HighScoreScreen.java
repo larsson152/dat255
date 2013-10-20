@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.HighScore;
 
 /**
- * Shows a list of all the five best scores
+ * Shows a list of all the best scores
  * @author Patrik Larsson
  *
  */
@@ -39,7 +41,6 @@ public class HighScoreScreen implements Screen {
         spriteBatch.draw(hsTexture, 0, 0);
         font.draw(spriteBatch, cs , 25, 160);
         spriteBatch.end();
-        		
 	}
 
 	@Override
@@ -62,7 +63,19 @@ public class HighScoreScreen implements Screen {
         	}
         }
         cs = toCharSeq;
+
+        Timer timer = new Timer();  
+        timer.scheduleTask(new Task(){
+
+			@Override
+			public void run() {
+				game.setScreen(new MainMenu(game));
+			}
+        	
+        }, 10);
+        
 	}
+	
 
 	@Override
 	public void hide() {
