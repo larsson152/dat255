@@ -324,6 +324,9 @@ public class LevelController {
 		}
 	}
 	
+	/**
+	 * Checks if the players state is dead and if thats true sends the  player to the LevelSelectScreen.
+	 */
 	public void gameOver()
 	{
 		//If the players state is dead then set gameOver to true and go back to the LevelSelect screen.
@@ -449,6 +452,10 @@ public class LevelController {
 		}
 	}
 	
+	
+	/**
+	 * Checks if the player has moved more then 1 unit from where he started moving and if so stop the player updates its position and perform some logic checks.
+	 */
 	public void finishPlayerMovement()
 	{
 		//If the player is moving and have moved more than 1 unit from its startPosition, then stop the Player and do some blockLogic checks.		
