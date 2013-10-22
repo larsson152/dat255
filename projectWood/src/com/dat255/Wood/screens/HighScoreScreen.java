@@ -39,7 +39,7 @@ public class HighScoreScreen implements Screen {
         spriteBatch.begin();
         font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         spriteBatch.draw(hsTexture, 0, 0);
-        font.draw(spriteBatch, cs , 25, 160);
+        font.drawMultiLine(spriteBatch, cs , 50, (Gdx.graphics.getHeight()-(Gdx.graphics.getHeight()/5)));
         spriteBatch.end();
 	}
 
@@ -53,7 +53,7 @@ public class HighScoreScreen implements Screen {
 	public void show() {
         spriteBatch = new SpriteBatch();
         hsTexture = new Texture(Gdx.files.internal("images/highscore.png"));
-        font =  new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false);
+        font =  new BitmapFont();
         ArrayList<HighScore> scoreList = game.getScoreList();
 
         for(HighScore hs: scoreList){

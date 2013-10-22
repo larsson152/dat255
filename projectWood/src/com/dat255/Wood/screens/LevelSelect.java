@@ -69,7 +69,7 @@ public class LevelSelect implements Screen {
 		backgroundSprite = new Sprite(new Texture("images/MenuBackground.png"));
 		backgroundSpriteDraw = new SpriteDrawable(backgroundSprite);
 
-		white = new BitmapFont(Gdx.files.internal("fonts/font.fnt"), false);
+		white = new BitmapFont();
 		
 		TextButtonStyle levelTextButtonStyle = new TextButtonStyle();
 		levelTextButtonStyle.up = skin.getDrawable("buttonPlay.up");
