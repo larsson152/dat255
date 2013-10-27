@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.dat255.Wood.WoodGame;
-import com.dat255.Wood.model.HighScore;
 import com.esotericsoftware.tablelayout.Cell;
 
 

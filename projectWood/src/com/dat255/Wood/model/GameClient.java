@@ -2,11 +2,7 @@ package com.dat255.Wood.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.controller.NetworkListener;
-import com.dat255.Wood.screens.GameScreen;
-import com.dat255.Wood.screens.SplashScreen;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 

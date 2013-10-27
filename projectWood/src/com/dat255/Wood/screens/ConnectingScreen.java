@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dat255.Wood.WoodGame;
 
 /**
  * Shows "connecting.." while the client connects to the server
@@ -16,11 +15,8 @@ public class ConnectingScreen implements Screen {
 
 	private SpriteBatch spriteBatch;
     private Texture connTexture;
-    private WoodGame game;
-    
 	
-	public ConnectingScreen(WoodGame game){
-		this.game = game;
+	public ConnectingScreen(){
 	}
 
 	@Override

@@ -1,12 +1,9 @@
 package com.dat255.Wood.controller;
 
 import java.util.ArrayList;
-
-import com.badlogic.gdx.utils.Array;
 import com.dat255.Wood.WoodGame;
 import com.dat255.Wood.model.GameClient;
 import com.dat255.Wood.model.HighScore;
-import com.dat255.Wood.screens.HighScoreScreen;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 

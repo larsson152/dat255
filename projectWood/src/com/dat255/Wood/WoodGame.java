@@ -2,9 +2,7 @@ package com.dat255.Wood;
 
 
 import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
-import com.dat255.Wood.model.GameClient;
 import com.dat255.Wood.model.HighScore;
 import com.dat255.Wood.screens.GameScreen;
 import com.dat255.Wood.screens.SplashScreen;
