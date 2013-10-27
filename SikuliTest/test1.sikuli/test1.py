@@ -3,8 +3,8 @@ click("1381664030750.png")
 wait("1381664150322.png",20)
 type("test")
 click("ok.png")
-wait("1381664344592.png",30)
-click("1381664344592.png")
+wait("1382874611976.png",30)
+click("1382874611976.png")
 wait("playerstart.png",15)
 while(1):
     hover("1381190420329.png")
@@ -59,8 +59,8 @@ while(1):
     mouseDown(Button.LEFT) 
     wait(0.15)
     mouseUp() 
-    wait(6)
-    if exists("1381664344592.png") :
+    wait(8)
+    if exists("1382874611976.png") :
         break     
 
 
